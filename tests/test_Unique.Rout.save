@@ -1,0 +1,256 @@
+
+R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+Copyright (C) 2012 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(classInt)
+Loading required package: class
+Loading required package: e1071
+> set.seed(1)
+> data_censored<-c(rep(0,10), rnorm(100, mean=20,sd=1),rep(26,10))
+> cl2<-classIntervals(data_censored, n=4, style="fixed",dataPrecision=2,fixedBreaks=c(-1,1,19,25,30))
+> 
+> print(cl2, unique=FALSE)
+style: fixed
+  one of 166,650 possible partitions of this variable into 4 classes
+ [-1,1)  [1,19) [19,25) [25,30] 
+     10      11      89      10 
+> print(cl2, unique=TRUE)
+style: fixed
+  one of 166,650 possible partitions of this variable into 4 classes
+Class found with one single (possibly repeated) value: changed label
+      0  [1,19) [19,25)      26 
+     10      11      89      10 
+> 
+> ### example from man page
+> classIntervals(data_censored, n=5, style="fixed", fixedBreaks=c(15.57, 25, 50, 75, 100, 155.30))
+style: fixed
+  one of 4,082,925 possible partitions of this variable into 5 classes
+ [15.57,25)     [25,50)     [50,75)    [75,100) [100,155.3] 
+        110          10           0           0           0 
+Warning message:
+In classIntervals(data_censored, n = 5, style = "fixed", fixedBreaks = c(15.57,  :
+  variable range greater than fixedBreaks
+> 
+> print(classIntervals(data_censored, n=5, style="sd"), unique=FALSE)
+style: sd
+  one of 79,208,745 possible partitions of this variable into 6 classes
+[-5.126688,0.8860022)  [0.8860022,6.898692)   [6.898692,12.91138) 
+                   10                     0                     0 
+  [12.91138,18.92407)   [18.92407,24.93676)   [24.93676,30.94945] 
+                   10                    90                    10 
+> print(classIntervals(data_censored, n=5, style="sd"), unique=TRUE)
+style: sd
+  one of 79,208,745 possible partitions of this variable into 6 classes
+Class found with one single (possibly repeated) value: changed label
+                   0 [0.8860022,6.898692)  [6.898692,12.91138) 
+                  10                    0                    0 
+ [12.91138,18.92407)  [18.92407,24.93676)                   26 
+                  10                   90                   10 
+> print(classIntervals(data_censored, n=5, style="equal"),  unique=TRUE)
+style: equal
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+          0  [5.2,10.4) [10.4,15.6) [15.6,20.8)   [20.8,26] 
+         10           0           0          81          29 
+> print(classIntervals(data_censored, n=5, style="quantile"),  unique=TRUE)
+style: quantile
+  one of 4,082,925 possible partitions of this variable into 5 classes
+       [0,19.24129) [19.24129,19.87857) [19.87857,20.39315) [20.39315,21.07048) 
+                 24                  24                  24                  24 
+      [21.07048,26] 
+                 24 
+> set.seed(1)
+> print(classIntervals(data_censored, n=5, style="kmeans"),  unique=TRUE)
+style: kmeans
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0  [8.89265,19.11514) [19.11514,20.31048) [20.31048,24.20081) 
+                 10                  12                  43                  45 
+                 26 
+                 10 
+> print(classIntervals(data_censored, n=5, style="hclust", method="complete"),  unique=TRUE)
+style: hclust
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0  [8.89265,19.01088) [19.01088,21.00347) [21.00347,24.20081) 
+                 10                  11                  74                  15 
+                 26 
+                 10 
+> print(classIntervals(data_censored, n=5, style="hclust", method="single"),  unique=TRUE)
+style: hclust
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0  [8.89265,18.33574) [18.33574,21.78784) [21.78784,24.20081) 
+                 10                   3                  94                   3 
+                 26 
+                 10 
+> set.seed(1)
+> print(classIntervals(data_censored, n=5, style="bclust", verbose=FALSE),  unique=TRUE)
+style: bclust
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0  [8.89265,19.01088) [19.01088,21.00347) [21.00347,24.20081) 
+                 10                  11                  74                  15 
+                 26 
+                 10 
+> print(classIntervals(data_censored, n=5, style="fisher"),  unique=TRUE)
+style: fisher
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0  [8.89265,19.72123) [19.72123,20.85116) [20.85116,24.20081) 
+                 10                  33                  49                  18 
+                 26 
+                 10 
+> print(classIntervals(data_censored, n=5, style="jenks"),  unique=TRUE)
+style: jenks
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0        (0,19.69582] (19.69582,20.82122] (20.82122,22.40162] 
+                 10                  33                  49                  18 
+                 26 
+                 10 
+> 
+> print(classIntervals(data_censored, n=5, style="fixed", fixedBreaks=c(15.57, 25, 50, 75, 100, 155.30)), unique=TRUE)
+style: fixed
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+ [15.57,25)          26     [50,75)    [75,100) [100,155.3] 
+        110          10           0           0           0 
+Warning message:
+In classIntervals(data_censored, n = 5, style = "fixed", fixedBreaks = c(15.57,  :
+  variable range greater than fixedBreaks
+> print(classIntervals(data_censored, n=5, style="sd"), unique=TRUE)
+style: sd
+  one of 79,208,745 possible partitions of this variable into 6 classes
+Class found with one single (possibly repeated) value: changed label
+                   0 [0.8860022,6.898692)  [6.898692,12.91138) 
+                  10                    0                    0 
+ [12.91138,18.92407)  [18.92407,24.93676)                   26 
+                  10                   90                   10 
+> print(classIntervals(data_censored, n=5, style="equal"), unique=TRUE)
+style: equal
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+          0  [5.2,10.4) [10.4,15.6) [15.6,20.8)   [20.8,26] 
+         10           0           0          81          29 
+> print(classIntervals(data_censored, n=5, style="quantile"), unique=TRUE)
+style: quantile
+  one of 4,082,925 possible partitions of this variable into 5 classes
+       [0,19.24129) [19.24129,19.87857) [19.87857,20.39315) [20.39315,21.07048) 
+                 24                  24                  24                  24 
+      [21.07048,26] 
+                 24 
+> set.seed(1)
+> print(classIntervals(data_censored, n=5, style="kmeans"), unique=TRUE)
+style: kmeans
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0  [8.89265,19.11514) [19.11514,20.31048) [20.31048,24.20081) 
+                 10                  12                  43                  45 
+                 26 
+                 10 
+> set.seed(1)
+> print(classIntervals(data_censored, n=5, style="kmeans", intervalClosure="right"), unique=TRUE)
+style: kmeans
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0  (8.89265,19.11514] (19.11514,20.31048] (20.31048,24.20081] 
+                 10                  12                  43                  45 
+                 26 
+                 10 
+> set.seed(1)
+> print(classIntervals(data_censored, n=5, style="kmeans", dataPrecision=0), unique=TRUE)
+style: kmeans
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+      0  [9,20) [20,21) [21,25)      26 
+     10      12      43      45      10 
+> set.seed(1)
+> print(classIntervals(data_censored, n=5, style="kmeans"), cutlabels=FALSE, unique=TRUE)
+style: kmeans
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0  8.89265 - 19.11514 19.11514 - 20.31048 20.31048 - 24.20081 
+                 10                  12                  43                  45 
+                 26 
+                 10 
+> print(classIntervals(data_censored, n=5, style="hclust", method="complete"), unique=TRUE)
+style: hclust
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0  [8.89265,19.01088) [19.01088,21.00347) [21.00347,24.20081) 
+                 10                  11                  74                  15 
+                 26 
+                 10 
+> print(classIntervals(data_censored, n=5, style="hclust", method="single"), unique=TRUE)
+style: hclust
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0  [8.89265,18.33574) [18.33574,21.78784) [21.78784,24.20081) 
+                 10                   3                  94                   3 
+                 26 
+                 10 
+> set.seed(1)
+> print(classIntervals(data_censored, n=5, style="bclust", verbose=FALSE), unique=TRUE)
+style: bclust
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0  [8.89265,19.01088) [19.01088,21.00347) [21.00347,24.20081) 
+                 10                  11                  74                  15 
+                 26 
+                 10 
+> print(classIntervals(data_censored, n=5, style="bclust", hclust.method="complete", verbose=FALSE), unique=TRUE)
+style: bclust
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0  [8.89265,19.79106) [19.79106,21.28327) [21.28327,24.20081) 
+                 10                  34                  57                   9 
+                 26 
+                 10 
+> print(classIntervals(data_censored, n=5, style="fisher"), unique=TRUE)
+style: fisher
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0  [8.89265,19.72123) [19.72123,20.85116) [20.85116,24.20081) 
+                 10                  33                  49                  18 
+                 26 
+                 10 
+> print(classIntervals(data_censored, n=5, style="jenks"), unique=TRUE)
+style: jenks
+  one of 4,082,925 possible partitions of this variable into 5 classes
+Class found with one single (possibly repeated) value: changed label
+                  0        (0,19.69582] (19.69582,20.82122] (20.82122,22.40162] 
+                 10                  33                  49                  18 
+                 26 
+                 10 
+> x <- c(0, 0, 0, 1, 2, 50)
+> print(classIntervals(x, n=3, style="fisher"), unique=TRUE)
+style: fisher
+  one of 3 possible partitions of this variable into 3 classes
+Class found with one single (possibly repeated) value: changed label
+       0 [0.5,26)       50 
+       3        2        1 
+> print(classIntervals(x, n=3, style="jenks"), unique=TRUE)
+style: jenks
+  one of 3 possible partitions of this variable into 3 classes
+Class found with one single (possibly repeated) value: changed label
+    0 (0,2]    50 
+    3     2     1 
+> 
+> proc.time()
+   user  system elapsed 
+  0.787   0.025   0.807 
