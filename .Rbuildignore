@@ -1,3 +1,4 @@
 oChangeLog
 svn2cl.*
-README
+README.md
+.travis.yml
