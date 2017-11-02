@@ -8,4 +8,4 @@ Choose Univariate Class Intervals
 Selected commonly used methods for choosing univariate class intervals for mapping or other graphics purposes.
 
 
-Migrated from R-Forge
+Migrated from [R-Forge](https://r-forge.r-project.org/scm/viewvc.php/pkg/classInt/?root=rspatial)
