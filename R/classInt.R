@@ -68,7 +68,7 @@ classIntervals2shingle <- function(x) {
 # to the precision -- the argument equals the number of
 # decimal places in the data.  Negative numbers retain the usual
 # convention for rounding.
-classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClosure=c("left", "right"), dataPrecision=NULL) {
+classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClosure=c("left", "right"), dataPrecision=NULL, warnSmallN=TRUE) {
   if (is.factor(var)) stop("var is categorical")
   if (!is.numeric(var)) stop("var is not numeric")
 # Matthieu Stigler 120705
@@ -89,13 +89,17 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
   n <- as.integer(n)
   pars <- NULL
   if (n > nobs) {
-    warning(paste("n greater than number of different finite values",
+    if (warnSmallN) {
+      warning(paste("n greater than number of different finite values",
       "n reset to number of different finite values", sep="\\n"))
+    }
     n <- nobs
   }
   if (n == nobs) {
-    warning(paste("n same as number of different finite values",
+    if (warnSmallN) {
+      warning(paste("n same as number of different finite values",
       "each different finite value is a separate class", sep="\\n"))
+    }
     sVar <- sort(unique(var))
     dsVar <- diff(sVar)
     brks <- c(sVar[1]-(mean(dsVar)/2), sVar[1:(length(sVar)-1)]+(dsVar/2),
