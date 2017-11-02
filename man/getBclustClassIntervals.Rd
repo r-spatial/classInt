@@ -24,7 +24,7 @@ getHclustClassIntervals(clI, k)
 
 \seealso{\code{\link{classIntervals}}}
 \examples{
-data(jenks71)
+data(jenks71, package="spData")
 pal1 <- c("wheat1", "red3")
 opar <- par(mfrow=c(2,2))
 hCI5 <- classIntervals(jenks71$jenks71, n=5, style="hclust", method="complete")

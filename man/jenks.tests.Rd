@@ -38,7 +38,7 @@ where \eqn{a_i, i=1,\ldots,N} are the polygon areas, and as above the \eqn{a_{ij
 
 \seealso{\code{\link{classIntervals}}}
 \examples{
-data(jenks71)
+data(jenks71, package="spData")
 fix5 <- classIntervals(jenks71$jenks71, n=5, style="fixed",
  fixedBreaks=c(15.57, 25, 50, 75, 100, 155.30))
 jenks.tests(fix5, jenks71$area)

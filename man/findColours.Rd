@@ -27,7 +27,7 @@ findColours(clI, pal, under="under", over="over", between="-",
 
 \seealso{\code{\link{classIntervals}}, \code{\link{findInterval}}, \code{\link{findCols}}, \code{\link[grDevices]{colorRamp}}}
 \examples{
-data(jenks71)
+data(jenks71, package="spData")
 mypal <- c("wheat1", "red3")
 h5 <- classIntervals(jenks71$jenks71, n=5, style="hclust", method="complete")
 findColours(h5, mypal)

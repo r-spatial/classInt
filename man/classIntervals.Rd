@@ -88,7 +88,7 @@ Fisher, W. D. 1958 "On grouping for maximum homogeneity", Journal of the America
 
 \seealso{\code{\link{findColours}}, \code{\link{findCols}}, \code{\link{pretty}}, \code{\link[stats]{quantile}}, \code{\link[stats]{kmeans}}, \code{\link[stats]{hclust}}, \code{\link[e1071]{bclust}}, \code{\link{findInterval}}, \code{\link[grDevices]{colorRamp}}, \code{\link[grDevices]{nclass}}, \code{\link[lattice]{shingle}}}
 \examples{
-data(jenks71)
+data(jenks71, package="spData")
 pal1 <- c("wheat1", "red3")
 opar <- par(mfrow=c(2,3))
 plot(classIntervals(jenks71$jenks71, n=5, style="fixed",

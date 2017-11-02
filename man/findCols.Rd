@@ -20,7 +20,7 @@ findCols(clI)
 
 \seealso{\code{\link{classIntervals}}, \code{\link{findInterval}}}
 \examples{
-data(jenks71)
+data(jenks71, package="spData")
 fix5 <- classIntervals(jenks71$jenks71, n=5, style="fixed",
  fixedBreaks=c(15.57, 25, 50, 75, 100, 155.30))
 fix5
