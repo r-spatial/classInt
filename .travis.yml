@@ -6,3 +6,10 @@ cache: packages
 before_install:
   - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
   - sudo apt-get --yes --force-yes update -qq
+
+notifications:
+  email:
+    recipients:
+      - roger.bivand@nhh.no
+    on_success: never # default: change
+    on_failure: always # default: always
