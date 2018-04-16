@@ -1,6 +1,6 @@
 
-R version 3.4.2 (2017-09-28) -- "Short Summer"
-Copyright (C) 2017 The R Foundation for Statistical Computing
+R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
+Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -18,7 +18,8 @@ Type 'q()' to quit R.
 > library(classInt)
 Loading required package: spData
 To access larger datasets in this package, install the spDataLarge
-package with: `install.packages('spDataLarge')`
+package with: `install.packages('spDataLarge',
+repos='https://nowosad.github.io/drat/', type='source'))`
 > set.seed(1)
 > data_censored<-c(rep(0,10), rnorm(100, mean=20,sd=1),rep(26,10))
 > cl2<-classIntervals(data_censored, n=4, style="fixed",dataPrecision=2,fixedBreaks=c(-1,1,19,25,30))
@@ -253,4 +254,4 @@ Class found with one single (possibly repeated) value: changed label
 > 
 > proc.time()
    user  system elapsed 
-  0.393   0.019   0.407 
+  0.402   0.023   0.413 
