@@ -6,6 +6,7 @@ Authors@R: c(person("Roger", "Bivand", role=c("aut", "cre"), email="Roger.Bivand
 Depends: R (>= 2.2)
 Imports: grDevices, stats, graphics, e1071, class
 Suggests: spData (>= 0.2.6.2)
+NeedsCompilation: yes
 Description: Selected commonly used methods for choosing univariate class intervals for mapping or other graphics purposes.
 License: GPL (>= 2)
 URL: https://github.com/r-spatial/classInt/
