@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">classInt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -156,10 +156,18 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>jenks71</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"spData"</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (!<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"spData"</span>, <span class='kw'>quietly</span><span class='kw'>=</span><span class='fl'>TRUE</span>)) {
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/message'>message</a></span>(<span class='st'>"spData package needed for examples"</span>)
+  <span class='no'>run</span> <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
+} <span class='kw'>else</span> {
+  <span class='no'>run</span> <span class='kw'>&lt;-</span> <span class='fl'>TRUE</span>
+}
+<span class='kw'>if</span> (<span class='no'>run</span>) {
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>jenks71</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"spData"</span>)
 <span class='no'>mypal</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"wheat1"</span>, <span class='st'>"red3"</span>)
 <span class='no'>h5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='classIntervals.html'>classIntervals</a></span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"hclust"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"complete"</span>)
-<span class='fu'>findColours</span>(<span class='no'>h5</span>, <span class='no'>mypal</span>)</div><div class='output co'>#&gt;   [1] "#FFE7BA" "#E6735D" "#E6735D" "#F2AD8B" "#E6735D" "#E6735D" "#E6735D"
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>findColours</span>(<span class='no'>h5</span>, <span class='no'>mypal</span>))
+}</div><div class='output co'>#&gt;   [1] "#FFE7BA" "#E6735D" "#E6735D" "#F2AD8B" "#E6735D" "#E6735D" "#E6735D"
 #&gt;   [8] "#E6735D" "#D9392E" "#CD0000" "#D9392E" "#D9392E" "#E6735D" "#E6735D"
 #&gt;  [15] "#F2AD8B" "#E6735D" "#E6735D" "#E6735D" "#E6735D" "#D9392E" "#F2AD8B"
 #&gt;  [22] "#E6735D" "#F2AD8B" "#F2AD8B" "#E6735D" "#F2AD8B" "#F2AD8B" "#F2AD8B"
@@ -178,7 +186,9 @@
 #&gt; [1] "#FFE7BA" "#F2AD8B" "#E6735D" "#D9392E" "#CD0000"
 #&gt; attr(,"table")
 #&gt;   [15.57,54.81)  [54.81,74.405) [74.405,105.95)  [105.95,143.4)   [143.4,155.3] 
-#&gt;              55              27              15               4               1 </div><div class='input'><span class='fu'>findColours</span>(<span class='fu'><a href='getBclustClassIntervals.html'>getHclustClassIntervals</a></span>(<span class='no'>h5</span>, <span class='kw'>k</span><span class='kw'>=</span><span class='fl'>7</span>), <span class='no'>mypal</span>)</div><div class='output co'>#&gt;   [1] "#F6C09B" "#E6735D" "#E6735D" "#EE9A7C" "#E6735D" "#E6735D" "#E6735D"
+#&gt;              55              27              15               4               1 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>findColours</span>(<span class='fu'><a href='getBclustClassIntervals.html'>getHclustClassIntervals</a></span>(<span class='no'>h5</span>, <span class='kw'>k</span><span class='kw'>=</span><span class='fl'>7</span>), <span class='no'>mypal</span>))
+}</div><div class='output co'>#&gt;   [1] "#F6C09B" "#E6735D" "#E6735D" "#EE9A7C" "#E6735D" "#E6735D" "#E6735D"
 #&gt;   [8] "#DD4D3E" "#D5261F" "#CD0000" "#D5261F" "#D5261F" "#DD4D3E" "#E6735D"
 #&gt;  [15] "#EE9A7C" "#DD4D3E" "#E6735D" "#E6735D" "#E6735D" "#D5261F" "#EE9A7C"
 #&gt;  [22] "#E6735D" "#EE9A7C" "#EE9A7C" "#E6735D" "#EE9A7C" "#EE9A7C" "#EE9A7C"
@@ -199,12 +209,18 @@
 #&gt;  [15.57,29.84)  [29.84,54.81) [54.81,74.405) [74.405,90.16) [90.16,105.95) 
 #&gt;             10             45             27             11              4 
 #&gt; [105.95,143.4)  [143.4,155.3] 
-#&gt;              4              1 </div><div class='input'><span class='no'>h5Colours</span> <span class='kw'>&lt;-</span> <span class='fu'>findColours</span>(<span class='no'>h5</span>, <span class='no'>mypal</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>h5</span>, <span class='no'>mypal</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Complete hierarchical clustering"</span>)</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/legend'>legend</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>95</span>, <span class='fl'>155</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.12</span>, <span class='fl'>0.4</span>), <span class='kw'>fill</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>h5Colours</span>, <span class='st'>"palette"</span>),
- <span class='kw'>legend</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>h5Colours</span>, <span class='st'>"table"</span>)), <span class='kw'>bg</span><span class='kw'>=</span><span class='st'>"white"</span>)</div><div class='img'><img src='findColours-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>h5tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>h5Colours</span>, <span class='st'>"table"</span>)
+#&gt;              4              1 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
+<span class='no'>h5Colours</span> <span class='kw'>&lt;-</span> <span class='fu'>findColours</span>(<span class='no'>h5</span>, <span class='no'>mypal</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>h5</span>, <span class='no'>mypal</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Complete hierarchical clustering"</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/legend'>legend</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>95</span>, <span class='fl'>155</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.12</span>, <span class='fl'>0.4</span>), <span class='kw'>fill</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>h5Colours</span>, <span class='st'>"palette"</span>),
+ <span class='kw'>legend</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>h5Colours</span>, <span class='st'>"table"</span>)), <span class='kw'>bg</span><span class='kw'>=</span><span class='st'>"white"</span>)
+}</div><div class='img'><img src='findColours-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
+<span class='no'>h5tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>h5Colours</span>, <span class='st'>"table"</span>)
 <span class='no'>legtext</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>h5tab</span>), <span class='st'>" ("</span>, <span class='no'>h5tab</span>, <span class='st'>")"</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>""</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>h5</span>, <span class='no'>mypal</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Complete hierarchical clustering (with counts)"</span>)</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/legend'>legend</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>95</span>, <span class='fl'>165</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.12</span>, <span class='fl'>0.4</span>), <span class='kw'>fill</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>h5Colours</span>, <span class='st'>"palette"</span>),
- <span class='kw'>legend</span><span class='kw'>=</span><span class='no'>legtext</span>, <span class='kw'>bg</span><span class='kw'>=</span><span class='st'>"white"</span>)</div><div class='img'><img src='findColours-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>h5</span>, <span class='no'>mypal</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Complete hierarchical clustering (with counts)"</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/legend'>legend</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>95</span>, <span class='fl'>165</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.12</span>, <span class='fl'>0.4</span>), <span class='kw'>fill</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>h5Colours</span>, <span class='st'>"palette"</span>),
+ <span class='kw'>legend</span><span class='kw'>=</span><span class='no'>legtext</span>, <span class='kw'>bg</span><span class='kw'>=</span><span class='st'>"white"</span>)
+}</div><div class='img'><img src='findColours-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -38,23 +38,47 @@ where \eqn{a_i, i=1,\ldots,N} are the polygon areas, and as above the \eqn{a_{ij
 
 \seealso{\code{\link{classIntervals}}}
 \examples{
+if (!require("spData", quietly=TRUE)) {
+  message("spData package needed for examples")
+  run <- FALSE
+} else {
+  run <- TRUE
+}
+if (run) {
 data(jenks71, package="spData")
 fix5 <- classIntervals(jenks71$jenks71, n=5, style="fixed",
  fixedBreaks=c(15.57, 25, 50, 75, 100, 155.30))
-jenks.tests(fix5, jenks71$area)
+print(jenks.tests(fix5, jenks71$area))
+}
+if (run) {
 q5 <- classIntervals(jenks71$jenks71, n=5, style="quantile")
-jenks.tests(q5, jenks71$area)
+print(jenks.tests(q5, jenks71$area))
+}
+if (run) {
 set.seed(1)
 k5 <- classIntervals(jenks71$jenks71, n=5, style="kmeans")
-jenks.tests(k5, jenks71$area)
+print(jenks.tests(k5, jenks71$area))
+}
+if (run) {
 h5 <- classIntervals(jenks71$jenks71, n=5, style="hclust", method="complete")
-jenks.tests(h5, jenks71$area)
-jenks.tests(getHclustClassIntervals(h5, k=7), jenks71$area)
-jenks.tests(getHclustClassIntervals(h5, k=9), jenks71$area)
+print(jenks.tests(h5, jenks71$area))
+}
+if (run) {
+print(jenks.tests(getHclustClassIntervals(h5, k=7), jenks71$area))
+}
+if (run) {
+print(jenks.tests(getHclustClassIntervals(h5, k=9), jenks71$area))
+}
+if (run) {
 set.seed(1)
 b5 <- classIntervals(jenks71$jenks71, n=5, style="bclust")
-jenks.tests(b5, jenks71$area)
-jenks.tests(getBclustClassIntervals(b5, k=7), jenks71$area)
-jenks.tests(getBclustClassIntervals(b5, k=9), jenks71$area)
+print(jenks.tests(b5, jenks71$area))
+}
+if (run) {
+print(jenks.tests(getBclustClassIntervals(b5, k=7), jenks71$area))
+}
+if (run) {
+print(jenks.tests(getBclustClassIntervals(b5, k=9), jenks71$area))
+}
 }
 \keyword{spatial}

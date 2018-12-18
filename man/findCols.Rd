@@ -20,10 +20,20 @@ findCols(clI)
 
 \seealso{\code{\link{classIntervals}}, \code{\link{findInterval}}}
 \examples{
+if (!require("spData", quietly=TRUE)) {
+  message("spData package needed for examples")
+  run <- FALSE
+} else {
+  run <- TRUE
+}
+if (run) {
 data(jenks71, package="spData")
 fix5 <- classIntervals(jenks71$jenks71, n=5, style="fixed",
  fixedBreaks=c(15.57, 25, 50, 75, 100, 155.30))
-fix5
-findCols(fix5)
+print(fix5)
+}
+if (run) {
+print(findCols(fix5))
+}
 }
 \keyword{spatial}

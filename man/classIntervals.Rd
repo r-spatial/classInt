@@ -88,6 +88,13 @@ Fisher, W. D. 1958 "On grouping for maximum homogeneity", Journal of the America
 
 \seealso{\code{\link{findColours}}, \code{\link{findCols}}, \code{\link{pretty}}, \code{\link[stats]{quantile}}, \code{\link[stats]{kmeans}}, \code{\link[stats]{hclust}}, \code{\link[e1071]{bclust}}, \code{\link{findInterval}}, \code{\link[grDevices]{colorRamp}}, \code{\link[grDevices]{nclass}}, \code{\link[lattice]{shingle}}}
 \examples{
+if (!require("spData", quietly=TRUE)) {
+  message("spData package needed for examples")
+  run <- FALSE
+} else {
+  run <- TRUE
+}
+if (run) {
 data(jenks71, package="spData")
 pal1 <- c("wheat1", "red3")
 opar <- par(mfrow=c(2,3))
@@ -100,48 +107,90 @@ set.seed(1)
 plot(classIntervals(jenks71$jenks71, n=5, style="kmeans"), pal=pal1, main="K-means")
 plot(classIntervals(jenks71$jenks71, n=5, style="hclust", method="complete"),
  pal=pal1, main="Complete cluster")
+}
+if (run) {
 plot(classIntervals(jenks71$jenks71, n=5, style="hclust", method="single"),
  pal=pal1, main="Single cluster")
 set.seed(1)
 plot(classIntervals(jenks71$jenks71, n=5, style="bclust", verbose=FALSE),
  pal=pal1, main="Bagged cluster")
-plot(classIntervals(jenks71$jenks71, n=5, style="fisher"), pal=pal1, main="Fisher's method")
-plot(classIntervals(jenks71$jenks71, n=5, style="jenks"), pal=pal1, main="Jenks' method")
+plot(classIntervals(jenks71$jenks71, n=5, style="fisher"), pal=pal1,
+ main="Fisher's method")
+plot(classIntervals(jenks71$jenks71, n=5, style="jenks"), pal=pal1,
+ main="Jenks' method")
 par(opar)
-classIntervals(jenks71$jenks71, n=5, style="fixed", fixedBreaks=c(15.57, 25, 50, 75, 100, 155.30))
-classIntervals(jenks71$jenks71, n=5, style="sd")
-classIntervals(jenks71$jenks71, n=5, style="equal")
-classIntervals(jenks71$jenks71, n=5, style="quantile")
+}
+if (run) {
+print(classIntervals(jenks71$jenks71, n=5, style="fixed",
+ fixedBreaks=c(15.57, 25, 50, 75, 100, 155.30)))
+}
+if (run) {
+print(classIntervals(jenks71$jenks71, n=5, style="sd"))
+}
+if (run) {
+print(classIntervals(jenks71$jenks71, n=5, style="equal"))
+}
+if (run) {
+print(classIntervals(jenks71$jenks71, n=5, style="quantile"))
+}
+if (run) {
 set.seed(1)
-classIntervals(jenks71$jenks71, n=5, style="kmeans")
+print(classIntervals(jenks71$jenks71, n=5, style="kmeans"))
+}
+if (run) {
 set.seed(1)
-classIntervals(jenks71$jenks71, n=5, style="kmeans", intervalClosure="right")
+print(classIntervals(jenks71$jenks71, n=5, style="kmeans", intervalClosure="right"))
+}
+if (run) {
 set.seed(1)
-classIntervals(jenks71$jenks71, n=5, style="kmeans", dataPrecision=0)
+print(classIntervals(jenks71$jenks71, n=5, style="kmeans", dataPrecision=0))
+}
+if (run) {
 set.seed(1)
 print(classIntervals(jenks71$jenks71, n=5, style="kmeans"), cutlabels=FALSE)
-classIntervals(jenks71$jenks71, n=5, style="hclust", method="complete")
-classIntervals(jenks71$jenks71, n=5, style="hclust", method="single")
+}
+if (run) {
+print(classIntervals(jenks71$jenks71, n=5, style="hclust", method="complete"))
+}
+if (run) {
+print(classIntervals(jenks71$jenks71, n=5, style="hclust", method="single"))
+}
+if (run) {
 set.seed(1)
-classIntervals(jenks71$jenks71, n=5, style="bclust", verbose=FALSE)
-classIntervals(jenks71$jenks71, n=5, style="bclust", hclust.method="complete", verbose=FALSE)
-classIntervals(jenks71$jenks71, n=5, style="fisher")
-classIntervals(jenks71$jenks71, n=5, style="jenks")
+print(classIntervals(jenks71$jenks71, n=5, style="bclust", verbose=FALSE))
+}
+if (run) {
+print(classIntervals(jenks71$jenks71, n=5, style="bclust",
+ hclust.method="complete", verbose=FALSE))
+}
+if (run) {
+print(classIntervals(jenks71$jenks71, n=5, style="fisher"))
+}
+if (run) {
+print(classIntervals(jenks71$jenks71, n=5, style="jenks"))
+}
+if (run) {
 x <- c(0, 0, 0, 1, 2, 50)
-classIntervals(x, n=3, style="fisher")
-classIntervals(x, n=3, style="jenks")
-
+print(classIntervals(x, n=3, style="fisher"))
+}
+if (run) {
+print(classIntervals(x, n=3, style="jenks"))
+}
 # Argument 'unique' will collapse the label of classes containing a 
 # single value. This is particularly useful for 'censored' variables
 # that contain for example many zeros. 
 
+if (run) {
 data_censored<-c(rep(0,10), rnorm(100, mean=20,sd=1),rep(26,10))
 plot(density(data_censored))
-
+}
+if (run) {
 cl2<-classIntervals(data_censored, n=5, style="jenks", dataPrecision=2)
-
 print(cl2, unique=FALSE)
+}
+if (run) {
 print(cl2, unique=TRUE)
+}
 }
 \keyword{spatial}
 

@@ -27,20 +27,34 @@ findColours(clI, pal, under="under", over="over", between="-",
 
 \seealso{\code{\link{classIntervals}}, \code{\link{findInterval}}, \code{\link{findCols}}, \code{\link[grDevices]{colorRamp}}}
 \examples{
+if (!require("spData", quietly=TRUE)) {
+  message("spData package needed for examples")
+  run <- FALSE
+} else {
+  run <- TRUE
+}
+if (run) {
 data(jenks71, package="spData")
 mypal <- c("wheat1", "red3")
 h5 <- classIntervals(jenks71$jenks71, n=5, style="hclust", method="complete")
-findColours(h5, mypal)
-findColours(getHclustClassIntervals(h5, k=7), mypal)
+print(findColours(h5, mypal))
+}
+if (run) {
+print(findColours(getHclustClassIntervals(h5, k=7), mypal))
+}
+if (run) {
 h5Colours <- findColours(h5, mypal)
 plot(h5, mypal, main="Complete hierarchical clustering")
 legend(c(95, 155), c(0.12, 0.4), fill=attr(h5Colours, "palette"),
  legend=names(attr(h5Colours, "table")), bg="white")
+}
+if (run) {
 h5tab <- attr(h5Colours, "table")
 legtext <- paste(names(h5tab), " (", h5tab, ")", sep="")
 plot(h5, mypal, main="Complete hierarchical clustering (with counts)")
 legend(c(95, 165), c(0.12, 0.4), fill=attr(h5Colours, "palette"),
  legend=legtext, bg="white")
+}
 }
 \keyword{spatial}
 
