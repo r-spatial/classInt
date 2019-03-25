@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">classInt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -130,7 +130,7 @@
     </tr>
     <tr>
       <th>n</th>
-      <td><p>number of classes required, if missing, <code>nclass.Sturges</code> is used</p></td>
+      <td><p>number of classes required, if missing, <code>nclass.Sturges</code> is used; see also the "dpih" style for automatic choice of the number of classes</p></td>
     </tr>
     <tr>
       <th>style</th>
@@ -202,6 +202,7 @@
 <p>The "bclust" style uses <code>bclust</code> to generate the breaks using bagged clustering; it may be anchored using <code>set.seed</code>; the <code>pars</code> attribute returns the bclust object generated, and can be used to find other breaks using <code>getBclustClassIntervals</code>; if <code>bclust</code> fails, a jittered input vector containing <code>rtimes</code> replications of <code>var</code> is tried --- with few unique values in <code>var</code>, this can prove necessary; arguments to <code>bclust</code> may be passed through <code>&#8230;</code>.</p>
 <p>The "fisher" style uses the algorithm proposed by W. D. Fisher (1958) and discussed by Slocum et al. (2005) as the Fisher-Jenks algorithm; added here thanks to Hisaji Ono.</p> 
 <p>The "jenks" style has been ported from Jenks' Basic code, and has been checked for consistency with ArcView, ArcGIS, and MapInfo (with some remaining differences); added here thanks to Hisaji Ono. Note that the sense of interval closure is reversed from the other styles, and in this implementation has to be right-closed - use cutlabels=TRUE in <code>findColours</code> on the object returned to show the closure clearly, and use <code>findCols</code> to extract the classes for each value.</p>
+<p>The "dpih" style uses the <code>dpih()</code> function from <span class="pkg">KernSmooth</span> (Wand, 1995) implementing direct plug-in methodology to select the bin width of a histogram.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -224,6 +225,7 @@
 <p>Dent, B. D., 1999, Cartography: thematic map design. McGraw-Hill, Boston, 417 pp.;</p>
 <p>Slocum TA, McMaster RB, Kessler FC, Howard HH 2005 Thematic Cartography and Geographic Visualization, Prentice Hall, Upper Saddle River NJ.;</p>
 <p>Fisher, W. D. 1958 "On grouping for maximum homogeneity", Journal of the American Statistical Association, 53, pp. 789--798 (<a href='http://lib.stat.cmu.edu/cmlib/src/cluster/fish.f'>http://lib.stat.cmu.edu/cmlib/src/cluster/fish.f</a>)</p>
+<p>Wand, M. P. 1995. Data-based choice of histogram binwidth. The American Statistician, 51, 59-64.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -347,6 +349,22 @@
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;  [15.57,41.2]  (41.2,60.66] (60.66,77.29] (77.29,100.1] (100.1,155.3] 
 #&gt;            35            33            18            11             5 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"dpih"</span>))
+}</div><div class='output co'>#&gt; style: dpih
+#&gt;   one of 16,007,560,800 possible partitions of this variable into 8 classes
+#&gt;    [15.57,31.70792) [31.70792,47.84584) [47.84584,63.98376) [63.98376,80.12169) 
+#&gt;                  14                  25                  33                  15 
+#&gt; [80.12169,96.25961) [96.25961,112.3975) [112.3975,128.5355) [128.5355,144.6734] 
+#&gt;                   7                   4                   2                   2 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"dpih"</span>, <span class='kw'>range.x</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>160</span>)))
+}</div><div class='output co'>#&gt; style: dpih
+#&gt;   one of 186,087,894,300 possible partitions of this variable into 9 classes
+#&gt;        [0,16.26458) [16.26458,32.52917) [32.52917,48.79375) [48.79375,65.05834) 
+#&gt;                   2                  16                  21                  34 
+#&gt; [65.05834,81.32292) [81.32292,97.58751) [97.58751,113.8521) [113.8521,130.1167) 
+#&gt;                  15                   8                   2                   2 
+#&gt; [130.1167,146.3813] 
+#&gt;                   2 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>50</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>))
 }</div><div class='output co'>#&gt; style: fisher
