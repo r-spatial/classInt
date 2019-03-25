@@ -22,7 +22,7 @@ classIntervals2shingle(x)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{var}{a continuous numerical variable}
-  \item{n}{number of classes required, if missing, \code{nclass.Sturges} is used}
+  \item{n}{number of classes required, if missing, \code{nclass.Sturges} is used; see also the "dpih" style for automatic choice of the number of classes}
   \item{style}{chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", or "jenks"}
   \item{rtimes}{number of replications of var to catenate and jitter; may be used with styles "kmeans" or "bclust" in case they have difficulties reaching a classification}
   \item{intervalClosure}{default \dQuote{left},  allows specification of whether partition intervals are closed on the left or the right (added by Richard Dunlap). Note that the sense of interval closure is hard-coded as \dQuote{right}-closed when\code{style="jenks"} (see Details below).}
@@ -58,6 +58,8 @@ classIntervals2shingle(x)
   The "fisher" style uses the algorithm proposed by W. D. Fisher (1958) and discussed by Slocum et al. (2005) as the Fisher-Jenks algorithm; added here thanks to Hisaji Ono.
  
   The "jenks" style has been ported from Jenks' Basic code, and has been checked for consistency with ArcView, ArcGIS, and MapInfo (with some remaining differences); added here thanks to Hisaji Ono. Note that the sense of interval closure is reversed from the other styles, and in this implementation has to be right-closed - use cutlabels=TRUE in \code{findColours} on the object returned to show the closure clearly, and use \code{findCols} to extract the classes for each value.
+
+  The "dpih" style uses the \code{dpih()} function from \pkg{KernSmooth} (Wand, 1995) implementing direct plug-in methodology to select the bin width of a histogram.
 }
 
 \value{
@@ -72,7 +74,8 @@ classIntervals2shingle(x)
   \item{intervalClosure}{string, whether closure is \dQuote{left} or \dQuote{right}}
   \item{dataPrecision}{the data precision used for printing interval values in the legend returned by \code{findColours}, and in the \code{print} method for classIntervals objects. If intervalClosure is \dQuote{left}, the value returned is \code{ceiling} of the data value multiplied by 10 to the dataPrecision power, divided by 10 to the dataPrecision power.}
 }
-\references{Armstrong, M. P., Xiao, N., Bennett, D. A., 2003. "Using genetic algorithms to create multicriteria class intervals for choropleth maps". Annals, Association of American Geographers, 93 (3), 595--623; 
+\references{
+Armstrong, M. P., Xiao, N., Bennett, D. A., 2003. "Using genetic algorithms to create multicriteria class intervals for choropleth maps". Annals, Association of American Geographers, 93 (3), 595--623; 
 
 Jenks, G. F., Caspall, F. C., 1971. "Error on choroplethic maps: definition, measurement, reduction". Annals, Association of American Geographers, 61 (2), 217--244; 
 
@@ -80,7 +83,11 @@ Dent, B. D., 1999, Cartography: thematic map design. McGraw-Hill, Boston, 417 pp
 
 Slocum TA, McMaster RB, Kessler FC, Howard HH 2005 Thematic Cartography and Geographic Visualization, Prentice Hall, Upper Saddle River NJ.; 
 
-Fisher, W. D. 1958 "On grouping for maximum homogeneity", Journal of the American Statistical Association, 53, pp. 789--798 (\url{http://lib.stat.cmu.edu/cmlib/src/cluster/fish.f})}
+Fisher, W. D. 1958 "On grouping for maximum homogeneity", Journal of the American Statistical Association, 53, pp. 789--798 (\url{http://lib.stat.cmu.edu/cmlib/src/cluster/fish.f})
+
+Wand, M. P. 1995. Data-based choice of histogram binwidth. The American Statistician, 51, 59-64.
+
+}
 
 \author{Roger Bivand <Roger.Bivand@nhh.no>}
 
@@ -168,6 +175,12 @@ print(classIntervals(jenks71$jenks71, n=5, style="fisher"))
 }
 if (run) {
 print(classIntervals(jenks71$jenks71, n=5, style="jenks"))
+}
+if (run) {
+print(classIntervals(jenks71$jenks71, style="dpih"))
+}
+if (run) {
+print(classIntervals(jenks71$jenks71, style="dpih", range.x=c(0, 160)))
 }
 if (run) {
 x <- c(0, 0, 0, 1, 2, 50)

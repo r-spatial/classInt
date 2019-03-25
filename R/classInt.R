@@ -240,6 +240,19 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
 # don't need to change this
            brks<-d[c(1, kclass)]
 
+      } else if (style == "dpih") {
+# introduced related to https://github.com/r-spatial/classInt/issues/6
+           h <- dpih(var, ...)
+           dots <- list(...)
+           if (!is.null(dots$range.x)) {
+               vmin <- dots$range.x[1]
+               vmax <- dots$range.x[2]
+           } else {
+               vmin <- min(var)
+               vmax <- max(var)
+           }
+           brks <- seq(vmin, vmax, by=h)
+      
       } else stop(paste(style, "unknown"))
   }
   if (is.null(brks)) stop("Null breaks")

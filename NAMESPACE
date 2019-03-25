@@ -4,6 +4,7 @@ importFrom(stats, quantile, kmeans, hclust, na.omit, dist, cutree, ecdf)
 importFrom(graphics, plot, abline, rect, par)
 importFrom(grDevices, colorRampPalette, nclass.Sturges)
 importFrom(e1071, bclust, clusters.bclust, centers.bclust)
+importFrom(KernSmooth, dpih)
 import(class)
 
 export(classIntervals, jenks.tests, findColours, findCols,
