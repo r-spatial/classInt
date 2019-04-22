@@ -112,7 +112,7 @@
 
     <pre class="usage"><span class='fu'>classIntervals</span>(<span class='no'>var</span>, <span class='no'>n</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>rtimes</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='no'>...</span>,
  <span class='kw'>intervalClosure</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"left"</span>, <span class='st'>"right"</span>), <span class='kw'>dataPrecision</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
- <span class='kw'>warnSmallN</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+ <span class='kw'>warnSmallN</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>warnLargeN</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>largeN</span> <span class='kw'>=</span> <span class='fl'>3000L</span>, <span class='kw'>samp_prop</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
 <span class='co'># S3 method for classIntervals</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='no'>pal</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for classIntervals</span>
@@ -134,7 +134,7 @@
     </tr>
     <tr>
       <th>style</th>
-      <td><p>chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", or "jenks"</p></td>
+      <td><p>chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks" or "dpih"</p></td>
     </tr>
     <tr>
       <th>rtimes</th>
@@ -151,6 +151,18 @@
     <tr>
       <th>warnSmallN</th>
       <td><p>default TRUE, if FALSE, quietens warning for n &gt;= nobs</p></td>
+    </tr>
+    <tr>
+      <th>warnLargeN</th>
+      <td><p>default TRUE, if FALSE large data handling not used</p></td>
+    </tr>
+    <tr>
+      <th>largeN</th>
+      <td><p>default 3000L, the QGIS sampling threshold; over 3000, the observations presented to "fisher" and "jenks" are either a <code>samp_prop=</code> sample or a sample of 3000, whichever is larger</p></td>
+    </tr>
+    <tr>
+      <th>samp_prop</th>
+      <td><p>default 0.1, QGIS 10% sampling proportion</p></td>
     </tr>
     <tr>
       <th>&#8230;</th>
@@ -200,8 +212,8 @@
 <p>The "kmeans" style uses <code>kmeans</code> to generate the breaks; it may be anchored using <code>set.seed</code>; the <code>pars</code> attribute returns the kmeans object generated; if <code>kmeans</code> fails, a jittered input vector containing <code>rtimes</code> replications of <code>var</code> is tried --- with few unique values in <code>var</code>, this can prove necessary; arguments to <code>kmeans</code> may be passed through <code>&#8230;</code>.</p>
 <p>The "hclust" style uses <code>hclust</code> to generate the breaks using hierarchical clustering; the <code>pars</code> attribute returns the hclust object generated, and can be used to find other breaks using <code>getHclustClassIntervals</code>; arguments to <code>hclust</code> may be passed through <code>&#8230;</code>.</p>
 <p>The "bclust" style uses <code>bclust</code> to generate the breaks using bagged clustering; it may be anchored using <code>set.seed</code>; the <code>pars</code> attribute returns the bclust object generated, and can be used to find other breaks using <code>getBclustClassIntervals</code>; if <code>bclust</code> fails, a jittered input vector containing <code>rtimes</code> replications of <code>var</code> is tried --- with few unique values in <code>var</code>, this can prove necessary; arguments to <code>bclust</code> may be passed through <code>&#8230;</code>.</p>
-<p>The "fisher" style uses the algorithm proposed by W. D. Fisher (1958) and discussed by Slocum et al. (2005) as the Fisher-Jenks algorithm; added here thanks to Hisaji Ono.</p> 
-<p>The "jenks" style has been ported from Jenks' Basic code, and has been checked for consistency with ArcView, ArcGIS, and MapInfo (with some remaining differences); added here thanks to Hisaji Ono. Note that the sense of interval closure is reversed from the other styles, and in this implementation has to be right-closed - use cutlabels=TRUE in <code>findColours</code> on the object returned to show the closure clearly, and use <code>findCols</code> to extract the classes for each value.</p>
+<p>The "fisher" style uses the algorithm proposed by W. D. Fisher (1958) and discussed by Slocum et al. (2005) as the Fisher-Jenks algorithm; added here thanks to Hisaji Ono. This style will subsample by default for more than 3000 observations. This style should always be preferred to "jenks" as it uses the original Fortran code and runs nested for-loops much faster.</p> 
+<p>The "jenks" style has been ported from Jenks' code, and has been checked for consistency with ArcView, ArcGIS, and MapInfo (with some remaining differences); added here thanks to Hisaji Ono (originally reported as Basic, now seen as Fortran (<a href='http://www.irlogi.ie/wp-content/uploads/2016/11/NUIM_ChoroHarmful.pdf'>http://www.irlogi.ie/wp-content/uploads/2016/11/NUIM_ChoroHarmful.pdf</a>, slides 26-27)). Note that the sense of interval closure is reversed from the other styles, and in this implementation has to be right-closed - use cutlabels=TRUE in <code>findColours</code> on the object returned to show the closure clearly, and use <code>findCols</code> to extract the classes for each value. This style will subsample by default for more than 3000 observations.</p>
 <p>The "dpih" style uses the <code>dpih()</code> function from <span class="pkg">KernSmooth</span> (Wand, 1995) implementing direct plug-in methodology to select the bin width of a histogram.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -337,8 +349,8 @@
  <span class='kw'>hclust.method</span><span class='kw'>=</span><span class='st'>"complete"</span>, <span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>FALSE</span>))
 }</div><div class='output co'>#&gt; style: bclust
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
-#&gt; [15.57,29.84) [29.84,54.81) [54.81,90.16) [90.16,125.7) [125.7,155.3] 
-#&gt;            10            45            38             7             2 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
+#&gt;    [15.57,43.3)   [43.3,82.175) [82.175,105.95)  [105.95,143.4)   [143.4,155.3] 
+#&gt;              35              53               9               4               1 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>))
 }</div><div class='output co'>#&gt; style: fisher
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
@@ -364,37 +376,45 @@
 #&gt; [65.05834,81.32292) [81.32292,97.58751) [97.58751,113.8521) [113.8521,130.1167) 
 #&gt;                  15                   8                   2                   2 
 #&gt; [130.1167,146.3813] 
-#&gt;                   2 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>50</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>))
-}</div><div class='output co'>#&gt; style: fisher
+#&gt;                   2 </div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>50</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>))</div><div class='output co'>#&gt; style: fisher
 #&gt;   one of 3 possible partitions of this variable into 3 classes
 #&gt;  [0,0.5) [0.5,26)  [26,50] 
-#&gt;        3        2        1 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"jenks"</span>))
-}</div><div class='output co'>#&gt; style: jenks
+#&gt;        3        2        1 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"jenks"</span>))</div><div class='output co'>#&gt; style: jenks
 #&gt;   one of 3 possible partitions of this variable into 3 classes
 #&gt;  [0,0]  (0,2] (2,50] 
-#&gt;      3      2      1 </div><div class='input'><span class='co'># Argument 'unique' will collapse the label of classes containing a </span>
+#&gt;      3      2      1 </div><div class='input'>
+<span class='co'># Argument 'unique' will collapse the label of classes containing a </span>
 <span class='co'># single value. This is particularly useful for 'censored' variables</span>
 <span class='co'># that contain for example many zeros. </span>
 
-<span class='kw'>if</span> (<span class='no'>run</span>) {
 <span class='no'>data_censored</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>0</span>,<span class='fl'>10</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>100</span>, <span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>20</span>,<span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>1</span>),<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>26</span>,<span class='fl'>10</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/density'>density</a></span>(<span class='no'>data_censored</span>))
-}</div><div class='img'><img src='classIntervals-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='no'>cl2</span><span class='kw'>&lt;-</span><span class='fu'>classIntervals</span>(<span class='no'>data_censored</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"jenks"</span>, <span class='kw'>dataPrecision</span><span class='kw'>=</span><span class='fl'>2</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>cl2</span>, <span class='kw'>unique</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-}</div><div class='output co'>#&gt; style: jenks
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/density'>density</a></span>(<span class='no'>data_censored</span>))</div><div class='img'><img src='classIntervals-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>cl2</span> <span class='kw'>&lt;-</span> <span class='fu'>classIntervals</span>(<span class='no'>data_censored</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"jenks"</span>, <span class='kw'>dataPrecision</span><span class='kw'>=</span><span class='fl'>2</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>cl2</span>, <span class='kw'>unique</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; style: jenks
 #&gt;   one of 4,082,925 possible partitions of this variable into 5 classes
-#&gt;         [0,0]     (0,18.91] (18.91,20.33] (20.33,23.15]    (23.15,26] 
-#&gt;            10            21            43            36            10 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>cl2</span>, <span class='kw'>unique</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-}</div><div class='output co'>#&gt; style: jenks
+#&gt;        [0,0]     (0,19.5] (19.5,20.63] (20.63,22.6]    (22.6,26] 
+#&gt;           10           33           39           28           10 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>cl2</span>, <span class='kw'>unique</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; style: jenks
 #&gt;   one of 4,082,925 possible partitions of this variable into 5 classes
 #&gt; Class found with one single (possibly repeated) value: changed label
-#&gt;             0     (0,18.91] (18.91,20.33] (20.33,23.15]            26 
-#&gt;            10            21            43            36            10 </div></pre>
+#&gt;            0     (0,19.5] (19.5,20.63] (20.63,22.6]           26 
+#&gt;           10           33           39           28           10 </div><div class='input'>
+</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
+<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>1e+05</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='no'>n</span>)
+<span class='co'># the class intervals found vary a little because of sampling</span>
+<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
+#&gt; [0.0001679834,0.1974933)    [0.1974933,0.3946552)    [0.3946552,0.5943072) 
+#&gt;                    19920                    19629                    19823 
+#&gt;    [0.5943072,0.7968276)    [0.7968276,0.9999471] 
+#&gt;                    20270                    20358 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
+#&gt; [9.427452e-05,0.1912491)    [0.1912491,0.3896987)    [0.3896987,0.5927646) 
+#&gt;                    19288                    19788                    20149 
+#&gt;    [0.5927646,0.7980337)    [0.7980337,0.9998693] 
+#&gt;                    20532                    20243 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
+#&gt; [0.0002003808,0.2002283)    [0.2002283,0.4013789)    [0.4013789,0.6017635) 
+#&gt;                    20159                    20055                    19911 
+#&gt;    [0.6017635,0.8015255)    [0.8015255,0.9997862] 
+#&gt;                    19997                    19878 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
