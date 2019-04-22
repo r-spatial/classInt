@@ -12,7 +12,7 @@
 \usage{
 classIntervals(var, n, style = "quantile", rtimes = 3, ...,
  intervalClosure = c("left", "right"), dataPrecision = NULL,
- warnSmallN=TRUE)
+ warnSmallN = TRUE, warnLargeN = TRUE, largeN = 3000L, samp_prop = 0.1)
 \method{plot}{classIntervals}(x, pal, ...) 
 \method{print}{classIntervals}(x, digits = getOption("digits"), ..., 
  under="under", over="over", between="-", cutlabels=TRUE, unique=FALSE) 
@@ -23,11 +23,14 @@ classIntervals2shingle(x)
 \arguments{
   \item{var}{a continuous numerical variable}
   \item{n}{number of classes required, if missing, \code{nclass.Sturges} is used; see also the "dpih" style for automatic choice of the number of classes}
-  \item{style}{chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", or "jenks"}
+  \item{style}{chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks" or "dpih"}
   \item{rtimes}{number of replications of var to catenate and jitter; may be used with styles "kmeans" or "bclust" in case they have difficulties reaching a classification}
   \item{intervalClosure}{default \dQuote{left},  allows specification of whether partition intervals are closed on the left or the right (added by Richard Dunlap). Note that the sense of interval closure is hard-coded as \dQuote{right}-closed when\code{style="jenks"} (see Details below).}
   \item{dataPrecision}{default NULL, permits rounding of the interval endpoints (added by Richard Dunlap)}
   \item{warnSmallN}{default TRUE, if FALSE, quietens warning for n >= nobs}
+  \item{warnLargeN}{default TRUE, if FALSE large data handling not used}
+  \item{largeN}{default 3000L, the QGIS sampling threshold; over 3000, the observations presented to "fisher" and "jenks" are either a \code{samp_prop=} sample or a sample of 3000, whichever is larger}
+  \item{samp_prop}{default 0.1, QGIS 10\% sampling proportion}
   \item{\dots}{arguments to be passed to the functions called in each style}
   \item{x}{"classIntervals" object for printing, conversion to shingle, or plotting}
   \item{under}{character string value for "under" in printed table labels if cutlabels=FALSE}
@@ -55,9 +58,9 @@ classIntervals2shingle(x)
 
   The "bclust" style uses \code{bclust} to generate the breaks using bagged clustering; it may be anchored using \code{set.seed}; the \code{pars} attribute returns the bclust object generated, and can be used to find other breaks using \code{getBclustClassIntervals}; if \code{bclust} fails, a jittered input vector containing \code{rtimes} replications of \code{var} is tried --- with few unique values in \code{var}, this can prove necessary; arguments to \code{bclust} may be passed through \code{\dots}.
 
-  The "fisher" style uses the algorithm proposed by W. D. Fisher (1958) and discussed by Slocum et al. (2005) as the Fisher-Jenks algorithm; added here thanks to Hisaji Ono.
+  The "fisher" style uses the algorithm proposed by W. D. Fisher (1958) and discussed by Slocum et al. (2005) as the Fisher-Jenks algorithm; added here thanks to Hisaji Ono. This style will subsample by default for more than 3000 observations. This style should always be preferred to "jenks" as it uses the original Fortran code and runs nested for-loops much faster.
  
-  The "jenks" style has been ported from Jenks' Basic code, and has been checked for consistency with ArcView, ArcGIS, and MapInfo (with some remaining differences); added here thanks to Hisaji Ono. Note that the sense of interval closure is reversed from the other styles, and in this implementation has to be right-closed - use cutlabels=TRUE in \code{findColours} on the object returned to show the closure clearly, and use \code{findCols} to extract the classes for each value.
+  The "jenks" style has been ported from Jenks' code, and has been checked for consistency with ArcView, ArcGIS, and MapInfo (with some remaining differences); added here thanks to Hisaji Ono (originally reported as Basic, now seen as Fortran (\url{http://www.irlogi.ie/wp-content/uploads/2016/11/NUIM_ChoroHarmful.pdf}, slides 26-27)). Note that the sense of interval closure is reversed from the other styles, and in this implementation has to be right-closed - use cutlabels=TRUE in \code{findColours} on the object returned to show the closure clearly, and use \code{findCols} to extract the classes for each value. This style will subsample by default for more than 3000 observations.
 
   The "dpih" style uses the \code{dpih()} function from \pkg{KernSmooth} (Wand, 1995) implementing direct plug-in methodology to select the bin width of a histogram.
 }
@@ -182,27 +185,28 @@ print(classIntervals(jenks71$jenks71, style="dpih"))
 if (run) {
 print(classIntervals(jenks71$jenks71, style="dpih", range.x=c(0, 160)))
 }
-if (run) {
 x <- c(0, 0, 0, 1, 2, 50)
 print(classIntervals(x, n=3, style="fisher"))
-}
-if (run) {
 print(classIntervals(x, n=3, style="jenks"))
-}
+
 # Argument 'unique' will collapse the label of classes containing a 
 # single value. This is particularly useful for 'censored' variables
 # that contain for example many zeros. 
 
-if (run) {
 data_censored<-c(rep(0,10), rnorm(100, mean=20,sd=1),rep(26,10))
 plot(density(data_censored))
-}
-if (run) {
-cl2<-classIntervals(data_censored, n=5, style="jenks", dataPrecision=2)
+cl2 <- classIntervals(data_censored, n=5, style="jenks", dataPrecision=2)
 print(cl2, unique=FALSE)
-}
-if (run) {
 print(cl2, unique=TRUE)
+
+\dontrun{
+set.seed(1)
+n <- 1e+05
+x <- runif(n)
+# the class intervals found vary a little because of sampling
+classIntervals(x, n=5, style="fisher")
+classIntervals(x, n=5, style="fisher")
+classIntervals(x, n=5, style="fisher")
 }
 }
 \keyword{spatial}

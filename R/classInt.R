@@ -68,7 +68,7 @@ classIntervals2shingle <- function(x) {
 # to the precision -- the argument equals the number of
 # decimal places in the data.  Negative numbers retain the usual
 # convention for rounding.
-classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClosure=c("left", "right"), dataPrecision=NULL, warnSmallN=TRUE) {
+classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClosure=c("left", "right"), dataPrecision=NULL, warnSmallN=TRUE, warnLargeN = TRUE, largeN = 3000L, samp_prop = 0.1) {
   if (is.factor(var)) stop("var is categorical")
   if (!is.numeric(var)) stop("var is not numeric")
 # Matthieu Stigler 120705
@@ -106,6 +106,15 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
       sVar[length(sVar)]+(mean(dsVar)/2))
     style="unique"
   } else {
+# introduced related to https://github.com/r-spatial/classInt/issues/7
+    sampling <- FALSE
+    if (warnLargeN) {
+      if (nobs > largeN) {
+        warning("N is large, and some styles will run very slowly; sampling imposed")
+        sampling <- TRUE
+        nsamp <- ifelse(samp_prop*nobs > 3000, as.integer(ceiling(samp_prop*nobs)), 3000L)
+      }
+    }
     if (style =="fixed") {
 #      mc <- match.call(expand.dots=FALSE)
 #      fixedBreaks <- sort(eval(mc$...$fixedBreaks))
@@ -182,7 +191,12 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
       names(rbrks) <- NULL
       brks <- .rbrks(rbrks)
     } else if (style =="fisher") {
-      pars <- fish(x=var, k=n)
+# introduced related to https://github.com/r-spatial/classInt/issues/7
+      if (sampling) {
+        pars <- fish(x=sample(x=var, size=nsamp), k=n)
+      } else {
+        pars <- fish(x=var, k=n)
+      }
       brks <- pars[n,1]
       for (i in n:1) brks <- c(brks, (pars[i,2]+pars[(i-1),1])/2)
       brks <- c(brks, pars[1,2])
@@ -193,7 +207,13 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
 # the right -- force it.
     	   intervalClosure = "right"
            if (storage.mode(var) != "double") storage.mode(var) <- "double"
-           d <- sort(var)
+# introduced related to https://github.com/r-spatial/classInt/issues/7
+           if (sampling) {
+             message("Use \"fisher\" instead of \"jenks\" for larger data sets")
+             d <- sort(sample(x=var, size=nsamp))
+           } else {
+             d <- sort(var)
+           }
            k <- n
            #work<-matrix(0,k,length(d))
            mat1 <- matrix(1, length(d), k)

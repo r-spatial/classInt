@@ -1,6 +1,6 @@
 
-R version 3.5.1 (2018-07-02) -- "Feather Spray"
-Copyright (C) 2018 The R Foundation for Statistical Computing
+R version 3.6.0 RC (2019-04-21 r76409) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -100,8 +100,8 @@ Class found with one single (possibly repeated) value: changed label
 style: bclust
   one of 4,082,925 possible partitions of this variable into 5 classes
 Class found with one single (possibly repeated) value: changed label
-                  0  [8.89265,19.01088) [19.01088,21.00347) [21.00347,24.20081) 
-                 10                  11                  74                  15 
+                  0  [8.89265,19.79106) [19.79106,21.78784) [21.78784,24.20081) 
+                 10                  34                  63                   3 
                  26 
                  10 
 > print(classIntervals(data_censored, n=5, style="fisher"),  unique=TRUE)
@@ -206,16 +206,16 @@ Class found with one single (possibly repeated) value: changed label
 style: bclust
   one of 4,082,925 possible partitions of this variable into 5 classes
 Class found with one single (possibly repeated) value: changed label
-                  0  [8.89265,19.01088) [19.01088,21.00347) [21.00347,24.20081) 
-                 10                  11                  74                  15 
+                  0  [8.89265,19.79106) [19.79106,21.78784) [21.78784,24.20081) 
+                 10                  34                  63                   3 
                  26 
                  10 
 > print(classIntervals(data_censored, n=5, style="bclust", hclust.method="complete", verbose=FALSE), unique=TRUE)
 style: bclust
   one of 4,082,925 possible partitions of this variable into 5 classes
 Class found with one single (possibly repeated) value: changed label
-                  0  [8.89265,19.79106) [19.79106,21.28327) [21.28327,24.20081) 
-                 10                  34                  57                   9 
+                  0  [8.89265,18.91325) [18.91325,20.22795) [20.22795,24.20081) 
+                 10                  10                  43                  47 
                  26 
                  10 
 > print(classIntervals(data_censored, n=5, style="fisher"), unique=TRUE)
@@ -250,4 +250,4 @@ Class found with one single (possibly repeated) value: changed label
 > 
 > proc.time()
    user  system elapsed 
-  0.180   0.015   0.187 
+  0.184   0.023   0.203 
