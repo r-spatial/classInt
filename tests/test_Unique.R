@@ -17,8 +17,6 @@ set.seed(1)
 print(classIntervals(data_censored, n=5, style="kmeans"),  unique=TRUE)
 print(classIntervals(data_censored, n=5, style="hclust", method="complete"),  unique=TRUE)
 print(classIntervals(data_censored, n=5, style="hclust", method="single"),  unique=TRUE)
-set.seed(1)
-print(classIntervals(data_censored, n=5, style="bclust", verbose=FALSE),  unique=TRUE)
 print(classIntervals(data_censored, n=5, style="fisher"),  unique=TRUE)
 print(classIntervals(data_censored, n=5, style="jenks"),  unique=TRUE)
 
@@ -36,11 +34,16 @@ set.seed(1)
 print(classIntervals(data_censored, n=5, style="kmeans"), cutlabels=FALSE, unique=TRUE)
 print(classIntervals(data_censored, n=5, style="hclust", method="complete"), unique=TRUE)
 print(classIntervals(data_censored, n=5, style="hclust", method="single"), unique=TRUE)
-set.seed(1)
-print(classIntervals(data_censored, n=5, style="bclust", verbose=FALSE), unique=TRUE)
-print(classIntervals(data_censored, n=5, style="bclust", hclust.method="complete", verbose=FALSE), unique=TRUE)
 print(classIntervals(data_censored, n=5, style="fisher"), unique=TRUE)
 print(classIntervals(data_censored, n=5, style="jenks"), unique=TRUE)
 x <- c(0, 0, 0, 1, 2, 50)
 print(classIntervals(x, n=3, style="fisher"), unique=TRUE)
 print(classIntervals(x, n=3, style="jenks"), unique=TRUE)
+if (getRversion() > "3.5.3") {
+  suppressWarnings(set.seed(1, sample.kind=c("Rounding")))
+} else {
+  set.seed(1)
+}
+print(classIntervals(data_censored, n=5, style="bclust", verbose=FALSE),  unique=TRUE)
+print(classIntervals(data_censored, n=5, style="bclust", hclust.method="complete", verbose=FALSE), unique=TRUE)
+
