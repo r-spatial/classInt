@@ -203,7 +203,12 @@ print(cl2, unique=TRUE)
 set.seed(1)
 n <- 1e+05
 x <- runif(n)
+classIntervals(x, n=5, style="sd")
+classIntervals(x, n=5, style="pretty")
+classIntervals(x, n=5, style="equal")
+classIntervals(x, n=5, style="quantile")
 # the class intervals found vary a little because of sampling
+classIntervals(x, n=5, style="kmeans")
 classIntervals(x, n=5, style="fisher")
 classIntervals(x, n=5, style="fisher")
 classIntervals(x, n=5, style="fisher")

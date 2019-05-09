@@ -74,6 +74,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
 # Matthieu Stigler 120705
   intervalClosure <- match.arg(intervalClosure)
   ovar <- var
+  if (length(style) > 1L) style <- style[1L]
   if (any(is.na(var))) {
     warning("var has missing values, omitted in finding classes")
     var <- c(na.omit(var))
@@ -108,7 +109,8 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
   } else {
 # introduced related to https://github.com/r-spatial/classInt/issues/7
     sampling <- FALSE
-    if (warnLargeN) {
+    if (warnLargeN && 
+      (style %in% c("kmeans", "hclust", "bclust", "fisher", "jenks"))) {
       if (nobs > largeN) {
         warning("N is large, and some styles will run very slowly; sampling imposed")
         sampling <- TRUE
