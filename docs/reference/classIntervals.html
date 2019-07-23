@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">classInt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -112,7 +112,8 @@
 
     <pre class="usage"><span class='fu'>classIntervals</span>(<span class='no'>var</span>, <span class='no'>n</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>rtimes</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='no'>...</span>,
  <span class='kw'>intervalClosure</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"left"</span>, <span class='st'>"right"</span>), <span class='kw'>dataPrecision</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
- <span class='kw'>warnSmallN</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>warnLargeN</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>largeN</span> <span class='kw'>=</span> <span class='fl'>3000L</span>, <span class='kw'>samp_prop</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
+ <span class='kw'>warnSmallN</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>warnLargeN</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>largeN</span> <span class='kw'>=</span> <span class='fl'>3000L</span>, <span class='kw'>samp_prop</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+ <span class='kw'>gr</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"["</span>, <span class='st'>"]"</span>))
 <span class='co'># S3 method for classIntervals</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='no'>pal</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for classIntervals</span>
@@ -163,6 +164,10 @@
     <tr>
       <th>samp_prop</th>
       <td><p>default 0.1, QGIS 10% sampling proportion</p></td>
+    </tr>
+    <tr>
+      <th>gr</th>
+      <td><p>default <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("[", "]")</a></code>, if the <span class="pkg">units</span> package is available, <code><a href='https://www.rdocumentation.org/packages/units/topics/units_options'>units::units_options("group")</a></code> may be used directly to give the enclosing bracket style</p></td>
     </tr>
     <tr>
       <th>&#8230;</th>
@@ -401,20 +406,163 @@
 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
 <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>1e+05</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='no'>n</span>)
-<span class='co'># the class intervals found vary a little because of sampling</span>
-<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
-#&gt; [0.0001679834,0.1974933)    [0.1974933,0.3946552)    [0.3946552,0.5943072) 
-#&gt;                    19920                    19629                    19823 
-#&gt;    [0.5943072,0.7968276)    [0.7968276,0.9999471] 
-#&gt;                    20270                    20358 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
-#&gt; [9.427452e-05,0.1912491)    [0.1912491,0.3896987)    [0.3896987,0.5927646) 
-#&gt;                    19288                    19788                    20149 
-#&gt;    [0.5927646,0.7980337)    [0.7980337,0.9998693] 
-#&gt;                    20532                    20243 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
-#&gt; [0.0002003808,0.2002283)    [0.2002283,0.4013789)    [0.4013789,0.6017635) 
-#&gt;                    20159                    20055                    19911 
-#&gt;    [0.6017635,0.8015255)    [0.8015255,0.9997862] 
-#&gt;                    19997                    19878 </div></pre>
+<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>)</div><div class='output co'>#&gt; style: sd
+#&gt; [-0.07925682,0.06546355)   [0.06546355,0.2101839)    [0.2101839,0.3549043) 
+#&gt;                     6597                    14579                    14403 
+#&gt;    [0.3549043,0.4996247)     [0.4996247,0.644345)     [0.644345,0.7890654) 
+#&gt;                    14395                    14446                    14439 
+#&gt;    [0.7890654,0.9337858)     [0.9337858,1.078506] 
+#&gt;                    14463                     6678 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"pretty"</span>)</div><div class='output co'>#&gt; style: pretty
+#&gt;   [0,0.2) [0.2,0.4) [0.4,0.6) [0.6,0.8)   [0.8,1] 
+#&gt;     20142     19936     19888     19993     20041 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>)</div><div class='output co'>#&gt; style: equal
+#&gt; [3.895489e-06,0.1999925)    [0.1999925,0.3999812)    [0.3999812,0.5999698) 
+#&gt;                    20141                    19935                    19888 
+#&gt;    [0.5999698,0.7999584)    [0.7999584,0.9999471] 
+#&gt;                    19991                    20045 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"quantile"</span>)</div><div class='output co'>#&gt; style: quantile
+#&gt; [3.895489e-06,0.1984408)    [0.1984408,0.3993007)    [0.3993007,0.6003913) 
+#&gt;                    20000                    20000                    20000 
+#&gt;    [0.6003913,0.8003984)    [0.8003984,0.9999471] 
+#&gt;                    20000                    20000 </div><div class='input'><span class='co'># the class intervals found vary a little because of sampling</span>
+<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: kmeans
+#&gt; [3.895489e-06,0.1992885)    [0.1992885,0.4002208)     [0.4002208,0.600954) 
+#&gt;                    20075                    20034                    19946 
+#&gt;      [0.600954,0.800892)     [0.800892,0.9999471] 
+#&gt;                    20007                    19938 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
+#&gt; [0.0001679834,0.1969869)     [0.1969869,0.394688)      [0.394688,0.595018) 
+#&gt;                    19860                    19690                    19893 
+#&gt;     [0.595018,0.7967174)    [0.7967174,0.9999471] 
+#&gt;                    20194                    20363 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
+#&gt; [9.427452e-05,0.1887506)    [0.1887506,0.3856013)    [0.3856013,0.5868507) 
+#&gt;                    19036                    19653                    19966 
+#&gt;    [0.5868507,0.7925222)    [0.7925222,0.9998693] 
+#&gt;                    20553                    20792 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
+#&gt; [0.0002003808,0.1974303)    [0.1974303,0.3969872)    [0.3969872,0.5978375) 
+#&gt;                    19912                    19832                    19987 
+#&gt;    [0.5978375,0.7994717)    [0.7994717,0.9996164] 
+#&gt;                    20166                    20103 </div><div class='input'><span class='no'>have_units</span> <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
+<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>units</span>, <span class='kw'>quietly</span><span class='kw'>=</span><span class='fl'>TRUE</span>)) <span class='no'>have_units</span> <span class='kw'>&lt;-</span> <span class='fl'>TRUE</span></div><div class='output co'>#&gt; <span class='message'>udunits system database from /usr/share/udunits</span></div><div class='input'><span class='kw'>if</span> (<span class='no'>have_units</span>) {
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
+<span class='no'>x_units</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/units/topics/set_units'>set_units</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>1</span>, <span class='fl'>100</span>, <span class='fl'>0.25</span>), <span class='fl'>100</span>), <span class='no'>km</span>/<span class='no'>h</span>)
+<span class='fu'>classIntervals</span>(<span class='no'>x_units</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>)
+}</div><div class='output co'>#&gt; style: sd
+#&gt;   one of 14,887,031,544 possible partitions of this [km/h] variable into 8 classes
+#&gt; [-6.990949,7.637413)  [7.637413,22.26578)  [22.26578,36.89414) 
+#&gt;                    6                   15                   16 
+#&gt;   [36.89414,51.5225)   [51.5225,66.15086)  [66.15086,80.77922) 
+#&gt;                   12                   12                   16 
+#&gt;  [80.77922,95.40759)  [95.40759,110.0359] 
+#&gt;                   18                    5 </div><div class='input'><span class='kw'>if</span> (<span class='no'>have_units</span>) {
+<span class='fu'>classIntervals</span>(<span class='no'>x_units</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"pretty"</span>)
+}</div><div class='output co'>#&gt; style: pretty
+#&gt;   one of 3,764,376 possible partitions of this [km/h] variable into 5 classes
+#&gt;   [0,20)  [20,40)  [40,60)  [60,80) [80,100] 
+#&gt;       18       21       19       19       23 </div><div class='input'><span class='kw'>if</span> (<span class='no'>have_units</span>) {
+<span class='fu'>classIntervals</span>(<span class='no'>x_units</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>)
+}</div><div class='output co'>#&gt; style: equal
+#&gt;   one of 3,764,376 possible partitions of this [km/h] variable into 5 classes
+#&gt;    [4,23.1) [23.1,42.2) [42.2,61.3) [61.3,80.4) [80.4,99.5] 
+#&gt;          22          19          17          19          23 </div><div class='input'><span class='kw'>if</span> (<span class='no'>have_units</span>) {
+<span class='fu'>classIntervals</span>(<span class='no'>x_units</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"quantile"</span>)
+}</div><div class='output co'>#&gt; style: quantile
+#&gt;   one of 3,764,376 possible partitions of this [km/h] variable into 5 classes
+#&gt;    [4,21.95) [21.95,41.5) [41.5,64.05) [64.05,82.8)  [82.8,99.5] 
+#&gt;           20           20           20           20           20 </div><div class='input'><span class='kw'>if</span> (<span class='no'>have_units</span>) {
+<span class='fu'>classIntervals</span>(<span class='no'>x_units</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>)
+}</div><div class='output co'>#&gt; style: kmeans
+#&gt;   one of 3,764,376 possible partitions of this [km/h] variable into 5 classes
+#&gt;      [4,19.375) [19.375,39.375)   [39.375,60.5)   [60.5,79.625)   [79.625,99.5] 
+#&gt;              18              21              19              19              23 </div><div class='input'><span class='kw'>if</span> (<span class='no'>have_units</span>) {
+<span class='fu'>classIntervals</span>(<span class='no'>x_units</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)
+}</div><div class='output co'>#&gt; style: fisher
+#&gt;   one of 3,764,376 possible partitions of this [km/h] variable into 5 classes
+#&gt;      [4,19.375) [19.375,39.375)   [39.375,60.5)   [60.5,79.625)   [79.625,99.5] 
+#&gt;              18              21              19              19              23 </div><div class='input'><span class='no'>st</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.time'>Sys.time</a></span>()
+<span class='no'>x_POSIXt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>st</span>+((<span class='fl'>0</span>:<span class='fl'>500</span>)*<span class='fl'>3600</span>), <span class='fl'>100</span>)
+<span class='no'>fx</span> <span class='kw'>&lt;-</span> <span class='no'>st</span>+((<span class='fl'>0</span>:<span class='fl'>5</span>)*<span class='fl'>3600</span>)*<span class='fl'>100</span>
+<span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fixed"</span>, <span class='kw'>fixedBreaks</span><span class='kw'>=</span><span class='no'>fx</span>)</div><div class='output co'>#&gt; style: fixed
+#&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
+#&gt; [2019-07-23 17:48:23,2019-07-27 21:48:23) 
+#&gt;                                        21 
+#&gt; [2019-07-27 21:48:23,2019-08-01 01:48:23) 
+#&gt;                                        18 
+#&gt; [2019-08-01 01:48:23,2019-08-05 05:48:23) 
+#&gt;                                        19 
+#&gt; [2019-08-05 05:48:23,2019-08-09 09:48:23) 
+#&gt;                                        21 
+#&gt; [2019-08-09 09:48:23,2019-08-13 13:48:23] 
+#&gt;                                        21 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>)</div><div class='output co'>#&gt; style: sd
+#&gt;   one of 14,887,031,544 possible partitions of this variable into 8 classes
+#&gt; [2019-07-21 20:47:51,2019-07-24 21:53:59) 
+#&gt;                                         5 
+#&gt; [2019-07-24 21:53:59,2019-07-27 23:00:07) 
+#&gt;                                        16 
+#&gt; [2019-07-27 23:00:07,2019-07-31 00:06:15) 
+#&gt;                                        17 
+#&gt; [2019-07-31 00:06:15,2019-08-03 01:12:23) 
+#&gt;                                        12 
+#&gt; [2019-08-03 01:12:23,2019-08-06 02:18:31) 
+#&gt;                                        14 
+#&gt; [2019-08-06 02:18:31,2019-08-09 03:24:39) 
+#&gt;                                        14 
+#&gt; [2019-08-09 03:24:39,2019-08-12 04:30:47) 
+#&gt;                                        16 
+#&gt; [2019-08-12 04:30:47,2019-08-15 05:36:55] 
+#&gt;                                         6 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"pretty"</span>)</div><div class='output co'>#&gt; style: pretty
+#&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
+#&gt; [2019-07-19 03:33:20,2019-07-24 22:26:40) 
+#&gt;                                         5 
+#&gt; [2019-07-24 22:26:40,2019-07-30 17:20:00) 
+#&gt;                                        32 
+#&gt; [2019-07-30 17:20:00,2019-08-05 12:13:20) 
+#&gt;                                        25 
+#&gt; [2019-08-05 12:13:20,2019-08-11 07:06:40) 
+#&gt;                                        28 
+#&gt; [2019-08-11 07:06:40,2019-08-17 02:00:00] 
+#&gt;                                        10 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>)</div><div class='output co'>#&gt; style: equal
+#&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
+#&gt; [2019-07-24 06:48:23,2019-07-28 07:12:23) 
+#&gt;                                        23 
+#&gt; [2019-07-28 07:12:23,2019-08-01 07:36:23) 
+#&gt;                                        16 
+#&gt; [2019-08-01 07:36:23,2019-08-05 08:00:23) 
+#&gt;                                        19 
+#&gt; [2019-08-05 08:00:23,2019-08-09 08:24:23) 
+#&gt;                                        20 
+#&gt; [2019-08-09 08:24:23,2019-08-13 08:48:23] 
+#&gt;                                        22 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"quantile"</span>)</div><div class='output co'>#&gt; style: quantile
+#&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
+#&gt; [2019-07-24 06:48:23,2019-07-27 17:36:23) 
+#&gt;                                        20 
+#&gt; [2019-07-27 17:36:23,2019-08-01 10:48:23) 
+#&gt;                                        20 
+#&gt; [2019-08-01 10:48:23,2019-08-05 10:12:23) 
+#&gt;                                        20 
+#&gt; [2019-08-05 10:12:23,2019-08-09 12:24:23) 
+#&gt;                                        20 
+#&gt; [2019-08-09 12:24:23,2019-08-13 08:48:23] 
+#&gt;                                        20 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>)</div><div class='output co'>#&gt; style: kmeans
+#&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
+#&gt; [2019-07-24 06:48:23,2019-07-27 09:48:23) 
+#&gt;                                        19 
+#&gt; [2019-07-27 09:48:23,2019-07-31 08:48:23) 
+#&gt;                                        19 
+#&gt; [2019-07-31 08:48:23,2019-08-04 17:18:23) 
+#&gt;                                        17 
+#&gt; [2019-08-04 17:18:23,2019-08-08 21:18:23) 
+#&gt;                                        23 
+#&gt; [2019-08-08 21:18:23,2019-08-13 08:48:23] 
+#&gt;                                        22 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; style: fisher
+#&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
+#&gt; [2019-07-24 06:48:23,2019-07-27 09:48:23) 
+#&gt;                                        19 
+#&gt; [2019-07-27 09:48:23,2019-07-31 08:48:23) 
+#&gt;                                        19 
+#&gt; [2019-07-31 08:48:23,2019-08-04 17:18:23) 
+#&gt;                                        17 
+#&gt; [2019-08-04 17:18:23,2019-08-08 21:18:23) 
+#&gt;                                        23 
+#&gt; [2019-08-08 21:18:23,2019-08-13 08:48:23] 
+#&gt;                                        22 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
