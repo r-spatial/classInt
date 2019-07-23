@@ -12,7 +12,8 @@
 \usage{
 classIntervals(var, n, style = "quantile", rtimes = 3, ...,
  intervalClosure = c("left", "right"), dataPrecision = NULL,
- warnSmallN = TRUE, warnLargeN = TRUE, largeN = 3000L, samp_prop = 0.1)
+ warnSmallN = TRUE, warnLargeN = TRUE, largeN = 3000L, samp_prop = 0.1,
+ gr = c("[", "]"))
 \method{plot}{classIntervals}(x, pal, ...) 
 \method{print}{classIntervals}(x, digits = getOption("digits"), ..., 
  under="under", over="over", between="-", cutlabels=TRUE, unique=FALSE) 
@@ -31,6 +32,7 @@ classIntervals2shingle(x)
   \item{warnLargeN}{default TRUE, if FALSE large data handling not used}
   \item{largeN}{default 3000L, the QGIS sampling threshold; over 3000, the observations presented to "fisher" and "jenks" are either a \code{samp_prop=} sample or a sample of 3000, whichever is larger}
   \item{samp_prop}{default 0.1, QGIS 10\% sampling proportion}
+  \item{gr}{default \code{c("[", "]")}, if the \pkg{units} package is available, \code{units::units_options("group")} may be used directly to give the enclosing bracket style}
   \item{\dots}{arguments to be passed to the functions called in each style}
   \item{x}{"classIntervals" object for printing, conversion to shingle, or plotting}
   \item{under}{character string value for "under" in printed table labels if cutlabels=FALSE}
@@ -213,6 +215,38 @@ classIntervals(x, n=5, style="fisher")
 classIntervals(x, n=5, style="fisher")
 classIntervals(x, n=5, style="fisher")
 }
+have_units <- FALSE
+if (require(units, quietly=TRUE)) have_units <- TRUE
+if (have_units) {
+set.seed(1)
+x_units <- set_units(sample(seq(1, 100, 0.25), 100), km/h)
+classIntervals(x_units, n=5, style="sd")
+}
+if (have_units) {
+classIntervals(x_units, n=5, style="pretty")
+}
+if (have_units) {
+classIntervals(x_units, n=5, style="equal")
+}
+if (have_units) {
+classIntervals(x_units, n=5, style="quantile")
+}
+if (have_units) {
+classIntervals(x_units, n=5, style="kmeans")
+}
+if (have_units) {
+classIntervals(x_units, n=5, style="fisher")
+}
+st <- Sys.time()
+x_POSIXt <- sample(st+((0:500)*3600), 100)
+fx <- st+((0:5)*3600)*100
+classIntervals(x_POSIXt, style="fixed", fixedBreaks=fx)
+classIntervals(x_POSIXt, n=5, style="sd")
+classIntervals(x_POSIXt, n=5, style="pretty")
+classIntervals(x_POSIXt, n=5, style="equal")
+classIntervals(x_POSIXt, n=5, style="quantile")
+classIntervals(x_POSIXt, n=5, style="kmeans")
+classIntervals(x_POSIXt, n=5, style="fisher")
 }
 \keyword{spatial}
 
