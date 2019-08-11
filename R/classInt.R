@@ -73,12 +73,16 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
 # https://github.com/r-spatial/classInt/issues/8
   TZ <- NULL
   POSIX <- FALSE
+  DATE <- FALSE
   if (!is.numeric(var)) {
     if (inherits(var, "POSIXt")) {
       TZ <- attr(var, "tzone")
       POSIX <- TRUE
       var <- unclass(as.POSIXct(var))
-    } else {
+    } else if (inherits(var, "Date")) {
+	  var <- unclass(var)
+	  DATE <- TRUE
+	} else {
       stop("var is not numeric")
     }
   }
@@ -146,6 +150,8 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
 # fixedBreaks assumed to be TZ-compliant with var
         if (inherits(fixedBreaks, "POSIXt") && POSIX) {
           fixedBreaks <- unclass(as.POSIXct(fixedBreaks))
+        } else if (inherits(fixedBreaks, "DATE") && DATE) {
+          fixedBreaks <- unclass(fixedBreaks)
         } else {
           stop("fixedBreaks must be numeric")
         }
@@ -303,6 +309,9 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
   if (POSIX) {
     ovar <- .POSIXct(ovar, TZ)
     brks <- .POSIXct(brks, TZ)
+  } else if (DATE) {
+    ovar <- as.Date(ovar, origin = "1970-01-01")
+    brks <- as.Date(brks, origin = "1970-01-01")
   }
   res <- list(var=ovar, brks=brks)
   attr(res, "style") <- style
