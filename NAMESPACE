@@ -13,4 +13,4 @@ export(classIntervals, jenks.tests, findColours, findCols,
 
 S3method(plot, classIntervals)
 S3method(print, classIntervals)
-
+S3method(logLik, classIntervals)

@@ -12,3 +12,4 @@ License: GPL (>= 2)
 URL: https://github.com/r-spatial/classInt/
 BugReports: https://github.com/r-spatial/classInt/issues/
 RoxygenNote: 6.1.1
+Encoding: UTF-8
