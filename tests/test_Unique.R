@@ -47,3 +47,18 @@ if (getRversion() > "3.5.3") {
 print(classIntervals(data_censored, n=5, style="bclust", verbose=FALSE),  unique=TRUE)
 print(classIntervals(data_censored, n=5, style="bclust", hclust.method="complete", verbose=FALSE), unique=TRUE)
 
+# the log-likelihood returns a valid logLik object.
+stopifnot(
+  identical(
+    round(logLik(classIntervals(rep(1:3, each=10), n=2, style="jenks")), 5),
+    structure(-14.52876, df = 2, nobs = 30L, class = "logLik")
+  )
+)
+# logLik for exact intervals (a single value is the unique member of an
+# interval) yields a likelihood of zero.
+stopifnot(
+  identical(
+    suppressWarnings(logLik(classIntervals(rep(1:3, each=10), n=3, style="jenks"))),
+    structure(0, df = 3, nobs = 30L, class = "logLik")
+  )
+)
