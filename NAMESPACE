@@ -1,6 +1,6 @@
 useDynLib(classInt)
 
-importFrom(stats, quantile, kmeans, hclust, na.omit, dist, cutree, ecdf)
+importFrom(stats, quantile, kmeans, hclust, na.omit, dist, cutree, ecdf, dnorm, sd)
 importFrom(graphics, plot, abline, rect, par)
 importFrom(grDevices, colorRampPalette, nclass.Sturges)
 importFrom(e1071, bclust, clusters.bclust, centers.bclust)
@@ -13,4 +13,4 @@ export(classIntervals, jenks.tests, findColours, findCols,
 
 S3method(plot, classIntervals)
 S3method(print, classIntervals)
-
+S3method(logLik, classIntervals)
