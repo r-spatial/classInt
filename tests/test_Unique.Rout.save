@@ -243,6 +243,21 @@ Class found with one single (possibly repeated) value: changed label
                  26 
                  10 
 > 
+> # the log-likelihood returns a valid logLik object.
+> stopifnot(
++   identical(
++     round(logLik(classIntervals(rep(1:3, each=10), n=2, style="jenks")), 5),
++     structure(-14.52876, df = 2, nobs = 30L, class = "logLik")
++   )
++ )
+> # logLik for exact intervals (a single value is the unique member of an
+> # interval) yields a likelihood of zero.
+> stopifnot(
++   identical(
++     suppressWarnings(logLik(classIntervals(rep(1:3, each=10), n=3, style="jenks"))),
++     structure(0, df = 3, nobs = 30L, class = "logLik")
++   )
++ )
 > 
 > proc.time()
    user  system elapsed 
