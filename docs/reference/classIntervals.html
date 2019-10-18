@@ -8,21 +8,25 @@
 
 <title>Choose univariate class intervals — classIntervals • classInt</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +34,11 @@
 
 
 
-<meta property="og:title" content="Choose univariate class intervals — classIntervals" />
 
+<meta property="og:title" content="Choose univariate class intervals — classIntervals" />
 <meta property="og:description" content="The function provides a uniform interface to finding class intervals for continuous numerical variables, for example for choosing colours or symbols for plotting. Class intervals are non-overlapping, and the classes are left-closed --- see findInterval. Argument values to the style chosen are passed through the dot arguments. classIntervals2shingle converts a classIntervals object into a shingle. Labels generated in methods are like those found in cut unless cutlabels=FALSE." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -45,6 +50,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -63,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">classInt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
       </span>
     </div>
 
@@ -71,7 +77,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -79,11 +85,10 @@
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/r-spatial/classInt">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -94,6 +99,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -105,23 +111,21 @@
     </div>
 
     <div class="ref-description">
-    
-    <p>The function provides a uniform interface to finding class intervals for continuous numerical variables, for example for choosing colours or symbols for plotting. Class intervals are non-overlapping, and the classes are left-closed --- see <code>findInterval</code>. Argument values to the style chosen are passed through the dot arguments. <code>classIntervals2shingle</code> converts a <code>classIntervals</code> object into a shingle. Labels generated in methods are like those found in <code><a href='https://www.rdocumentation.org/packages/base/topics/cut'>cut</a></code> unless cutlabels=FALSE.</p>
-    
+    <p>The function provides a uniform interface to finding class intervals for continuous numerical variables, for example for choosing colours or symbols for plotting. Class intervals are non-overlapping, and the classes are left-closed --- see <code>findInterval</code>. Argument values to the style chosen are passed through the dot arguments. <code>classIntervals2shingle</code> converts a <code>classIntervals</code> object into a shingle. Labels generated in methods are like those found in <code><a href='https://rdrr.io/r/base/cut.html'>cut</a></code> unless cutlabels=FALSE.</p>
     </div>
 
     <pre class="usage"><span class='fu'>classIntervals</span>(<span class='no'>var</span>, <span class='no'>n</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>rtimes</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='no'>...</span>,
- <span class='kw'>intervalClosure</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"left"</span>, <span class='st'>"right"</span>), <span class='kw'>dataPrecision</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+ <span class='kw'>intervalClosure</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"left"</span>, <span class='st'>"right"</span>), <span class='kw'>dataPrecision</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
  <span class='kw'>warnSmallN</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>warnLargeN</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>largeN</span> <span class='kw'>=</span> <span class='fl'>3000L</span>, <span class='kw'>samp_prop</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
- <span class='kw'>gr</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"["</span>, <span class='st'>"]"</span>))
+ <span class='kw'>gr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"["</span>, <span class='st'>"]"</span>))
 <span class='co'># S3 method for classIntervals</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='no'>pal</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='no'>pal</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for classIntervals</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"digits"</span>), <span class='no'>...</span>,
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>), <span class='no'>...</span>,
  <span class='kw'>under</span><span class='kw'>=</span><span class='st'>"under"</span>, <span class='kw'>over</span><span class='kw'>=</span><span class='st'>"over"</span>, <span class='kw'>between</span><span class='kw'>=</span><span class='st'>"-"</span>, <span class='kw'>cutlabels</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>unique</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='fu'>nPartitions</span>(<span class='no'>x</span>)
 <span class='fu'>classIntervals2shingle</span>(<span class='no'>x</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -167,10 +171,10 @@
     </tr>
     <tr>
       <th>gr</th>
-      <td><p>default <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("[", "]")</a></code>, if the <span class="pkg">units</span> package is available, <code><a href='https://www.rdocumentation.org/packages/units/topics/units_options'>units::units_options("group")</a></code> may be used directly to give the enclosing bracket style</p></td>
+      <td><p>default <code><a href='https://rdrr.io/r/base/c.html'>c("[", "]")</a></code>, if the <span class="pkg">units</span> package is available, <code><a href='https://rdrr.io/pkg/units/man/units_options.html'>units::units_options("group")</a></code> may be used directly to give the enclosing bracket style</p></td>
     </tr>
     <tr>
-      <th>&#8230;</th>
+      <th>...</th>
       <td><p>arguments to be passed to the functions called in each style</p></td>
     </tr>
     <tr>
@@ -206,21 +210,20 @@
       <td><p>a character vector of at least two colour names for colour coding the class intervals in an ECDF plot; <code>colorRampPalette</code> is used internally to create the correct number of colours</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The "fixed" style permits a "classIntervals" object to be specified with given breaks, set in the <code>fixedBreaks</code> argument; the length of <code>fixedBreaks</code> should be n+1; this style can be used to insert rounded break values.</p>
 <p>The "sd" style chooses breaks based on <code>pretty</code> of the centred and scaled variables, and may have a number of classes different from n; the returned <code>par=</code> includes the centre and scale values.</p>
 <p>The "equal" style divides the range of the variable into n parts.</p>
-<p>The "pretty" style chooses a number of breaks not necessarily equal to n using <code>pretty</code>, but likely to be legible; arguments to <code>pretty</code> may be passed through <code>&#8230;</code>.</p>
-<p>The "quantile" style provides quantile breaks; arguments to <code>quantile</code> may be passed through <code>&#8230;</code>.</p>
-<p>The "kmeans" style uses <code>kmeans</code> to generate the breaks; it may be anchored using <code>set.seed</code>; the <code>pars</code> attribute returns the kmeans object generated; if <code>kmeans</code> fails, a jittered input vector containing <code>rtimes</code> replications of <code>var</code> is tried --- with few unique values in <code>var</code>, this can prove necessary; arguments to <code>kmeans</code> may be passed through <code>&#8230;</code>.</p>
-<p>The "hclust" style uses <code>hclust</code> to generate the breaks using hierarchical clustering; the <code>pars</code> attribute returns the hclust object generated, and can be used to find other breaks using <code>getHclustClassIntervals</code>; arguments to <code>hclust</code> may be passed through <code>&#8230;</code>.</p>
-<p>The "bclust" style uses <code>bclust</code> to generate the breaks using bagged clustering; it may be anchored using <code>set.seed</code>; the <code>pars</code> attribute returns the bclust object generated, and can be used to find other breaks using <code>getBclustClassIntervals</code>; if <code>bclust</code> fails, a jittered input vector containing <code>rtimes</code> replications of <code>var</code> is tried --- with few unique values in <code>var</code>, this can prove necessary; arguments to <code>bclust</code> may be passed through <code>&#8230;</code>.</p>
+<p>The "pretty" style chooses a number of breaks not necessarily equal to n using <code>pretty</code>, but likely to be legible; arguments to <code>pretty</code> may be passed through <code>...</code>.</p>
+<p>The "quantile" style provides quantile breaks; arguments to <code>quantile</code> may be passed through <code>...</code>.</p>
+<p>The "kmeans" style uses <code>kmeans</code> to generate the breaks; it may be anchored using <code>set.seed</code>; the <code>pars</code> attribute returns the kmeans object generated; if <code>kmeans</code> fails, a jittered input vector containing <code>rtimes</code> replications of <code>var</code> is tried --- with few unique values in <code>var</code>, this can prove necessary; arguments to <code>kmeans</code> may be passed through <code>...</code>.</p>
+<p>The "hclust" style uses <code>hclust</code> to generate the breaks using hierarchical clustering; the <code>pars</code> attribute returns the hclust object generated, and can be used to find other breaks using <code>getHclustClassIntervals</code>; arguments to <code>hclust</code> may be passed through <code>...</code>.</p>
+<p>The "bclust" style uses <code>bclust</code> to generate the breaks using bagged clustering; it may be anchored using <code>set.seed</code>; the <code>pars</code> attribute returns the bclust object generated, and can be used to find other breaks using <code>getBclustClassIntervals</code>; if <code>bclust</code> fails, a jittered input vector containing <code>rtimes</code> replications of <code>var</code> is tried --- with few unique values in <code>var</code>, this can prove necessary; arguments to <code>bclust</code> may be passed through <code>...</code>.</p>
 <p>The "fisher" style uses the algorithm proposed by W. D. Fisher (1958) and discussed by Slocum et al. (2005) as the Fisher-Jenks algorithm; added here thanks to Hisaji Ono. This style will subsample by default for more than 3000 observations. This style should always be preferred to "jenks" as it uses the original Fortran code and runs nested for-loops much faster.</p> 
 <p>The "jenks" style has been ported from Jenks' code, and has been checked for consistency with ArcView, ArcGIS, and MapInfo (with some remaining differences); added here thanks to Hisaji Ono (originally reported as Basic, now seen as Fortran (<a href='http://www.irlogi.ie/wp-content/uploads/2016/11/NUIM_ChoroHarmful.pdf'>http://www.irlogi.ie/wp-content/uploads/2016/11/NUIM_ChoroHarmful.pdf</a>, slides 26-27)). Note that the sense of interval closure is reversed from the other styles, and in this implementation has to be right-closed - use cutlabels=TRUE in <code>findColours</code> on the object returned to show the closure clearly, and use <code>findCols</code> to extract the classes for each value. This style will subsample by default for more than 3000 observations.</p>
 <p>The "dpih" style uses the <code>dpih()</code> function from <span class="pkg">KernSmooth</span> (Wand, 1995) implementing direct plug-in methodology to select the bin width of a histogram.</p>
-    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>an object of class "classIntervals":</p>
@@ -234,7 +237,6 @@
   <dt>intervalClosure</dt><dd><p>string, whether closure is &#8220;left&#8221; or &#8220;right&#8221;</p></dd>
   <dt>dataPrecision</dt><dd><p>the data precision used for printing interval values in the legend returned by <code>findColours</code>, and in the <code>print</code> method for classIntervals objects. If intervalClosure is &#8220;left&#8221;, the value returned is <code>ceiling</code> of the data value multiplied by 10 to the dataPrecision power, divided by 10 to the dataPrecision power.</p></dd>
 
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Armstrong, M. P., Xiao, N., Bennett, D. A., 2003. "Using genetic algorithms to create multicriteria class intervals for choropleth maps". Annals, Association of American Geographers, 93 (3), 595--623;</p>
@@ -243,137 +245,134 @@
 <p>Slocum TA, McMaster RB, Kessler FC, Howard HH 2005 Thematic Cartography and Geographic Visualization, Prentice Hall, Upper Saddle River NJ.;</p>
 <p>Fisher, W. D. 1958 "On grouping for maximum homogeneity", Journal of the American Statistical Association, 53, pp. 789--798 (<a href='http://lib.stat.cmu.edu/cmlib/src/cluster/fish.f'>http://lib.stat.cmu.edu/cmlib/src/cluster/fish.f</a>)</p>
 <p>Wand, M. P. 1995. Data-based choice of histogram binwidth. The American Statistician, 51, 59-64.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>From version 0.1-11, the default representation has been changed to use <code>cutlabels=TRUE</code>, and representation within intervals has been corrected, thanks to Richard Dunlap. From version 0.1-15, the print method drops the calculation of the possible number of combinations of observations into classes, which generated warnings for n &gt; 170.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='findColours.html'>findColours</a></code>, <code><a href='findCols.html'>findCols</a></code>, <code><a href='https://www.rdocumentation.org/packages/base/topics/pretty'>pretty</a></code>, <code><a href='https://www.rdocumentation.org/packages/stats/topics/quantile'>quantile</a></code>, <code><a href='https://www.rdocumentation.org/packages/stats/topics/kmeans'>kmeans</a></code>, <code><a href='https://www.rdocumentation.org/packages/stats/topics/hclust'>hclust</a></code>, <code><a href='https://www.rdocumentation.org/packages/e1071/topics/bclust'>bclust</a></code>, <code><a href='https://www.rdocumentation.org/packages/base/topics/findInterval'>findInterval</a></code>, <code><a href='https://www.rdocumentation.org/packages/grDevices/topics/colorRamp'>colorRamp</a></code>, <code>nclass</code>, <code><a href='https://www.rdocumentation.org/packages/lattice/topics/shingles'>shingle</a></code></p></div>
-    
+    <div class='dont-index'><p><code><a href='findColours.html'>findColours</a></code>, <code><a href='findCols.html'>findCols</a></code>, <code><a href='https://rdrr.io/r/base/pretty.html'>pretty</a></code>, <code><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></code>, <code><a href='https://rdrr.io/r/stats/kmeans.html'>kmeans</a></code>, <code><a href='https://rdrr.io/r/stats/hclust.html'>hclust</a></code>, <code><a href='https://rdrr.io/pkg/e1071/man/bclust.html'>bclust</a></code>, <code><a href='https://rdrr.io/r/base/findInterval.html'>findInterval</a></code>, <code><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRamp</a></code>, <code>nclass</code>, <code><a href='https://rdrr.io/pkg/lattice/man/shingles.html'>shingle</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (!<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"spData"</span>, <span class='kw'>quietly</span><span class='kw'>=</span><span class='fl'>TRUE</span>)) {
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/message'>message</a></span>(<span class='st'>"spData package needed for examples"</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"spData"</span>, <span class='kw'>quietly</span><span class='kw'>=</span><span class='fl'>TRUE</span>)) {
+  <span class='fu'><a href='https://rdrr.io/r/base/message.html'>message</a></span>(<span class='st'>"spData package needed for examples"</span>)
   <span class='no'>run</span> <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
 } <span class='kw'>else</span> {
   <span class='no'>run</span> <span class='kw'>&lt;-</span> <span class='fl'>TRUE</span>
 }
 <span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>jenks71</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"spData"</span>)
-<span class='no'>pal1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"wheat1"</span>, <span class='st'>"red3"</span>)
-<span class='no'>opar</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fixed"</span>,
- <span class='kw'>fixedBreaks</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>15.57</span>, <span class='fl'>25</span>, <span class='fl'>50</span>, <span class='fl'>75</span>, <span class='fl'>100</span>, <span class='fl'>155.30</span>)), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Fixed"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Pretty standard deviations"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Equal intervals"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"quantile"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Quantile"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"K-means"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"hclust"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"complete"</span>),
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>jenks71</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"spData"</span>)
+<span class='no'>pal1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"wheat1"</span>, <span class='st'>"red3"</span>)
+<span class='no'>opar</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>))
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fixed"</span>,
+ <span class='kw'>fixedBreaks</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15.57</span>, <span class='fl'>25</span>, <span class='fl'>50</span>, <span class='fl'>75</span>, <span class='fl'>100</span>, <span class='fl'>155.30</span>)), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Fixed"</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Pretty standard deviations"</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Equal intervals"</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"quantile"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Quantile"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"K-means"</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"hclust"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"complete"</span>),
  <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Complete cluster"</span>)
 }</div><div class='img'><img src='classIntervals-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"hclust"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"single"</span>),
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"hclust"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"single"</span>),
  <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Single cluster"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"bclust"</span>, <span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>FALSE</span>),
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"bclust"</span>, <span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>FALSE</span>),
  <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Bagged cluster"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>,
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>,
  <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Fisher's method"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"jenks"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>,
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"jenks"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>,
  <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Jenks' method"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='no'>opar</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='no'>opar</span>)
 }</div><div class='img'><img src='classIntervals-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fixed"</span>,
- <span class='kw'>fixedBreaks</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>15.57</span>, <span class='fl'>25</span>, <span class='fl'>50</span>, <span class='fl'>75</span>, <span class='fl'>100</span>, <span class='fl'>155.30</span>)))
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fixed"</span>,
+ <span class='kw'>fixedBreaks</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15.57</span>, <span class='fl'>25</span>, <span class='fl'>50</span>, <span class='fl'>75</span>, <span class='fl'>100</span>, <span class='fl'>155.30</span>)))
 }</div><div class='output co'>#&gt; style: fixed
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;  [15.57,25)     [25,50)     [50,75)    [75,100) [100,155.3] 
 #&gt;           6          34          42          14           6 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>))
 }</div><div class='output co'>#&gt; style: sd
 #&gt;   one of 75,287,520 possible partitions of this variable into 6 classes
 #&gt; [5.514407,30.89691) [30.89691,56.27941) [56.27941,81.66191) [81.66191,107.0444) 
 #&gt;                  10                  47                  31                   9 
 #&gt; [107.0444,132.4269) [132.4269,157.8094] 
 #&gt;                   4                   1 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>))
 }</div><div class='output co'>#&gt; style: equal
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;   [15.57,43.516)  [43.516,71.462)  [71.462,99.408) [99.408,127.354) 
 #&gt;               35               44               17                4 
 #&gt;  [127.354,155.3] 
 #&gt;                2 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"quantile"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"quantile"</span>))
 }</div><div class='output co'>#&gt; style: quantile
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;  [15.57,33.822) [33.822,50.114) [50.114,57.454) [57.454,73.368)  [73.368,155.3] 
 #&gt;              21              20              20              20              21 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>))
 }</div><div class='output co'>#&gt; style: kmeans
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;  [15.57,36.905)  [36.905,53.33)  [53.33,72.185) [72.185,105.95)  [105.95,155.3] 
 #&gt;              25              26              29              17               5 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>, <span class='kw'>intervalClosure</span><span class='kw'>=</span><span class='st'>"right"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>, <span class='kw'>intervalClosure</span><span class='kw'>=</span><span class='st'>"right"</span>))
 }</div><div class='output co'>#&gt; style: kmeans
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;  [15.57,36.905]  (36.905,53.33]  (53.33,72.185] (72.185,105.95]  (105.95,155.3] 
 #&gt;              25              26              29              17               5 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>, <span class='kw'>dataPrecision</span><span class='kw'>=</span><span class='fl'>0</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>, <span class='kw'>dataPrecision</span><span class='kw'>=</span><span class='fl'>0</span>))
 }</div><div class='output co'>#&gt; style: kmeans
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;   [16,37)   [37,54)   [54,73)  [73,106) [106,156] 
 #&gt;        25        26        29        17         5 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>), <span class='kw'>cutlabels</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>), <span class='kw'>cutlabels</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 }</div><div class='output co'>#&gt; style: kmeans
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;    under 36.905  36.905 - 53.33  53.33 - 72.185 72.185 - 105.95     over 105.95 
 #&gt;              25              26              29              17               5 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"hclust"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"complete"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"hclust"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"complete"</span>))
 }</div><div class='output co'>#&gt; style: hclust
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;   [15.57,54.81)  [54.81,74.405) [74.405,105.95)  [105.95,143.4)   [143.4,155.3] 
 #&gt;              55              27              15               4               1 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"hclust"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"single"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"hclust"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"single"</span>))
 }</div><div class='output co'>#&gt; style: hclust
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;  [15.57,20.995) [20.995,105.95)  [105.95,125.7)   [125.7,143.4)   [143.4,155.3] 
 #&gt;               4              93               3               1               1 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"bclust"</span>, <span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>FALSE</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"bclust"</span>, <span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>FALSE</span>))
 }</div><div class='output co'>#&gt; style: bclust
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;    [15.57,43.3)   [43.3,82.175) [82.175,105.95)  [105.95,143.4)   [143.4,155.3] 
 #&gt;              35              53               9               4               1 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"bclust"</span>,
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"bclust"</span>,
  <span class='kw'>hclust.method</span><span class='kw'>=</span><span class='st'>"complete"</span>, <span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>FALSE</span>))
 }</div><div class='output co'>#&gt; style: bclust
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;    [15.57,43.3)   [43.3,82.175) [82.175,105.95)  [105.95,143.4)   [143.4,155.3] 
 #&gt;              35              53               9               4               1 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>))
 }</div><div class='output co'>#&gt; style: fisher
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;    [15.57,43.3)    [43.3,61.36)  [61.36,78.475) [78.475,105.95)  [105.95,155.3] 
 #&gt;              35              33              18              11               5 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"jenks"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"jenks"</span>))
 }</div><div class='output co'>#&gt; style: jenks
 #&gt;   one of 3,921,225 possible partitions of this variable into 5 classes
 #&gt;  [15.57,41.2]  (41.2,60.66] (60.66,77.29] (77.29,100.1] (100.1,155.3] 
 #&gt;            35            33            18            11             5 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"dpih"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"dpih"</span>))
 }</div><div class='output co'>#&gt; style: dpih
 #&gt;   one of 16,007,560,800 possible partitions of this variable into 8 classes
 #&gt;    [15.57,31.70792) [31.70792,47.84584) [47.84584,63.98376) [63.98376,80.12169) 
 #&gt;                  14                  25                  33                  15 
 #&gt; [80.12169,96.25961) [96.25961,112.3975) [112.3975,128.5355) [128.5355,144.6734] 
 #&gt;                   7                   4                   2                   2 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"dpih"</span>, <span class='kw'>range.x</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>160</span>)))
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"dpih"</span>, <span class='kw'>range.x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>160</span>)))
 }</div><div class='output co'>#&gt; style: dpih
 #&gt;   one of 186,087,894,300 possible partitions of this variable into 9 classes
 #&gt;        [0,16.26458) [16.26458,32.52917) [32.52917,48.79375) [48.79375,65.05834) 
@@ -381,11 +380,11 @@
 #&gt; [65.05834,81.32292) [81.32292,97.58751) [97.58751,113.8521) [113.8521,130.1167) 
 #&gt;                  15                   8                   2                   2 
 #&gt; [130.1167,146.3813] 
-#&gt;                   2 </div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>50</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>))</div><div class='output co'>#&gt; style: fisher
+#&gt;                   2 </div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>50</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>))</div><div class='output co'>#&gt; style: fisher
 #&gt;   one of 3 possible partitions of this variable into 3 classes
 #&gt;  [0,0.5) [0.5,26)  [26,50] 
-#&gt;        3        2        1 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"jenks"</span>))</div><div class='output co'>#&gt; style: jenks
+#&gt;        3        2        1 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"jenks"</span>))</div><div class='output co'>#&gt; style: jenks
 #&gt;   one of 3 possible partitions of this variable into 3 classes
 #&gt;  [0,0]  (0,2] (2,50] 
 #&gt;      3      2      1 </div><div class='input'>
@@ -393,19 +392,20 @@
 <span class='co'># single value. This is particularly useful for 'censored' variables</span>
 <span class='co'># that contain for example many zeros. </span>
 
-<span class='no'>data_censored</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>0</span>,<span class='fl'>10</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>100</span>, <span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>20</span>,<span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>1</span>),<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>26</span>,<span class='fl'>10</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/density'>density</a></span>(<span class='no'>data_censored</span>))</div><div class='img'><img src='classIntervals-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>cl2</span> <span class='kw'>&lt;-</span> <span class='fu'>classIntervals</span>(<span class='no'>data_censored</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"jenks"</span>, <span class='kw'>dataPrecision</span><span class='kw'>=</span><span class='fl'>2</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>cl2</span>, <span class='kw'>unique</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; style: jenks
+<span class='no'>data_censored</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0</span>,<span class='fl'>10</span>), <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>, <span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>20</span>,<span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>1</span>),<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>26</span>,<span class='fl'>10</span>))
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/density.html'>density</a></span>(<span class='no'>data_censored</span>))</div><div class='img'><img src='classIntervals-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>cl2</span> <span class='kw'>&lt;-</span> <span class='fu'>classIntervals</span>(<span class='no'>data_censored</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"jenks"</span>, <span class='kw'>dataPrecision</span><span class='kw'>=</span><span class='fl'>2</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>cl2</span>, <span class='kw'>unique</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; style: jenks
 #&gt;   one of 4,082,925 possible partitions of this variable into 5 classes
 #&gt;        [0,0]     (0,19.5] (19.5,20.63] (20.63,22.6]    (22.6,26] 
-#&gt;           10           33           39           28           10 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>cl2</span>, <span class='kw'>unique</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; style: jenks
+#&gt;           10           33           39           28           10 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>cl2</span>, <span class='kw'>unique</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; style: jenks
 #&gt;   one of 4,082,925 possible partitions of this variable into 5 classes
 #&gt; Class found with one single (possibly repeated) value: changed label
 #&gt;            0     (0,19.5] (19.5,20.63] (20.63,22.6]           26 
 #&gt;           10           33           39           28           10 </div><div class='input'>
-</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
+<span class='co'># \dontrun{</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
 <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>1e+05</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='no'>n</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='no'>n</span>)
 <span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>)</div><div class='output co'>#&gt; style: sd
 #&gt; [-0.07925682,0.06546355)   [0.06546355,0.2101839)    [0.2101839,0.3549043) 
 #&gt;                     6597                    14579                    14403 
@@ -439,10 +439,11 @@
 #&gt; [0.0002003808,0.1974303)    [0.1974303,0.3969872)    [0.3969872,0.5978375) 
 #&gt;                    19912                    19832                    19987 
 #&gt;    [0.5978375,0.7994717)    [0.7994717,0.9996164] 
-#&gt;                    20166                    20103 </div><div class='input'><span class='no'>have_units</span> <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>units</span>, <span class='kw'>quietly</span><span class='kw'>=</span><span class='fl'>TRUE</span>)) <span class='no'>have_units</span> <span class='kw'>&lt;-</span> <span class='fl'>TRUE</span></div><div class='output co'>#&gt; <span class='message'>udunits system database from /usr/share/udunits</span></div><div class='input'><span class='kw'>if</span> (<span class='no'>have_units</span>) {
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
-<span class='no'>x_units</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/units/topics/set_units'>set_units</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>1</span>, <span class='fl'>100</span>, <span class='fl'>0.25</span>), <span class='fl'>100</span>), <span class='no'>km</span>/<span class='no'>h</span>)
+#&gt;                    20166                    20103 </div><div class='input'><span class='co'># }</span>
+<span class='no'>have_units</span> <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>units</span>, <span class='kw'>quietly</span><span class='kw'>=</span><span class='fl'>TRUE</span>)) <span class='no'>have_units</span> <span class='kw'>&lt;-</span> <span class='fl'>TRUE</span></div><div class='output co'>#&gt; <span class='message'>udunits system database from /usr/share/udunits</span></div><div class='input'><span class='kw'>if</span> (<span class='no'>have_units</span>) {
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
+<span class='no'>x_units</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/units/man/set_units.html'>set_units</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>1</span>, <span class='fl'>100</span>, <span class='fl'>0.25</span>), <span class='fl'>100</span>), <span class='no'>km</span>/<span class='no'>h</span>)
 <span class='fu'>classIntervals</span>(<span class='no'>x_units</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>)
 }</div><div class='output co'>#&gt; style: sd
 #&gt;   one of 14,887,031,544 possible partitions of this [km/h] variable into 8 classes
@@ -476,109 +477,103 @@
 }</div><div class='output co'>#&gt; style: fisher
 #&gt;   one of 3,764,376 possible partitions of this [km/h] variable into 5 classes
 #&gt;      [4,19.375) [19.375,39.375)   [39.375,60.5)   [60.5,79.625)   [79.625,99.5] 
-#&gt;              18              21              19              19              23 </div><div class='input'><span class='no'>st</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.time'>Sys.time</a></span>()
-<span class='no'>x_POSIXt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>st</span>+((<span class='fl'>0</span>:<span class='fl'>500</span>)*<span class='fl'>3600</span>), <span class='fl'>100</span>)
+#&gt;              18              21              19              19              23 </div><div class='input'><span class='no'>st</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>()
+<span class='no'>x_POSIXt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>st</span>+((<span class='fl'>0</span>:<span class='fl'>500</span>)*<span class='fl'>3600</span>), <span class='fl'>100</span>)
 <span class='no'>fx</span> <span class='kw'>&lt;-</span> <span class='no'>st</span>+((<span class='fl'>0</span>:<span class='fl'>5</span>)*<span class='fl'>3600</span>)*<span class='fl'>100</span>
 <span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fixed"</span>, <span class='kw'>fixedBreaks</span><span class='kw'>=</span><span class='no'>fx</span>)</div><div class='output co'>#&gt; style: fixed
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2019-07-23 17:48:23,2019-07-27 21:48:23) 
+#&gt; [2019-10-18 22:10:43,2019-10-23 02:10:43) 
 #&gt;                                        21 
-#&gt; [2019-07-27 21:48:23,2019-08-01 01:48:23) 
+#&gt; [2019-10-23 02:10:43,2019-10-27 05:10:43) 
 #&gt;                                        18 
-#&gt; [2019-08-01 01:48:23,2019-08-05 05:48:23) 
+#&gt; [2019-10-27 05:10:43,2019-10-31 09:10:43) 
 #&gt;                                        19 
-#&gt; [2019-08-05 05:48:23,2019-08-09 09:48:23) 
+#&gt; [2019-10-31 09:10:43,2019-11-04 13:10:43) 
 #&gt;                                        21 
-#&gt; [2019-08-09 09:48:23,2019-08-13 13:48:23] 
+#&gt; [2019-11-04 13:10:43,2019-11-08 17:10:43] 
 #&gt;                                        21 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>)</div><div class='output co'>#&gt; style: sd
 #&gt;   one of 14,887,031,544 possible partitions of this variable into 8 classes
-#&gt; [2019-07-21 20:47:51,2019-07-24 21:53:59) 
+#&gt; [2019-10-17 01:10:11,2019-10-20 02:16:19) 
 #&gt;                                         5 
-#&gt; [2019-07-24 21:53:59,2019-07-27 23:00:07) 
+#&gt; [2019-10-20 02:16:19,2019-10-23 03:22:27) 
 #&gt;                                        16 
-#&gt; [2019-07-27 23:00:07,2019-07-31 00:06:15) 
+#&gt; [2019-10-23 03:22:27,2019-10-26 04:28:35) 
 #&gt;                                        17 
-#&gt; [2019-07-31 00:06:15,2019-08-03 01:12:23) 
+#&gt; [2019-10-26 04:28:35,2019-10-29 04:34:43) 
 #&gt;                                        12 
-#&gt; [2019-08-03 01:12:23,2019-08-06 02:18:31) 
+#&gt; [2019-10-29 04:34:43,2019-11-01 05:40:51) 
 #&gt;                                        14 
-#&gt; [2019-08-06 02:18:31,2019-08-09 03:24:39) 
+#&gt; [2019-11-01 05:40:51,2019-11-04 06:46:59) 
 #&gt;                                        14 
-#&gt; [2019-08-09 03:24:39,2019-08-12 04:30:47) 
+#&gt; [2019-11-04 06:46:59,2019-11-07 07:53:07) 
 #&gt;                                        16 
-#&gt; [2019-08-12 04:30:47,2019-08-15 05:36:55] 
+#&gt; [2019-11-07 07:53:07,2019-11-10 08:59:15] 
 #&gt;                                         6 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"pretty"</span>)</div><div class='output co'>#&gt; style: pretty
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2019-07-19 03:33:20,2019-07-24 22:26:40) 
-#&gt;                                         5 
-#&gt; [2019-07-24 22:26:40,2019-07-30 17:20:00) 
+#&gt; [2019-10-13 22:53:20,2019-10-19 17:46:40) 
+#&gt;                                         4 
+#&gt; [2019-10-19 17:46:40,2019-10-25 12:40:00) 
 #&gt;                                        32 
-#&gt; [2019-07-30 17:20:00,2019-08-05 12:13:20) 
-#&gt;                                        25 
-#&gt; [2019-08-05 12:13:20,2019-08-11 07:06:40) 
-#&gt;                                        28 
-#&gt; [2019-08-11 07:06:40,2019-08-17 02:00:00] 
-#&gt;                                        10 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>)</div><div class='output co'>#&gt; style: equal
+#&gt; [2019-10-25 12:40:00,2019-10-31 06:33:20) 
+#&gt;                                        21 
+#&gt; [2019-10-31 06:33:20,2019-11-06 01:26:40) 
+#&gt;                                        31 
+#&gt; [2019-11-06 01:26:40,2019-11-11 20:20:00] 
+#&gt;                                        12 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>)</div><div class='output co'>#&gt; style: equal
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2019-07-24 06:48:23,2019-07-28 07:12:23) 
+#&gt; [2019-10-19 11:10:43,2019-10-23 11:34:43) 
 #&gt;                                        23 
-#&gt; [2019-07-28 07:12:23,2019-08-01 07:36:23) 
+#&gt; [2019-10-23 11:34:43,2019-10-27 10:58:43) 
 #&gt;                                        16 
-#&gt; [2019-08-01 07:36:23,2019-08-05 08:00:23) 
+#&gt; [2019-10-27 10:58:43,2019-10-31 11:22:43) 
 #&gt;                                        19 
-#&gt; [2019-08-05 08:00:23,2019-08-09 08:24:23) 
+#&gt; [2019-10-31 11:22:43,2019-11-04 11:46:43) 
 #&gt;                                        20 
-#&gt; [2019-08-09 08:24:23,2019-08-13 08:48:23] 
+#&gt; [2019-11-04 11:46:43,2019-11-08 12:10:43] 
 #&gt;                                        22 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"quantile"</span>)</div><div class='output co'>#&gt; style: quantile
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2019-07-24 06:48:23,2019-07-27 17:36:23) 
+#&gt; [2019-10-19 11:10:43,2019-10-22 21:58:43) 
 #&gt;                                        20 
-#&gt; [2019-07-27 17:36:23,2019-08-01 10:48:23) 
+#&gt; [2019-10-22 21:58:43,2019-10-27 14:10:43) 
 #&gt;                                        20 
-#&gt; [2019-08-01 10:48:23,2019-08-05 10:12:23) 
+#&gt; [2019-10-27 14:10:43,2019-10-31 13:34:43) 
 #&gt;                                        20 
-#&gt; [2019-08-05 10:12:23,2019-08-09 12:24:23) 
+#&gt; [2019-10-31 13:34:43,2019-11-04 15:46:43) 
 #&gt;                                        20 
-#&gt; [2019-08-09 12:24:23,2019-08-13 08:48:23] 
+#&gt; [2019-11-04 15:46:43,2019-11-08 12:10:43] 
 #&gt;                                        20 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>)</div><div class='output co'>#&gt; style: kmeans
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2019-07-24 06:48:23,2019-07-27 09:48:23) 
+#&gt; [2019-10-19 11:10:43,2019-10-22 14:10:43) 
 #&gt;                                        19 
-#&gt; [2019-07-27 09:48:23,2019-07-31 08:48:23) 
+#&gt; [2019-10-22 14:10:43,2019-10-26 13:10:43) 
 #&gt;                                        19 
-#&gt; [2019-07-31 08:48:23,2019-08-04 17:18:23) 
+#&gt; [2019-10-26 13:10:43,2019-10-30 20:40:43) 
 #&gt;                                        17 
-#&gt; [2019-08-04 17:18:23,2019-08-08 21:18:23) 
+#&gt; [2019-10-30 20:40:43,2019-11-04 00:40:43) 
 #&gt;                                        23 
-#&gt; [2019-08-08 21:18:23,2019-08-13 08:48:23] 
+#&gt; [2019-11-04 00:40:43,2019-11-08 12:10:43] 
 #&gt;                                        22 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; style: fisher
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2019-07-24 06:48:23,2019-07-27 09:48:23) 
+#&gt; [2019-10-19 11:10:43,2019-10-22 14:10:43) 
 #&gt;                                        19 
-#&gt; [2019-07-27 09:48:23,2019-07-31 08:48:23) 
+#&gt; [2019-10-22 14:10:43,2019-10-26 13:10:43) 
 #&gt;                                        19 
-#&gt; [2019-07-31 08:48:23,2019-08-04 17:18:23) 
+#&gt; [2019-10-26 13:10:43,2019-10-30 20:40:43) 
 #&gt;                                        17 
-#&gt; [2019-08-04 17:18:23,2019-08-08 21:18:23) 
+#&gt; [2019-10-30 20:40:43,2019-11-04 00:40:43) 
 #&gt;                                        23 
-#&gt; [2019-08-08 21:18:23,2019-08-13 08:48:23] 
+#&gt; [2019-11-04 00:40:43,2019-11-08 12:10:43] 
 #&gt;                                        22 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#value">Value</a></li>
-
       <li><a href="#references">References</a></li>
-
       <li><a href="#note">Note</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -587,19 +582,23 @@
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Roger Bivand.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
