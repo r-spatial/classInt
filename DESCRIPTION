@@ -1,6 +1,6 @@
 Package: classInt
-Version: 0.4-2
-Date: 2019-10-17
+Version: 0.4-3
+Date: 2019-12-03
 Title: Choose Univariate Class Intervals
 Authors@R: c(
   person("Roger", "Bivand", role=c("aut", "cre"), email="Roger.Bivand@nhh.no", comment=c(ORCID="0000-0003-2392-6140")),

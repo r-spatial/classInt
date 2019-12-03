@@ -223,7 +223,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
     } else if (style =="fisher") {
 # introduced related to https://github.com/r-spatial/classInt/issues/7
       if (sampling) {
-        pars <- fish(x=sample(x=var, size=nsamp), k=n)
+        pars <- fish(x=c(range(var), sample(x=var, size=nsamp)), k=n)
       } else {
         pars <- fish(x=var, k=n)
       }
@@ -240,7 +240,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
 # introduced related to https://github.com/r-spatial/classInt/issues/7
            if (sampling) {
              message("Use \"fisher\" instead of \"jenks\" for larger data sets")
-             d <- sort(sample(x=var, size=nsamp))
+             d <- sort(c(range(var), sample(x=var, size=nsamp)))
            } else {
              d <- sort(var)
            }
