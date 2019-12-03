@@ -97,9 +97,10 @@ C
       DO 10 J=1,K
          IWORK(1,J)=1
          WORK(1,J)=0.
-         DO 10 I=1,M
+         DO 11 I=1,M
             WORK(I,J)=R1MACH2
 C   10       WORK(I,J)=R1MACH(2)
+   11    CONTINUE
    10 CONTINUE
 C      IF (OUNIT .GT. 0) THEN
 C         WRITE(OUNIT,1)
@@ -129,7 +130,8 @@ C
             ENDIF
    30    CONTINUE
          WORK(I,1)=VAR
-   40 IWORK(I,1)=1
+         IWORK(I,1)=1
+   40 CONTINUE
 C
 C     PRINT RESULTS
 C
