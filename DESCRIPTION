@@ -14,7 +14,7 @@ Suggests: spData (>= 0.2.6.2), units
 NeedsCompilation: yes
 Description: Selected commonly used methods for choosing univariate class intervals for mapping or other graphics purposes.
 License: GPL (>= 2)
-URL: https://github.com/r-spatial/classInt/
+URL: https://r-spatial.github.io/classInt/, https://github.com/r-spatial/classInt/
 BugReports: https://github.com/r-spatial/classInt/issues/
 RoxygenNote: 6.1.1
 Encoding: UTF-8
