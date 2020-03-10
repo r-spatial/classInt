@@ -13,7 +13,7 @@
 classIntervals(var, n, style = "quantile", rtimes = 3, ...,
  intervalClosure = c("left", "right"), dataPrecision = NULL,
  warnSmallN = TRUE, warnLargeN = TRUE, largeN = 3000L, samp_prop = 0.1,
- gr = c("[", "]"))
+ gr = c("[", "]"), ht_thresold = 0.4)
 \method{plot}{classIntervals}(x, pal, ...) 
 \method{print}{classIntervals}(x, digits = getOption("digits"), ..., 
  under="under", over="over", between="-", cutlabels=TRUE, unique=FALSE) 
@@ -23,8 +23,8 @@ classIntervals2shingle(x)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{var}{a continuous numerical variable}
-  \item{n}{number of classes required, if missing, \code{nclass.Sturges} is used; see also the "dpih" style for automatic choice of the number of classes}
-  \item{style}{chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks" or "dpih"}
+  \item{n}{number of classes required, if missing, \code{nclass.Sturges} is used; see also the "dpih" and "headtails" styles for automatic choice of the number of classes}
+  \item{style}{chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih" or "headtails"}
   \item{rtimes}{number of replications of var to catenate and jitter; may be used with styles "kmeans" or "bclust" in case they have difficulties reaching a classification}
   \item{intervalClosure}{default \dQuote{left},  allows specification of whether partition intervals are closed on the left or the right (added by Richard Dunlap). Note that the sense of interval closure is hard-coded as \dQuote{right}-closed when\code{style="jenks"} (see Details below).}
   \item{dataPrecision}{default NULL, permits rounding of the interval endpoints (added by Richard Dunlap)}
@@ -33,6 +33,7 @@ classIntervals2shingle(x)
   \item{largeN}{default 3000L, the QGIS sampling threshold; over 3000, the observations presented to "fisher" and "jenks" are either a \code{samp_prop=} sample or a sample of 3000, whichever is larger}
   \item{samp_prop}{default 0.1, QGIS 10\% sampling proportion}
   \item{gr}{default \code{c("[", "]")}, if the \pkg{units} package is available, \code{units::units_options("group")} may be used directly to give the enclosing bracket style}
+  \item{ht_thresold}{default 0.4, thresold for determining the max. proportion of the head for "headtails" method}
   \item{\dots}{arguments to be passed to the functions called in each style}
   \item{x}{"classIntervals" object for printing, conversion to shingle, or plotting}
   \item{under}{character string value for "under" in printed table labels if cutlabels=FALSE}
@@ -65,6 +66,8 @@ classIntervals2shingle(x)
   The "jenks" style has been ported from Jenks' code, and has been checked for consistency with ArcView, ArcGIS, and MapInfo (with some remaining differences); added here thanks to Hisaji Ono (originally reported as Basic, now seen as Fortran (as described in a talk last seen at http://www.irlogi.ie/wp-content/uploads/2016/11/NUIM_ChoroHarmful.pdf, slides 26-27)). Note that the sense of interval closure is reversed from the other styles, and in this implementation has to be right-closed - use cutlabels=TRUE in \code{findColours} on the object returned to show the closure clearly, and use \code{findCols} to extract the classes for each value. This style will subsample by default for more than 3000 observations.
 
   The "dpih" style uses the \code{dpih()} function from \pkg{KernSmooth} (Wand, 1995) implementing direct plug-in methodology to select the bin width of a histogram.
+  
+    The "headtails" style uses the algorithm proposed by Bin Jiang (2012), in order to find groupings or hierarchy for data with a heavy-tailed distribution. This classification scheme partitions all of the data values around the mean into two parts and continues the process iteratively for the values (above the mean) in the head until the head part values are no longer heavy-tailed distributed. Thus, the number of classes and the class intervals are both naturally determined.
 }
 
 \value{
@@ -92,6 +95,7 @@ Fisher, W. D. 1958 "On grouping for maximum homogeneity", Journal of the America
 
 Wand, M. P. 1995. Data-based choice of histogram binwidth. The American Statistician, 51, 59-64.
 
+Jiang, Bin 2013. "Head/tail breaks: A new classification scheme for data with a heavy-tailed distribution", The Professional Geographer, 65 (3), 482 – 494.
 }
 
 \author{Roger Bivand <Roger.Bivand@nhh.no>}
@@ -214,6 +218,14 @@ classIntervals(x, n=5, style="kmeans")
 classIntervals(x, n=5, style="fisher")
 classIntervals(x, n=5, style="fisher")
 classIntervals(x, n=5, style="fisher")
+
+#Skewed data
+htdata <- (1.0/(1:100))^1.16
+classIntervals(htdata, n=5, style="quantile")
+classIntervals(htdata, n=5, style="kmeans")
+classIntervals(htdata, n=5, style="fisher")
+classIntervals(htdata, style = "headtails")
+classIntervals(htdata, style = "headtails", ht_thresold = 0.2)
 }
 have_units <- FALSE
 if (require(units, quietly=TRUE)) have_units <- TRUE

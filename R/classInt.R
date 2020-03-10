@@ -68,7 +68,7 @@ classIntervals2shingle <- function(x) {
 # to the precision -- the argument equals the number of
 # decimal places in the data.  Negative numbers retain the usual
 # convention for rounding.
-classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClosure=c("left", "right"), dataPrecision=NULL, warnSmallN=TRUE, warnLargeN = TRUE, largeN = 3000L, samp_prop = 0.1, gr=c("[", "]")) {
+classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClosure=c("left", "right"), dataPrecision=NULL, warnSmallN=TRUE, warnLargeN = TRUE, largeN = 3000L, samp_prop = 0.1, gr=c("[", "]"), ht_thresold=0.4) {
   if (is.factor(var)) stop("var is categorical")
 # https://github.com/r-spatial/classInt/issues/8
   TZ <- NULL
@@ -302,7 +302,20 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
                vmax <- max(var)
            }
            brks <- seq(vmin, vmax, by=h)
-      
+      } else if (style == "headtails"){
+        # ctb Diego Hernangómez @dieghernan
+        # Based on https://stackoverflow.com/questions/60062032/head-tail-breaks-classification-algorithm-in-r/60062737#60062737
+        ht_inner <- function(x, mu,ht_thresold) {
+          n <- length(x)
+          mu <- c(mu, mean(x))
+          h <- x[x > mean(x)]
+          if (length(h) > 1 && length(h) / n <= ht_thresold) {
+            ht_inner(h, mu, ht_thresold)
+          } else
+            mu
+        }
+        brks <- ht_inner(var, NULL, ht_thresold)
+        brks <- c(min(var), brks, max(var))
       } else stop(paste(style, "unknown"))
   }
   if (is.null(brks)) stop("Null breaks")
