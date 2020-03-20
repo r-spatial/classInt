@@ -314,7 +314,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
              
              thr <-  min(1,max(0, thr))
              head <- var
-             breaks <- NULL #Init on null
+             breaks <- min(var, na.rm = TRUE) #Init with minimum
              for (i in 1:100) {
                mu <- mean(head, na.rm = TRUE)
                breaks <- c(breaks, mu)
@@ -325,12 +325,9 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
                keepiter <- prop <= thr & length(head) > 1
                if (isFALSE(keepiter)) {break}
              }
-             #Add min and max to complete intervals
-             brks <- sort(unique(c(
-               min(var, na.rm = TRUE),
-               breaks,
-               max(var, na.rm = TRUE)
-             )))
+             #Add max to complete intervals
+             brks <- sort(unique(c(breaks,
+                                   max(var, na.rm = TRUE))))
       } else stop(paste(style, "unknown"))
   }
   if (is.null(brks)) stop("Null breaks")
