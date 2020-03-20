@@ -104,18 +104,21 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
   }
   nobs <- length(unique(var))
   if (nobs == 1) stop("single unique value")
+  # Fix 22: Diego Hernangómez
+  needn <- !(style %in% c("dpih"))
+  
   if (missing(n)) n <- nclass.Sturges(var)
-  if (n < 2) stop("n less than 2")
+  if (n < 2 & needn) stop("n less than 2")
   n <- as.integer(n)
   pars <- NULL
-  if (n > nobs) {
+  if (n > nobs & needn) {
     if (warnSmallN) {
       warning(paste("n greater than number of different finite values",
       "n reset to number of different finite values", sep="\\n"))
     }
     n <- nobs
   }
-  if (n == nobs) {
+  if (n == nobs & needn) {
     if (warnSmallN) {
       warning(paste("n same as number of different finite values",
       "each different finite value is a separate class", sep="\\n"))
