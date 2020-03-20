@@ -23,8 +23,8 @@ classIntervals2shingle(x)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{var}{a continuous numerical variable}
-  \item{n}{number of classes required, if missing, \code{nclass.Sturges} is used; see also the "dpih" style for automatic choice of the number of classes}
-  \item{style}{chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks" or "dpih"}
+  \item{n}{number of classes required, if missing, \code{nclass.Sturges} is used; see also the "dpih" and "headtails" styles for automatic choice of the number of classes}
+  \item{style}{chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih" or "headtails"}
   \item{rtimes}{number of replications of var to catenate and jitter; may be used with styles "kmeans" or "bclust" in case they have difficulties reaching a classification}
   \item{intervalClosure}{default \dQuote{left},  allows specification of whether partition intervals are closed on the left or the right (added by Richard Dunlap). Note that the sense of interval closure is hard-coded as \dQuote{right}-closed when\code{style="jenks"} (see Details below).}
   \item{dataPrecision}{default NULL, permits rounding of the interval endpoints (added by Richard Dunlap)}
@@ -65,6 +65,8 @@ classIntervals2shingle(x)
   The "jenks" style has been ported from Jenks' code, and has been checked for consistency with ArcView, ArcGIS, and MapInfo (with some remaining differences); added here thanks to Hisaji Ono (originally reported as Basic, now seen as Fortran (as described in a talk last seen at http://www.irlogi.ie/wp-content/uploads/2016/11/NUIM_ChoroHarmful.pdf, slides 26-27)). Note that the sense of interval closure is reversed from the other styles, and in this implementation has to be right-closed - use cutlabels=TRUE in \code{findColours} on the object returned to show the closure clearly, and use \code{findCols} to extract the classes for each value. This style will subsample by default for more than 3000 observations.
 
   The "dpih" style uses the \code{dpih()} function from \pkg{KernSmooth} (Wand, 1995) implementing direct plug-in methodology to select the bin width of a histogram.
+  
+  The "headtails" style uses the algorithm proposed by Bin Jiang (2013), in order to find groupings or hierarchy for data with a heavy-tailed distribution. This classification scheme partitions all of the data values around the mean into two parts and continues the process iteratively for the values (above the mean) in the head until the head part values are no longer heavy-tailed distributed. Thus, the number of classes and the class intervals are both naturally determined. By default the algorithm uses \code{thr = 0.4}, meaning that when the head represents more than 40\% of the observations the distribution is not considered heavy-tailed. The threshold argument \code{thr} may be modified through \code{\dots} (see Examples).
 }
 
 \value{
@@ -91,6 +93,8 @@ Slocum TA, McMaster RB, Kessler FC, Howard HH 2005 Thematic Cartography and Geog
 Fisher, W. D. 1958 "On grouping for maximum homogeneity", Journal of the American Statistical Association, 53, pp. 789--798 (\url{http://lib.stat.cmu.edu/cmlib/src/cluster/fish.f})
 
 Wand, M. P. 1995. Data-based choice of histogram binwidth. The American Statistician, 51, 59-64.
+
+Jiang, B. 2013 "Head/tail breaks: A new classification scheme for data with a heavy-tailed distribution", The Professional Geographer, 65 (3), 482 – 494. (\url{https://arxiv.org/abs/1209.2801v1})
 
 }
 
@@ -130,6 +134,10 @@ plot(classIntervals(jenks71$jenks71, n=5, style="fisher"), pal=pal1,
  main="Fisher's method")
 plot(classIntervals(jenks71$jenks71, n=5, style="jenks"), pal=pal1,
  main="Jenks' method")
+ plot(classIntervals(jenks71$jenks71, style="dpih"), pal=pal1,
+ main="dpih method")
+ plot(classIntervals(jenks71$jenks71, style="headtails", thr = 1), pal=pal1,
+ main="Head Tails method")
 par(opar)
 }
 if (run) {
@@ -187,6 +195,12 @@ print(classIntervals(jenks71$jenks71, style="dpih"))
 if (run) {
 print(classIntervals(jenks71$jenks71, style="dpih", range.x=c(0, 160)))
 }
+if (run) {
+  print(classIntervals(jenks71$jenks71, style="headtails"))
+}
+if (run) {
+  print(classIntervals(jenks71$jenks71, style="headtails", thr = .45))
+}
 x <- c(0, 0, 0, 1, 2, 50)
 print(classIntervals(x, n=3, style="fisher"))
 print(classIntervals(x, n=3, style="jenks"))
@@ -237,6 +251,9 @@ classIntervals(x_units, n=5, style="kmeans")
 if (have_units) {
 classIntervals(x_units, n=5, style="fisher")
 }
+if (have_units) {
+classIntervals(x_units, style="headtails")
+}
 st <- Sys.time()
 x_POSIXt <- sample(st+((0:500)*3600), 100)
 fx <- st+((0:5)*3600)*100
@@ -247,6 +264,76 @@ classIntervals(x_POSIXt, n=5, style="equal")
 classIntervals(x_POSIXt, n=5, style="quantile")
 classIntervals(x_POSIXt, n=5, style="kmeans")
 classIntervals(x_POSIXt, n=5, style="fisher")
+classIntervals(x_POSIXt, style="headtails")
+
+# Head Tails method is suitable for right-sided heavy-tailed distributions
+set.seed(1234)
+# Heavy tails-----
+# Pareto distributions a=7 b=14
+paretodist <- 7 / (1 - runif(1000)) ^ (1 / 14)
+# Lognorm
+lognormdist <- rlnorm(1000)
+# Weibull
+weibulldist <- rweibull(1000, 1, scale = 5)
+
+pal1 <- c("wheat1", "red3")
+opar <- par(mfrow = c(2, 3))
+plot(classIntervals(paretodist, style = "headtails"),
+     pal = pal1,
+     main = "HeadTails: Pareto Dist.")
+plot(classIntervals(lognormdist, style = "headtails"),
+     pal = pal1,
+     main = "HeadTails: LogNormal Dist.")
+plot(classIntervals(weibulldist, style = "headtails"),
+     pal = pal1,
+     main = "HeadTails: Weibull Dist.")
+plot(classIntervals(paretodist, n = 5, style = "fisher"),
+     pal = pal1,
+     main = "Fisher: Pareto Dist.")
+plot(classIntervals(lognormdist, n = 7, style = "fisher"),
+     pal = pal1,
+     main = "Fisher: LogNormal Dist.")
+plot(classIntervals(weibulldist, n= 4, style = "fisher"),
+     pal = pal1,
+     main = "Fisher: Weibull Dist.")
+par(opar)
+
+
+#Non heavy tails, thr should be increased-----
+
+#Normal dist
+normdist <- rnorm(1000)
+#Left-tailed truncated Normal distr
+leftnorm <- rep(normdist[normdist < mean(normdist)], 2)
+# Uniform distribution
+unifdist <- runif(1000)
+opar <- par(mfrow = c(2, 3))
+plot(classIntervals(normdist, style = "headtails"),
+     pal = pal1,
+     main = "Normal Dist.")
+plot(classIntervals(leftnorm, style = "headtails"),
+     pal = pal1,
+     main = "Truncated Normal Dist.")
+plot(classIntervals(unifdist, style = "headtails"),
+     pal = pal1,
+     main = "Uniform Dist.")
+# thr should be increased for non heavy-tailed distributions
+plot(
+  classIntervals(normdist, style = "headtails", thr = .6),
+  pal = pal1,
+  main = "Normal Dist. thr = .6"
+)
+plot(
+  classIntervals(leftnorm, style = "headtails", thr = .6),
+  pal = pal1,
+  main = "Truncated Normal Distribution thr = .6"
+)
+plot(
+  classIntervals(unifdist, style = "headtails", thr = .6),
+  pal = pal1,
+  main = "Uniform Distribution thr = .6"
+)
+par(opar)
 }
 \keyword{spatial}
 
