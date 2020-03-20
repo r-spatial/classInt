@@ -105,7 +105,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
   nobs <- length(unique(var))
   if (nobs == 1) stop("single unique value")
   # Fix 22: Diego Hernangómez
-  needn <- !(style %in% c("dpih"))
+  needn <- !(style %in% c("dpih", "headtails"))
   
   if (missing(n)) n <- nclass.Sturges(var)
   if (n < 2 & needn) stop("n less than 2")
