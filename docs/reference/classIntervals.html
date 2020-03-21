@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">classInt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3</span>
       </span>
     </div>
 
@@ -135,11 +135,11 @@
     </tr>
     <tr>
       <th>n</th>
-      <td><p>number of classes required, if missing, <code>nclass.Sturges</code> is used; see also the "dpih" style for automatic choice of the number of classes</p></td>
+      <td><p>number of classes required, if missing, <code>nclass.Sturges</code> is used; see also the "dpih" and "headtails" styles for automatic choice of the number of classes</p></td>
     </tr>
     <tr>
       <th>style</th>
-      <td><p>chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks" or "dpih"</p></td>
+      <td><p>chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih" or "headtails"</p></td>
     </tr>
     <tr>
       <th>rtimes</th>
@@ -222,8 +222,9 @@
 <p>The "hclust" style uses <code>hclust</code> to generate the breaks using hierarchical clustering; the <code>pars</code> attribute returns the hclust object generated, and can be used to find other breaks using <code>getHclustClassIntervals</code>; arguments to <code>hclust</code> may be passed through <code>...</code>.</p>
 <p>The "bclust" style uses <code>bclust</code> to generate the breaks using bagged clustering; it may be anchored using <code>set.seed</code>; the <code>pars</code> attribute returns the bclust object generated, and can be used to find other breaks using <code>getBclustClassIntervals</code>; if <code>bclust</code> fails, a jittered input vector containing <code>rtimes</code> replications of <code>var</code> is tried --- with few unique values in <code>var</code>, this can prove necessary; arguments to <code>bclust</code> may be passed through <code>...</code>.</p>
 <p>The "fisher" style uses the algorithm proposed by W. D. Fisher (1958) and discussed by Slocum et al. (2005) as the Fisher-Jenks algorithm; added here thanks to Hisaji Ono. This style will subsample by default for more than 3000 observations. This style should always be preferred to "jenks" as it uses the original Fortran code and runs nested for-loops much faster.</p> 
-<p>The "jenks" style has been ported from Jenks' code, and has been checked for consistency with ArcView, ArcGIS, and MapInfo (with some remaining differences); added here thanks to Hisaji Ono (originally reported as Basic, now seen as Fortran (<a href='http://www.irlogi.ie/wp-content/uploads/2016/11/NUIM_ChoroHarmful.pdf'>http://www.irlogi.ie/wp-content/uploads/2016/11/NUIM_ChoroHarmful.pdf</a>, slides 26-27)). Note that the sense of interval closure is reversed from the other styles, and in this implementation has to be right-closed - use cutlabels=TRUE in <code>findColours</code> on the object returned to show the closure clearly, and use <code>findCols</code> to extract the classes for each value. This style will subsample by default for more than 3000 observations.</p>
-<p>The "dpih" style uses the <code>dpih()</code> function from <span class="pkg">KernSmooth</span> (Wand, 1995) implementing direct plug-in methodology to select the bin width of a histogram.</p>
+<p>The "jenks" style has been ported from Jenks' code, and has been checked for consistency with ArcView, ArcGIS, and MapInfo (with some remaining differences); added here thanks to Hisaji Ono (originally reported as Basic, now seen as Fortran (as described in a talk last seen at http://www.irlogi.ie/wp-content/uploads/2016/11/NUIM_ChoroHarmful.pdf, slides 26-27)). Note that the sense of interval closure is reversed from the other styles, and in this implementation has to be right-closed - use cutlabels=TRUE in <code>findColours</code> on the object returned to show the closure clearly, and use <code>findCols</code> to extract the classes for each value. This style will subsample by default for more than 3000 observations.</p>
+<p>The "dpih" style uses the <code>dpih()</code> function from <span class="pkg">KernSmooth</span> (Wand, 1995) implementing direct plug-in methodology to select the bin width of a histogram.</p>  
+<p>The "headtails" style uses the algorithm proposed by Bin Jiang (2013), in order to find groupings or hierarchy for data with a heavy-tailed distribution. This classification scheme partitions all of the data values around the mean into two parts and continues the process iteratively for the values (above the mean) in the head until the head part values are no longer heavy-tailed distributed. Thus, the number of classes and the class intervals are both naturally determined. By default the algorithm uses <code>thr = 0.4</code>, meaning that when the head represents more than 40% of the observations the distribution is not considered heavy-tailed. The threshold argument <code>thr</code> may be modified through <code>...</code> (see Examples).</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>an object of class "classIntervals":</p>
@@ -245,6 +246,7 @@
 <p>Slocum TA, McMaster RB, Kessler FC, Howard HH 2005 Thematic Cartography and Geographic Visualization, Prentice Hall, Upper Saddle River NJ.;</p>
 <p>Fisher, W. D. 1958 "On grouping for maximum homogeneity", Journal of the American Statistical Association, 53, pp. 789--798 (<a href='http://lib.stat.cmu.edu/cmlib/src/cluster/fish.f'>http://lib.stat.cmu.edu/cmlib/src/cluster/fish.f</a>)</p>
 <p>Wand, M. P. 1995. Data-based choice of histogram binwidth. The American Statistician, 51, 59-64.</p>
+<p>Jiang, B. 2013 "Head/tail breaks: A new classification scheme for data with a heavy-tailed distribution", The Professional Geographer, 65 (3), 482 – 494. (<a href='https://arxiv.org/abs/1209.2801v1'>https://arxiv.org/abs/1209.2801v1</a>)</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>From version 0.1-11, the default representation has been changed to use <code>cutlabels=TRUE</code>, and representation within intervals has been corrected, thanks to Richard Dunlap. From version 0.1-15, the print method drops the calculation of the possible number of combinations of observations into classes, which generated warnings for n &gt; 170.</p>
@@ -282,6 +284,10 @@
  <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Fisher's method"</span>)
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"jenks"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>,
  <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Jenks' method"</span>)
+ <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"dpih"</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>,
+ <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"dpih method"</span>)
+ <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"headtails"</span>, <span class='kw'>thr</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='kw'>pal</span><span class='kw'>=</span><span class='no'>pal1</span>,
+ <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Head Tails method"</span>)
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='no'>opar</span>)
 }</div><div class='img'><img src='classIntervals-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fixed"</span>,
@@ -380,7 +386,19 @@
 #&gt; [65.05834,81.32292) [81.32292,97.58751) [97.58751,113.8521) [113.8521,130.1167) 
 #&gt;                  15                   8                   2                   2 
 #&gt; [130.1167,146.3813] 
-#&gt;                   2 </div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>50</span>)
+#&gt;                   2 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"headtails"</span>))
+}</div><div class='output co'>#&gt; style: headtails
+#&gt;   one of 100 possible partitions of this variable into 2 classes
+#&gt; [15.57,56.27941) [56.27941,155.3] 
+#&gt;               57               45 </div><div class='input'><span class='kw'>if</span> (<span class='no'>run</span>) {
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>jenks71</span>$<span class='no'>jenks71</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"headtails"</span>, <span class='kw'>thr</span> <span class='kw'>=</span> <span class='fl'>.45</span>))
+}</div><div class='output co'>#&gt; style: headtails
+#&gt;   one of 75,287,520 possible partitions of this variable into 6 classes
+#&gt;    [15.57,56.27941) [56.27941,77.74533) [77.74533,100.5925)   [100.5925,126.98) 
+#&gt;                  57                  29                  11                   3 
+#&gt;      [126.98,143.4)       [143.4,155.3] 
+#&gt;                   1                   1 </div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>50</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>))</div><div class='output co'>#&gt; style: fisher
 #&gt;   one of 3 possible partitions of this variable into 3 classes
 #&gt;  [0,0.5) [0.5,26)  [26,50] 
@@ -428,17 +446,17 @@
 #&gt;                    20075                    20034                    19946 
 #&gt;      [0.600954,0.800892)     [0.800892,0.9999471] 
 #&gt;                    20007                    19938 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
-#&gt; [0.0001679834,0.1969869)     [0.1969869,0.394688)      [0.394688,0.595018) 
+#&gt; [3.895489e-06,0.1969869)     [0.1969869,0.394688)      [0.394688,0.595018) 
 #&gt;                    19860                    19690                    19893 
 #&gt;     [0.595018,0.7967174)    [0.7967174,0.9999471] 
 #&gt;                    20194                    20363 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
-#&gt; [9.427452e-05,0.1887506)    [0.1887506,0.3856013)    [0.3856013,0.5868507) 
+#&gt; [3.895489e-06,0.1887506)    [0.1887506,0.3856013)    [0.3856013,0.5868507) 
 #&gt;                    19036                    19653                    19966 
-#&gt;    [0.5868507,0.7925222)    [0.7925222,0.9998693] 
+#&gt;    [0.5868507,0.7925222)    [0.7925222,0.9999471] 
 #&gt;                    20553                    20792 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
-#&gt; [0.0002003808,0.1974303)    [0.1974303,0.3969872)    [0.3969872,0.5978375) 
+#&gt; [3.895489e-06,0.1974303)    [0.1974303,0.3969872)    [0.3969872,0.5978375) 
 #&gt;                    19912                    19832                    19987 
-#&gt;    [0.5978375,0.7994717)    [0.7994717,0.9996164] 
+#&gt;    [0.5978375,0.7994717)    [0.7994717,0.9999471] 
 #&gt;                    20166                    20103 </div><div class='input'><span class='co'># }</span>
 <span class='no'>have_units</span> <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>units</span>, <span class='kw'>quietly</span><span class='kw'>=</span><span class='fl'>TRUE</span>)) <span class='no'>have_units</span> <span class='kw'>&lt;-</span> <span class='fl'>TRUE</span></div><div class='output co'>#&gt; <span class='message'>udunits system database from /usr/share/udunits</span></div><div class='input'><span class='kw'>if</span> (<span class='no'>have_units</span>) {
@@ -477,93 +495,169 @@
 }</div><div class='output co'>#&gt; style: fisher
 #&gt;   one of 3,764,376 possible partitions of this [km/h] variable into 5 classes
 #&gt;      [4,19.375) [19.375,39.375)   [39.375,60.5)   [60.5,79.625)   [79.625,99.5] 
-#&gt;              18              21              19              19              23 </div><div class='input'><span class='no'>st</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>()
+#&gt;              18              21              19              19              23 </div><div class='input'><span class='kw'>if</span> (<span class='no'>have_units</span>) {
+<span class='fu'>classIntervals</span>(<span class='no'>x_units</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"headtails"</span>)
+}</div><div class='output co'>#&gt; style: headtails
+#&gt;   one of 99 possible partitions of this [km/h] variable into 2 classes
+#&gt;    [4,51.5225) [51.5225,99.5] 
+#&gt;             49             51 </div><div class='input'><span class='no'>st</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>()
 <span class='no'>x_POSIXt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>st</span>+((<span class='fl'>0</span>:<span class='fl'>500</span>)*<span class='fl'>3600</span>), <span class='fl'>100</span>)
 <span class='no'>fx</span> <span class='kw'>&lt;-</span> <span class='no'>st</span>+((<span class='fl'>0</span>:<span class='fl'>5</span>)*<span class='fl'>3600</span>)*<span class='fl'>100</span>
 <span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fixed"</span>, <span class='kw'>fixedBreaks</span><span class='kw'>=</span><span class='no'>fx</span>)</div><div class='output co'>#&gt; style: fixed
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2019-10-18 22:10:43,2019-10-23 02:10:43) 
+#&gt; [2020-03-21 17:07:08,2020-03-25 21:07:08) 
 #&gt;                                        21 
-#&gt; [2019-10-23 02:10:43,2019-10-27 05:10:43) 
+#&gt; [2020-03-25 21:07:08,2020-03-30 02:07:08) 
 #&gt;                                        18 
-#&gt; [2019-10-27 05:10:43,2019-10-31 09:10:43) 
+#&gt; [2020-03-30 02:07:08,2020-04-03 06:07:08) 
 #&gt;                                        19 
-#&gt; [2019-10-31 09:10:43,2019-11-04 13:10:43) 
+#&gt; [2020-04-03 06:07:08,2020-04-07 10:07:08) 
 #&gt;                                        21 
-#&gt; [2019-11-04 13:10:43,2019-11-08 17:10:43] 
+#&gt; [2020-04-07 10:07:08,2020-04-11 14:07:08] 
 #&gt;                                        21 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>)</div><div class='output co'>#&gt; style: sd
 #&gt;   one of 14,887,031,544 possible partitions of this variable into 8 classes
-#&gt; [2019-10-17 01:10:11,2019-10-20 02:16:19) 
+#&gt; [2020-03-19 20:06:36,2020-03-22 21:12:44) 
 #&gt;                                         5 
-#&gt; [2019-10-20 02:16:19,2019-10-23 03:22:27) 
+#&gt; [2020-03-22 21:12:44,2020-03-25 22:18:52) 
 #&gt;                                        16 
-#&gt; [2019-10-23 03:22:27,2019-10-26 04:28:35) 
+#&gt; [2020-03-25 22:18:52,2020-03-28 23:25:00) 
 #&gt;                                        17 
-#&gt; [2019-10-26 04:28:35,2019-10-29 04:34:43) 
+#&gt; [2020-03-28 23:25:00,2020-04-01 01:31:08) 
 #&gt;                                        12 
-#&gt; [2019-10-29 04:34:43,2019-11-01 05:40:51) 
+#&gt; [2020-04-01 01:31:08,2020-04-04 02:37:16) 
 #&gt;                                        14 
-#&gt; [2019-11-01 05:40:51,2019-11-04 06:46:59) 
+#&gt; [2020-04-04 02:37:16,2020-04-07 03:43:24) 
 #&gt;                                        14 
-#&gt; [2019-11-04 06:46:59,2019-11-07 07:53:07) 
+#&gt; [2020-04-07 03:43:24,2020-04-10 04:49:32) 
 #&gt;                                        16 
-#&gt; [2019-11-07 07:53:07,2019-11-10 08:59:15] 
+#&gt; [2020-04-10 04:49:32,2020-04-13 05:55:40] 
 #&gt;                                         6 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"pretty"</span>)</div><div class='output co'>#&gt; style: pretty
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2019-10-13 22:53:20,2019-10-19 17:46:40) 
-#&gt;                                         4 
-#&gt; [2019-10-19 17:46:40,2019-10-25 12:40:00) 
-#&gt;                                        32 
-#&gt; [2019-10-25 12:40:00,2019-10-31 06:33:20) 
-#&gt;                                        21 
-#&gt; [2019-10-31 06:33:20,2019-11-06 01:26:40) 
-#&gt;                                        31 
-#&gt; [2019-11-06 01:26:40,2019-11-11 20:20:00] 
-#&gt;                                        12 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>)</div><div class='output co'>#&gt; style: equal
+#&gt; [2020-03-18 03:53:20,2020-03-23 22:46:40) 
+#&gt;                                        12 
+#&gt; [2020-03-23 22:46:40,2020-03-29 18:40:00) 
+#&gt;                                        26 
+#&gt; [2020-03-29 18:40:00,2020-04-04 13:33:20) 
+#&gt;                                        29 
+#&gt; [2020-04-04 13:33:20,2020-04-10 08:26:40) 
+#&gt;                                        27 
+#&gt; [2020-04-10 08:26:40,2020-04-16 03:20:00] 
+#&gt;                                         6 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>)</div><div class='output co'>#&gt; style: equal
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2019-10-19 11:10:43,2019-10-23 11:34:43) 
+#&gt; [2020-03-22 06:07:08,2020-03-26 06:31:08) 
 #&gt;                                        23 
-#&gt; [2019-10-23 11:34:43,2019-10-27 10:58:43) 
+#&gt; [2020-03-26 06:31:08,2020-03-30 07:55:08) 
 #&gt;                                        16 
-#&gt; [2019-10-27 10:58:43,2019-10-31 11:22:43) 
+#&gt; [2020-03-30 07:55:08,2020-04-03 08:19:08) 
 #&gt;                                        19 
-#&gt; [2019-10-31 11:22:43,2019-11-04 11:46:43) 
+#&gt; [2020-04-03 08:19:08,2020-04-07 08:43:08) 
 #&gt;                                        20 
-#&gt; [2019-11-04 11:46:43,2019-11-08 12:10:43] 
+#&gt; [2020-04-07 08:43:08,2020-04-11 09:07:08] 
 #&gt;                                        22 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"quantile"</span>)</div><div class='output co'>#&gt; style: quantile
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2019-10-19 11:10:43,2019-10-22 21:58:43) 
+#&gt; [2020-03-22 06:07:08,2020-03-25 16:55:08) 
 #&gt;                                        20 
-#&gt; [2019-10-22 21:58:43,2019-10-27 14:10:43) 
+#&gt; [2020-03-25 16:55:08,2020-03-30 11:07:08) 
 #&gt;                                        20 
-#&gt; [2019-10-27 14:10:43,2019-10-31 13:34:43) 
+#&gt; [2020-03-30 11:07:08,2020-04-03 10:31:08) 
 #&gt;                                        20 
-#&gt; [2019-10-31 13:34:43,2019-11-04 15:46:43) 
+#&gt; [2020-04-03 10:31:08,2020-04-07 12:43:08) 
 #&gt;                                        20 
-#&gt; [2019-11-04 15:46:43,2019-11-08 12:10:43] 
+#&gt; [2020-04-07 12:43:08,2020-04-11 09:07:08] 
 #&gt;                                        20 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>)</div><div class='output co'>#&gt; style: kmeans
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2019-10-19 11:10:43,2019-10-22 14:10:43) 
+#&gt; [2020-03-22 06:07:08,2020-03-25 09:07:08) 
 #&gt;                                        19 
-#&gt; [2019-10-22 14:10:43,2019-10-26 13:10:43) 
+#&gt; [2020-03-25 09:07:08,2020-03-29 09:07:08) 
 #&gt;                                        19 
-#&gt; [2019-10-26 13:10:43,2019-10-30 20:40:43) 
+#&gt; [2020-03-29 09:07:08,2020-04-02 17:37:08) 
 #&gt;                                        17 
-#&gt; [2019-10-30 20:40:43,2019-11-04 00:40:43) 
+#&gt; [2020-04-02 17:37:08,2020-04-06 21:37:08) 
 #&gt;                                        23 
-#&gt; [2019-11-04 00:40:43,2019-11-08 12:10:43] 
+#&gt; [2020-04-06 21:37:08,2020-04-11 09:07:08] 
 #&gt;                                        22 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; style: fisher
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2019-10-19 11:10:43,2019-10-22 14:10:43) 
+#&gt; [2020-03-22 06:07:08,2020-03-25 09:07:08) 
 #&gt;                                        19 
-#&gt; [2019-10-22 14:10:43,2019-10-26 13:10:43) 
+#&gt; [2020-03-25 09:07:08,2020-03-29 09:07:08) 
 #&gt;                                        19 
-#&gt; [2019-10-26 13:10:43,2019-10-30 20:40:43) 
+#&gt; [2020-03-29 09:07:08,2020-04-02 17:37:08) 
 #&gt;                                        17 
-#&gt; [2019-10-30 20:40:43,2019-11-04 00:40:43) 
+#&gt; [2020-04-02 17:37:08,2020-04-06 21:37:08) 
 #&gt;                                        23 
-#&gt; [2019-11-04 00:40:43,2019-11-08 12:10:43] 
-#&gt;                                        22 </div></pre>
+#&gt; [2020-04-06 21:37:08,2020-04-11 09:07:08] 
+#&gt;                                        22 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"headtails"</span>)</div><div class='output co'>#&gt; style: headtails
+#&gt;   one of 99 possible partitions of this variable into 2 classes
+#&gt; [2020-03-22 06:07:08,2020-04-01 01:31:08) 
+#&gt;                                        50 
+#&gt; [2020-04-01 01:31:08,2020-04-11 09:07:08] 
+#&gt;                                        50 </div><div class='input'>
+<span class='co'># Head Tails method is suitable for right-sided heavy-tailed distributions</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1234</span>)
+<span class='co'># Heavy tails-----</span>
+<span class='co'># Pareto distributions a=7 b=14</span>
+<span class='no'>paretodist</span> <span class='kw'>&lt;-</span> <span class='fl'>7</span> / (<span class='fl'>1</span> - <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1000</span>)) ^ (<span class='fl'>1</span> / <span class='fl'>14</span>)
+<span class='co'># Lognorm</span>
+<span class='no'>lognormdist</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>1000</span>)
+<span class='co'># Weibull</span>
+<span class='no'>weibulldist</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Weibull.html'>rweibull</a></span>(<span class='fl'>1000</span>, <span class='fl'>1</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>5</span>)
+
+<span class='no'>pal1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"wheat1"</span>, <span class='st'>"red3"</span>)
+<span class='no'>opar</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>))
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>paretodist</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"headtails"</span>),
+     <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal1</span>,
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"HeadTails: Pareto Dist."</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>lognormdist</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"headtails"</span>),
+     <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal1</span>,
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"HeadTails: LogNormal Dist."</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>weibulldist</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"headtails"</span>),
+     <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal1</span>,
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"HeadTails: Weibull Dist."</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>paretodist</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"fisher"</span>),
+     <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal1</span>,
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Fisher: Pareto Dist."</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>lognormdist</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"fisher"</span>),
+     <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal1</span>,
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Fisher: LogNormal Dist."</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>weibulldist</span>, <span class='kw'>n</span><span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"fisher"</span>),
+     <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal1</span>,
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Fisher: Weibull Dist."</span>)</div><div class='img'><img src='classIntervals-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='no'>opar</span>)
+
+
+<span class='co'>#Non heavy tails, thr should be increased-----</span>
+
+<span class='co'>#Normal dist</span>
+<span class='no'>normdist</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>)
+<span class='co'>#Left-tailed truncated Normal distr</span>
+<span class='no'>leftnorm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>normdist</span>[<span class='no'>normdist</span> <span class='kw'>&lt;</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>normdist</span>)], <span class='fl'>2</span>)
+<span class='co'># Uniform distribution</span>
+<span class='no'>unifdist</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1000</span>)
+<span class='no'>opar</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>))
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>normdist</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"headtails"</span>),
+     <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal1</span>,
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Normal Dist."</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>leftnorm</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"headtails"</span>),
+     <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal1</span>,
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Truncated Normal Dist."</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>classIntervals</span>(<span class='no'>unifdist</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"headtails"</span>),
+     <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal1</span>,
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Uniform Dist."</span>)
+<span class='co'># thr should be increased for non heavy-tailed distributions</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(
+  <span class='fu'>classIntervals</span>(<span class='no'>normdist</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"headtails"</span>, <span class='kw'>thr</span> <span class='kw'>=</span> <span class='fl'>.6</span>),
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal1</span>,
+  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Normal Dist. thr = .6"</span>
+)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(
+  <span class='fu'>classIntervals</span>(<span class='no'>leftnorm</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"headtails"</span>, <span class='kw'>thr</span> <span class='kw'>=</span> <span class='fl'>.6</span>),
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal1</span>,
+  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Truncated Normal Distribution thr = .6"</span>
+)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(
+  <span class='fu'>classIntervals</span>(<span class='no'>unifdist</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"headtails"</span>, <span class='kw'>thr</span> <span class='kw'>=</span> <span class='fl'>.6</span>),
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='no'>pal1</span>,
+  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Uniform Distribution thr = .6"</span>
+)</div><div class='img'><img src='classIntervals-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='no'>opar</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
