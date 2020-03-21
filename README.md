@@ -5,7 +5,7 @@
 
 Choose Univariate Class Intervals
 
-Selected commonly used methods for choosing univariate class intervals for mapping or other graphics purposes.
+Selected commonly used methods for choosing univariate class intervals for mapping or other graphics purposes. From 0.4-3, an implementation of the "headtails" style contributed by Diego Hernangómez - Jiang, B. 2013 "Head/tail breaks: A new classification scheme for data with a heavy-tailed distribution", The Professional Geographer, 65 (3), 482 – 494. https://arxiv.org/abs/1209.2801v1.
 
 ## Compiling from source
 
