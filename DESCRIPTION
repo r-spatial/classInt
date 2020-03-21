@@ -7,7 +7,8 @@ Authors@R: c(
   person("Hisaji", "Ono", role="ctb"),
   person("Richard", "Dunlap", role="ctb"),
   person("Matthieu", "Stigler", role="ctb"),
-  person("Bill", "Denney", role="ctb", email="wdenney@humanpredictions.com", comment=c(ORCID="0000-0002-5759-428X")))
+  person("Bill", "Denney", role="ctb", email="wdenney@humanpredictions.com", comment=c(ORCID="0000-0002-5759-428X")),
+  person("Diego", "Hernan Gomez Herrero", role=ctb, email="diego.hernangomezherrero@gmail.com"))
 Depends: R (>= 2.2)
 Imports: grDevices, stats, graphics, e1071, class, KernSmooth
 Suggests: spData (>= 0.2.6.2), units
