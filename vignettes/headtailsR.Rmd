@@ -386,6 +386,7 @@ plot(
   col = "grey50",
   main = "Continuous",
 )
+
 mcont <- (max(afcon$totcon) - min(afcon$totcon)) / 4
 legcont <- 1:5 * mcont - (mcont - min(afcon$totcon))
 
@@ -400,6 +401,7 @@ legend("bottomleft",
   pch = 20,
   title = "totcon"
 )
+box()
 
 plot(
   x = afcon$x,
@@ -422,6 +424,8 @@ legend(
   pch = 20,
   title = "totcon"
 )
+box()
+
 plot(
   x = afcon$x,
   y = afcon$y,
@@ -443,6 +447,8 @@ legend(
   pch = 20,
   title = "totcon"
 )
+box()
+
 plot(
   x = afcon$x,
   y = afcon$y,
@@ -464,6 +470,8 @@ legend(
   pch = 20,
   title = "totcon"
 )
+box()
+
 par(opar)
 
 ```
