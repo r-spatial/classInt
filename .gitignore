@@ -1,0 +1,12 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+src/*.o
+src/*.so
+src/*.dll
+classInt.Rcheck/
+classInt*.tar.gz
+classInt*.tgz
+/*.Rproj
+inst/doc

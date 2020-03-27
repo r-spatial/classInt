@@ -11,7 +11,11 @@ Authors@R: c(
   person("Diego", "Hernangómez", role="ctb", email="diego.hernangomezherrero@gmail.com", comment=c(ORCID="0000-0001-8457-4658")))
 Depends: R (>= 2.2)
 Imports: grDevices, stats, graphics, e1071, class, KernSmooth
-Suggests: spData (>= 0.2.6.2), units
+Suggests: 
+    spData (>= 0.2.6.2),
+    units,
+    knitr,
+    rmarkdown
 NeedsCompilation: yes
 Description: Selected commonly used methods for choosing univariate class intervals for mapping or other graphics purposes.
 License: GPL (>= 2)
@@ -19,3 +23,4 @@ URL: https://r-spatial.github.io/classInt/, https://github.com/r-spatial/classIn
 BugReports: https://github.com/r-spatial/classInt/issues/
 RoxygenNote: 6.1.1
 Encoding: UTF-8
+VignetteBuilder: knitr
