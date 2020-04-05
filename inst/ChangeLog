@@ -1,3 +1,295 @@
+2020-03-27  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #26 from dieghernan/htvignette Add "headtails" vignette
+
+2020-03-27  dieghernan <diego.hernangomezherrero@gmail.com>
+
+	* vignettes/.gitignore, vignettes/headtailsR.Rmd,
+	vignettes/refs_ht.bib: Create vignette
+
+2020-03-27  dieghernan <diego.hernangomezherrero@gmail.com>
+
+	* .gitignore, DESCRIPTION: Initial config of the vignette
+
+2020-03-21  Roger Bivand <roger.bivand@nhh.no>
+
+	* docs/404.html, docs/authors.html, docs/index.html,
+	docs/pkgdown.yml, docs/reference/classIntervals.html,
+	docs/reference/findColours.html, docs/reference/findCols.html,
+	docs/reference/getBclustClassIntervals.html,
+	docs/reference/index.html, docs/reference/jenks.tests.html,
+	docs/reference/logLik.classIntervals.html: rebuild pkgdown
+
+2020-03-21  Roger Bivand <roger.bivand@nhh.no>
+
+	* README.md: ping
+
+2020-03-21  Roger Bivand <roger.bivand@nhh.no>
+
+	* DESCRIPTION: add missing )
+
+2020-03-21  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #25 from dieghernan/patch-1 add ctb
+
+2020-03-21  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* DESCRIPTION: Update DESCRIPTION
+
+2020-03-21  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* DESCRIPTION: Update DESCRIPTION
+
+2020-03-21  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* DESCRIPTION: Update DESCRIPTION Add Diego as ctb
+
+2020-03-21  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #24 from dieghernan/master Add "headtails" #20
+
+2020-03-20  dieghernan <diego.hernangomezherrero@gmail.com>
+
+	* man/classIntervals.Rd: Update man with "headtails"
+
+2020-03-20  dieghernan <diego.hernangomezherrero@gmail.com>
+
+	* R/classInt.R: Change on initialitation of breaks: - Benefit of this is that now breaks on sytle "headtails" are
+	initialised with units
+
+2020-03-20  dieghernan <diego.hernangomezherrero@gmail.com>
+
+	* R/classInt.R: Update "headtails" following #22
+
+2020-03-17  dieghernan <diego.hernangomezherrero@gmail.com>
+
+	* R/classInt.R: sytle "headtails" implemented
+
+2020-03-20  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #23 from dieghernan/stylesnon Fix #22
+
+2019-12-03  Roger Bivand <Roger.Bivand@nhh.no>
+
+	* DESCRIPTION, R/classInt.R: fixes #19
+
+2019-12-03  Roger Bivand <Roger.Bivand@nhh.no>
+
+	* : commit 9f2fc7976578d00860bc4d72674ffe131d7062ed Author: Roger
+	Bivand <Roger.Bivand@nhh.no> Date:   Tue Dec 3 15:33:36 2019 +0100
+
+2019-10-18  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #17 from wibeasley/patch-1 link to pkgdown site
+
+2019-10-18  Will Beasley <wibeasley@hotmail.com>
+
+	* DESCRIPTION: link to pkgdown site for example, like
+	[tidyr](https://github.com/tidyverse/tidyr/blob/master/DESCRIPTION)
+
+2019-09-17  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* DESCRIPTION: Update DESCRIPTION
+
+2019-09-17  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #14 from billdenney/add-ctb Add Bill Denney as a contributor
+
+2019-09-17  Bill Denney <wdenney@humanpredictions.com>
+
+	* DESCRIPTION: Add Bill Denney as a contributor
+
+2019-09-17  Bill Denney <wdenney@humanpredictions.com>
+
+	* NAMESPACE: Include stats imports for logLik
+
+2019-09-17  Bill Denney <wdenney@humanpredictions.com>
+
+	* tests/test_Unique.Rout.save: Update test to show logLik tests
+
+2019-09-17  Bill Denney <wdenney@humanpredictions.com>
+
+	* R/logLik.R, man/logLik.classIntervals.Rd, tests/test_Unique.R: 
+	Improve documentation, add tests
+
+2019-09-16  Bill Denney <wdenney@humanpredictions.com>
+
+	* DESCRIPTION, NAMESPACE, R/logLik.R, man/logLik.classIntervals.Rd: 
+	Add logLik method (Fix #6)
+
+2019-08-11  Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+
+	* DESCRIPTION, R/classInt.R: bump version, add support for Date
+
+2019-07-23  Roger Bivand <roger.bivand@nhh.no>
+
+	* : commit 33c05c2763ef7aa25d5a31446a36b6ed131729fd Author: Roger
+	Bivand <roger.bivand@nhh.no> Date:   Tue Jul 23 17:49:45 2019 +0200
+
+2019-07-23  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #9 from r-spatial/trytravis try units travis
+
+2019-07-23  Roger Bivand <roger.bivand@nhh.no>
+
+	* DESCRIPTION, R/classInt.R, man/classIntervals.Rd: added POSIXt and
+	units support
+
+2019-05-09  Roger Bivand <Roger.Bivand@nhh.no>
+
+	* DESCRIPTION, R/classInt.R, man/classIntervals.Rd: restrict
+	sampling to relevant styles
+
+2019-04-23  Roger Bivand <roger.bivand@nhh.no>
+
+	* DESCRIPTION, tests/test_Unique.R, tests/test_Unique.Rout.save: 
+	reverse R 3.6 dependency
+
+2019-04-22  Roger Bivand <roger.bivand@nhh.no>
+
+	* docs/authors.html, docs/index.html,
+	docs/reference/classIntervals.html, docs/reference/jenks.tests.html: 
+	update docs
+
+2019-04-22  Roger Bivand <roger.bivand@nhh.no>
+
+	* DESCRIPTION, R/classInt.R, man/classIntervals.Rd,
+	tests/test_Unique.Rout.save: R 3.6 sample ready and sample
+	jenks/fisher like QGIS #7
+
+2019-03-25  Roger Bivand <roger.bivand@nhh.no>
+
+	* docs/reference/classIntervals.html,
+	docs/reference/findColours.html, docs/reference/findCols.html,
+	docs/reference/getBclustClassIntervals.html,
+	docs/reference/index.html, docs/reference/jenks.tests.html: update
+	docs for dpih
+
+2019-03-25  Roger Bivand <roger.bivand@nhh.no>
+
+	* DESCRIPTION, NAMESPACE, R/classInt.R, man/classIntervals.Rd: add
+	dpih
+
+2018-12-18  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* DESCRIPTION: Update DESCRIPTION
+
+2018-12-18  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* DESCRIPTION: Update DESCRIPTION Add NeedsCompilation=yes
+
+2018-12-18  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #5 from angela-li/master Add a note to the README re: compiling from source
+
+2018-12-18  Angela Li <angelali921@gmail.com>
+
+	* README.md: Add a heading re: compiling from source
+
+2018-12-18  Angela Li <angelali921@gmail.com>
+
+	* README.md: Add note about making sure gfortran is installed
+
+2018-12-18  Roger Bivand <Roger.Bivand@nhh.no>
+
+	* DESCRIPTION, NAMESPACE, docs/_config.yml, docs/authors.html,
+	docs/index.html, docs/reference/classIntervals.html,
+	docs/reference/findColours.html, docs/reference/findCols.html,
+	docs/reference/getBclustClassIntervals.html,
+	docs/reference/index.html, docs/reference/jenks.tests.html,
+	man/classIntervals.Rd, man/findColours.Rd, man/findCols.Rd,
+	man/getBclustClassIntervals.Rd, man/jenks.tests.Rd,
+	tests/test_Unique.Rout.save: move spData to Suggests
+
+2018-12-14  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* docs/_config.yml: Set theme jekyll-theme-minimal
+
+2018-12-13  Roger Bivand <roger.bivand@nhh.no>
+
+	* .Rbuildignore, DESCRIPTION, docs/authors.html,
+	docs/docsearch.css, docs/docsearch.js, docs/index.html,
+	docs/link.svg, docs/pkgdown.css, docs/pkgdown.js, docs/pkgdown.yml,
+	docs/reference/classIntervals.html,
+	docs/reference/findColours.html, docs/reference/findCols.html,
+	docs/reference/getBclustClassIntervals.html,
+	docs/reference/index.html, docs/reference/jenks.tests.html: add
+	pkgdown
+
+2018-04-16  Roger Bivand <Roger.Bivand@nhh.no>
+
+	* tests/test_Unique.Rout.save: add coerce to shingle to NAMESPACE
+
+2018-04-16  Roger Bivand <Roger.Bivand@nhh.no>
+
+	* DESCRIPTION: add coerce to shingle to NAMESPACE
+
+2018-04-16  Roger Bivand <Roger.Bivand@nhh.no>
+
+	* NAMESPACE: add coerce to shingle to NAMESPACE
+
+2017-11-03  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* .travis.yml: Update .travis.yml
+
+2017-11-02  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* README.md: Update README.md
+
+2017-11-02  Roger Bivand <Roger.Bivand@nhh.no>
+
+	* NAMESPACE, tests/test_Unique.Rout.save: rebasing data to spData
+
+2017-11-02  Roger Bivand <Roger.Bivand@nhh.no>
+
+	* DESCRIPTION, inst/ChangeLog, man/classIntervals.Rd,
+	man/findColours.Rd, man/findCols.Rd,
+	man/getBclustClassIntervals.Rd, man/jenks.tests.Rd, man/jenks71.Rd: 
+	rebasing data to spData
+
+2017-11-02  Roger Bivand <Roger.Bivand@nhh.no>
+
+	* ChangeLog, DESCRIPTION, oChangeLog: tidying old ChangeLog
+
+2017-11-02  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* .Rbuildignore: Update .Rbuildignore
+
+2017-11-02  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* README.md: add badges to README
+
+2017-11-02  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* .travis.yml: Create .travis.yml
+
+2017-11-02  Roger Bivand <Roger.Bivand@nhh.no>
+
+	* DESCRIPTION, R/classInt.R, man/classIntervals.Rd: adding argument
+	to suppress too small n warning
+
+2017-11-01  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* .Rbuildignore: Update .Rbuildignore
+
+2017-11-01  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* README.md: Create README.md
+
+2017-10-22  Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+
+	* : commit 455886261f64b085130f8de88d06c86d474e4a6d Author: Edzer
+	Pebesma <edzer.pebesma@uni-muenster.de> Date:   Sun Oct 22 13:42:03
+	2017 +0200
+
+2017-10-22  Roger Bivand <Roger.Bivand@R-Project.org>
+
+	* DESCRIPTION: update DESCRIPTION
+
+2017-10-22  Roger Bivand <Roger.Bivand@R-Project.org>
+
+	* initial git repo
+
 ## Historical record of SVN commits 2009-2017, CVS commits up to 2009
 
 2017-04-14 11:31  rsbivand

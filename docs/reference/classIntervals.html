@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,7 +41,6 @@
 
 <meta property="og:title" content="Choose univariate class intervals — classIntervals" />
 <meta property="og:description" content="The function provides a uniform interface to finding class intervals for continuous numerical variables, for example for choosing colours or symbols for plotting. Class intervals are non-overlapping, and the classes are left-closed --- see findInterval. Argument values to the style chosen are passed through the dot arguments. classIntervals2shingle converts a classIntervals object into a shingle. Labels generated in methods are like those found in cut unless cutlabels=FALSE." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -55,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">classInt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4-3</span>
       </span>
     </div>
 
@@ -84,10 +87,22 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/headtailsR.html">Head/Tails breaks on the `classInt` package.</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/r-spatial/classInt">
+  <a href="https://github.com/r-spatial/classInt/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -420,44 +435,20 @@
 #&gt; Class found with one single (possibly repeated) value: changed label
 #&gt;            0     (0,19.5] (19.5,20.63] (20.63,22.6]           26 
 #&gt;           10           33           39           28           10 </div><div class='input'>
-<span class='co'># \dontrun{</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
 <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>1e+05</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='no'>n</span>)
-<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>)</div><div class='output co'>#&gt; style: sd
-#&gt; [-0.07925682,0.06546355)   [0.06546355,0.2101839)    [0.2101839,0.3549043) 
-#&gt;                     6597                    14579                    14403 
-#&gt;    [0.3549043,0.4996247)     [0.4996247,0.644345)     [0.644345,0.7890654) 
-#&gt;                    14395                    14446                    14439 
-#&gt;    [0.7890654,0.9337858)     [0.9337858,1.078506] 
-#&gt;                    14463                     6678 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"pretty"</span>)</div><div class='output co'>#&gt; style: pretty
-#&gt;   [0,0.2) [0.2,0.4) [0.4,0.6) [0.6,0.8)   [0.8,1] 
-#&gt;     20142     19936     19888     19993     20041 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>)</div><div class='output co'>#&gt; style: equal
-#&gt; [3.895489e-06,0.1999925)    [0.1999925,0.3999812)    [0.3999812,0.5999698) 
-#&gt;                    20141                    19935                    19888 
-#&gt;    [0.5999698,0.7999584)    [0.7999584,0.9999471] 
-#&gt;                    19991                    20045 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"quantile"</span>)</div><div class='output co'>#&gt; style: quantile
-#&gt; [3.895489e-06,0.1984408)    [0.1984408,0.3993007)    [0.3993007,0.6003913) 
-#&gt;                    20000                    20000                    20000 
-#&gt;    [0.6003913,0.8003984)    [0.8003984,0.9999471] 
-#&gt;                    20000                    20000 </div><div class='input'><span class='co'># the class intervals found vary a little because of sampling</span>
-<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: kmeans
-#&gt; [3.895489e-06,0.1992885)    [0.1992885,0.4002208)     [0.4002208,0.600954) 
-#&gt;                    20075                    20034                    19946 
-#&gt;      [0.600954,0.800892)     [0.800892,0.9999471] 
-#&gt;                    20007                    19938 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
-#&gt; [3.895489e-06,0.1969869)     [0.1969869,0.394688)      [0.394688,0.595018) 
-#&gt;                    19860                    19690                    19893 
-#&gt;     [0.595018,0.7967174)    [0.7967174,0.9999471] 
-#&gt;                    20194                    20363 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
-#&gt; [3.895489e-06,0.1887506)    [0.1887506,0.3856013)    [0.3856013,0.5868507) 
-#&gt;                    19036                    19653                    19966 
-#&gt;    [0.5868507,0.7925222)    [0.7925222,0.9999471] 
-#&gt;                    20553                    20792 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: N is large, and some styles will run very slowly; sampling imposed</span></div><div class='output co'>#&gt; style: fisher
-#&gt; [3.895489e-06,0.1974303)    [0.1974303,0.3969872)    [0.3969872,0.5978375) 
-#&gt;                    19912                    19832                    19987 
-#&gt;    [0.5978375,0.7994717)    [0.7994717,0.9999471] 
-#&gt;                    20166                    20103 </div><div class='input'><span class='co'># }</span>
+<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>)
+<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"pretty"</span>)
+<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>)
+<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"quantile"</span>)
+<span class='co'># the class intervals found vary a little because of sampling</span>
+<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>)
+<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)
+<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)
+<span class='fu'>classIntervals</span>(<span class='no'>x</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)
+}
 <span class='no'>have_units</span> <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>units</span>, <span class='kw'>quietly</span><span class='kw'>=</span><span class='fl'>TRUE</span>)) <span class='no'>have_units</span> <span class='kw'>&lt;-</span> <span class='fl'>TRUE</span></div><div class='output co'>#&gt; <span class='message'>udunits system database from /usr/share/udunits</span></div><div class='input'><span class='kw'>if</span> (<span class='no'>have_units</span>) {
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
@@ -505,92 +496,90 @@
 <span class='no'>fx</span> <span class='kw'>&lt;-</span> <span class='no'>st</span>+((<span class='fl'>0</span>:<span class='fl'>5</span>)*<span class='fl'>3600</span>)*<span class='fl'>100</span>
 <span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fixed"</span>, <span class='kw'>fixedBreaks</span><span class='kw'>=</span><span class='no'>fx</span>)</div><div class='output co'>#&gt; style: fixed
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2020-03-21 17:07:08,2020-03-25 21:07:08) 
+#&gt; [2020-04-05 18:32:17,2020-04-09 22:32:17) 
 #&gt;                                        21 
-#&gt; [2020-03-25 21:07:08,2020-03-30 02:07:08) 
+#&gt; [2020-04-09 22:32:17,2020-04-14 02:32:17) 
 #&gt;                                        18 
-#&gt; [2020-03-30 02:07:08,2020-04-03 06:07:08) 
+#&gt; [2020-04-14 02:32:17,2020-04-18 06:32:17) 
 #&gt;                                        19 
-#&gt; [2020-04-03 06:07:08,2020-04-07 10:07:08) 
+#&gt; [2020-04-18 06:32:17,2020-04-22 10:32:17) 
 #&gt;                                        21 
-#&gt; [2020-04-07 10:07:08,2020-04-11 14:07:08] 
+#&gt; [2020-04-22 10:32:17,2020-04-26 14:32:17] 
 #&gt;                                        21 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"sd"</span>)</div><div class='output co'>#&gt; style: sd
 #&gt;   one of 14,887,031,544 possible partitions of this variable into 8 classes
-#&gt; [2020-03-19 20:06:36,2020-03-22 21:12:44) 
+#&gt; [2020-04-03 21:31:45,2020-04-06 22:37:53) 
 #&gt;                                         5 
-#&gt; [2020-03-22 21:12:44,2020-03-25 22:18:52) 
+#&gt; [2020-04-06 22:37:53,2020-04-09 23:44:01) 
 #&gt;                                        16 
-#&gt; [2020-03-25 22:18:52,2020-03-28 23:25:00) 
+#&gt; [2020-04-09 23:44:01,2020-04-13 00:50:09) 
 #&gt;                                        17 
-#&gt; [2020-03-28 23:25:00,2020-04-01 01:31:08) 
+#&gt; [2020-04-13 00:50:09,2020-04-16 01:56:17) 
 #&gt;                                        12 
-#&gt; [2020-04-01 01:31:08,2020-04-04 02:37:16) 
+#&gt; [2020-04-16 01:56:17,2020-04-19 03:02:25) 
 #&gt;                                        14 
-#&gt; [2020-04-04 02:37:16,2020-04-07 03:43:24) 
+#&gt; [2020-04-19 03:02:25,2020-04-22 04:08:33) 
 #&gt;                                        14 
-#&gt; [2020-04-07 03:43:24,2020-04-10 04:49:32) 
+#&gt; [2020-04-22 04:08:33,2020-04-25 05:14:41) 
 #&gt;                                        16 
-#&gt; [2020-04-10 04:49:32,2020-04-13 05:55:40] 
+#&gt; [2020-04-25 05:14:41,2020-04-28 06:20:49] 
 #&gt;                                         6 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"pretty"</span>)</div><div class='output co'>#&gt; style: pretty
-#&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2020-03-18 03:53:20,2020-03-23 22:46:40) 
-#&gt;                                        12 
-#&gt; [2020-03-23 22:46:40,2020-03-29 18:40:00) 
-#&gt;                                        26 
-#&gt; [2020-03-29 18:40:00,2020-04-04 13:33:20) 
-#&gt;                                        29 
+#&gt;   one of 156,849 possible partitions of this variable into 4 classes
 #&gt; [2020-04-04 13:33:20,2020-04-10 08:26:40) 
-#&gt;                                        27 
-#&gt; [2020-04-10 08:26:40,2020-04-16 03:20:00] 
-#&gt;                                         6 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>)</div><div class='output co'>#&gt; style: equal
-#&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2020-03-22 06:07:08,2020-03-26 06:31:08) 
 #&gt;                                        23 
-#&gt; [2020-03-26 06:31:08,2020-03-30 07:55:08) 
+#&gt; [2020-04-10 08:26:40,2020-04-16 03:20:00) 
+#&gt;                                        28 
+#&gt; [2020-04-16 03:20:00,2020-04-21 22:13:20) 
+#&gt;                                        27 
+#&gt; [2020-04-21 22:13:20,2020-04-27 17:06:40] 
+#&gt;                                        22 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"equal"</span>)</div><div class='output co'>#&gt; style: equal
+#&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
+#&gt; [2020-04-06 07:32:17,2020-04-10 07:56:17) 
+#&gt;                                        23 
+#&gt; [2020-04-10 07:56:17,2020-04-14 08:20:17) 
 #&gt;                                        16 
-#&gt; [2020-03-30 07:55:08,2020-04-03 08:19:08) 
+#&gt; [2020-04-14 08:20:17,2020-04-18 08:44:17) 
 #&gt;                                        19 
-#&gt; [2020-04-03 08:19:08,2020-04-07 08:43:08) 
+#&gt; [2020-04-18 08:44:17,2020-04-22 09:08:17) 
 #&gt;                                        20 
-#&gt; [2020-04-07 08:43:08,2020-04-11 09:07:08] 
+#&gt; [2020-04-22 09:08:17,2020-04-26 09:32:17] 
 #&gt;                                        22 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"quantile"</span>)</div><div class='output co'>#&gt; style: quantile
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2020-03-22 06:07:08,2020-03-25 16:55:08) 
+#&gt; [2020-04-06 07:32:17,2020-04-09 18:20:17) 
 #&gt;                                        20 
-#&gt; [2020-03-25 16:55:08,2020-03-30 11:07:08) 
+#&gt; [2020-04-09 18:20:17,2020-04-14 11:32:17) 
 #&gt;                                        20 
-#&gt; [2020-03-30 11:07:08,2020-04-03 10:31:08) 
+#&gt; [2020-04-14 11:32:17,2020-04-18 10:56:17) 
 #&gt;                                        20 
-#&gt; [2020-04-03 10:31:08,2020-04-07 12:43:08) 
+#&gt; [2020-04-18 10:56:17,2020-04-22 13:08:17) 
 #&gt;                                        20 
-#&gt; [2020-04-07 12:43:08,2020-04-11 09:07:08] 
+#&gt; [2020-04-22 13:08:17,2020-04-26 09:32:17] 
 #&gt;                                        20 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"kmeans"</span>)</div><div class='output co'>#&gt; style: kmeans
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2020-03-22 06:07:08,2020-03-25 09:07:08) 
+#&gt; [2020-04-06 07:32:17,2020-04-09 10:32:17) 
 #&gt;                                        19 
-#&gt; [2020-03-25 09:07:08,2020-03-29 09:07:08) 
+#&gt; [2020-04-09 10:32:17,2020-04-13 09:32:17) 
 #&gt;                                        19 
-#&gt; [2020-03-29 09:07:08,2020-04-02 17:37:08) 
+#&gt; [2020-04-13 09:32:17,2020-04-17 18:02:17) 
 #&gt;                                        17 
-#&gt; [2020-04-02 17:37:08,2020-04-06 21:37:08) 
+#&gt; [2020-04-17 18:02:17,2020-04-21 22:02:17) 
 #&gt;                                        23 
-#&gt; [2020-04-06 21:37:08,2020-04-11 09:07:08] 
+#&gt; [2020-04-21 22:02:17,2020-04-26 09:32:17] 
 #&gt;                                        22 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"fisher"</span>)</div><div class='output co'>#&gt; style: fisher
 #&gt;   one of 3,764,376 possible partitions of this variable into 5 classes
-#&gt; [2020-03-22 06:07:08,2020-03-25 09:07:08) 
+#&gt; [2020-04-06 07:32:17,2020-04-09 10:32:17) 
 #&gt;                                        19 
-#&gt; [2020-03-25 09:07:08,2020-03-29 09:07:08) 
+#&gt; [2020-04-09 10:32:17,2020-04-13 09:32:17) 
 #&gt;                                        19 
-#&gt; [2020-03-29 09:07:08,2020-04-02 17:37:08) 
+#&gt; [2020-04-13 09:32:17,2020-04-17 18:02:17) 
 #&gt;                                        17 
-#&gt; [2020-04-02 17:37:08,2020-04-06 21:37:08) 
+#&gt; [2020-04-17 18:02:17,2020-04-21 22:02:17) 
 #&gt;                                        23 
-#&gt; [2020-04-06 21:37:08,2020-04-11 09:07:08] 
+#&gt; [2020-04-21 22:02:17,2020-04-26 09:32:17] 
 #&gt;                                        22 </div><div class='input'><span class='fu'>classIntervals</span>(<span class='no'>x_POSIXt</span>, <span class='kw'>style</span><span class='kw'>=</span><span class='st'>"headtails"</span>)</div><div class='output co'>#&gt; style: headtails
 #&gt;   one of 99 possible partitions of this variable into 2 classes
-#&gt; [2020-03-22 06:07:08,2020-04-01 01:31:08) 
+#&gt; [2020-04-06 07:32:17,2020-04-16 01:56:17) 
 #&gt;                                        50 
-#&gt; [2020-04-01 01:31:08,2020-04-11 09:07:08] 
+#&gt; [2020-04-16 01:56:17,2020-04-26 09:32:17] 
 #&gt;                                        50 </div><div class='input'>
 <span class='co'># Head Tails method is suitable for right-sided heavy-tailed distributions</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1234</span>)
@@ -659,20 +648,10 @@
   <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Uniform Distribution thr = .6"</span>
 )</div><div class='img'><img src='classIntervals-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='no'>opar</span>)</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Roger Bivand &lt;Roger.Bivand@nhh.no&gt;</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -683,7 +662,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>
