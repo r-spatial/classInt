@@ -2,4 +2,5 @@ oChangeLog
 svn2cl.*
 README.md
 .travis.yml
+.github
 docs
