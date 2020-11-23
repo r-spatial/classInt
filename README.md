@@ -1,6 +1,5 @@
 # classInt
 
-[![Build Status](https://travis-ci.org/r-spatial/classInt.png?branch=master)](https://travis-ci.org/r-spatial/classInt)
 [![CRAN](http://www.r-pkg.org/badges/version/classInt)](https://cran.r-project.org/package=classInt)
 
 Choose Univariate Class Intervals
