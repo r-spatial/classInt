@@ -1,5 +1,6 @@
 # classInt
 
+[![Actions Status](https://github.com/r-spatial/classInt/workflows/R-CMD-check/badge.svg)](https://github.com/r-spatial/classInt/actions)
 [![CRAN](http://www.r-pkg.org/badges/version/classInt)](https://cran.r-project.org/package=classInt)
 
 Choose Univariate Class Intervals
