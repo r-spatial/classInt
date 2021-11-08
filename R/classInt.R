@@ -307,6 +307,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
            brks <- seq(vmin, vmax, by=h)
       } else if (style == "headtails") {
              # Contributed Diego Hernangómez
+# https://github.com/mtennekes/tmap/issues/555
              dots <- list(...)
              thr <- ifelse(is.null(dots$thr),
                            .4,
