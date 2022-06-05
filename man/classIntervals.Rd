@@ -14,17 +14,17 @@ classIntervals(var, n, style = "quantile", rtimes = 3, ...,
  intervalClosure = c("left", "right"), dataPrecision = NULL,
  warnSmallN = TRUE, warnLargeN = TRUE, largeN = 3000L, samp_prop = 0.1,
  gr = c("[", "]"))
-\method{plot}{classIntervals}(x, pal, ...) 
-\method{print}{classIntervals}(x, digits = getOption("digits"), ..., 
- under="under", over="over", between="-", cutlabels=TRUE, unique=FALSE) 
-nPartitions(x) 
+\method{plot}{classIntervals}(x, pal, ...)
+\method{print}{classIntervals}(x, digits = getOption("digits"), ...,
+ under="under", over="over", between="-", cutlabels=TRUE, unique=FALSE)
+nPartitions(x)
 classIntervals2shingle(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{var}{a continuous numerical variable}
   \item{n}{number of classes required, if missing, \code{nclass.Sturges} is used; see also the "dpih" and "headtails" styles for automatic choice of the number of classes}
-  \item{style}{chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih" or "headtails"}
+  \item{style}{chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih", "headtails", or "maximum"}
   \item{rtimes}{number of replications of var to catenate and jitter; may be used with styles "kmeans" or "bclust" in case they have difficulties reaching a classification}
   \item{intervalClosure}{default \dQuote{left},  allows specification of whether partition intervals are closed on the left or the right (added by Richard Dunlap). Note that the sense of interval closure is hard-coded as \dQuote{right}-closed when\code{style="jenks"} (see Details below).}
   \item{dataPrecision}{default NULL, permits rounding of the interval endpoints (added by Richard Dunlap). The data precision used for printing interval values in the legend returned by \code{findColours}, and in the \code{print} method for classIntervals objects. If intervalClosure is \dQuote{left}, the value returned is \code{ceiling} of the data value multiplied by 10 to the dataPrecision power, divided by 10 to the dataPrecision power. The argument does not round \code{var}, the input variable.}
@@ -61,12 +61,14 @@ classIntervals2shingle(x)
   The "bclust" style uses \code{bclust} to generate the breaks using bagged clustering; it may be anchored using \code{set.seed}; the \code{pars} attribute returns the bclust object generated, and can be used to find other breaks using \code{getBclustClassIntervals}; if \code{bclust} fails, a jittered input vector containing \code{rtimes} replications of \code{var} is tried --- with few unique values in \code{var}, this can prove necessary; arguments to \code{bclust} may be passed through \code{\dots}.
 
   The "fisher" style uses the algorithm proposed by W. D. Fisher (1958) and discussed by Slocum et al. (2005) as the Fisher-Jenks algorithm; added here thanks to Hisaji Ono. This style will subsample by default for more than 3000 observations. This style should always be preferred to "jenks" as it uses the original Fortran code and runs nested for-loops much faster.
- 
+
   The "jenks" style has been ported from Jenks' code, and has been checked for consistency with ArcView, ArcGIS, and MapInfo (with some remaining differences); added here thanks to Hisaji Ono (originally reported as Basic, now seen as Fortran (as described in a talk last seen at http://www.irlogi.ie/wp-content/uploads/2016/11/NUIM_ChoroHarmful.pdf, slides 26-27)). Note that the sense of interval closure is reversed from the other styles, and in this implementation has to be right-closed - use cutlabels=TRUE in \code{findColours} on the object returned to show the closure clearly, and use \code{findCols} to extract the classes for each value. This style will subsample by default for more than 3000 observations.
 
   The "dpih" style uses the \code{dpih()} function from \pkg{KernSmooth} (Wand, 1995) implementing direct plug-in methodology to select the bin width of a histogram.
-  
+
   The "headtails" style uses the algorithm proposed by Bin Jiang (2013), in order to find groupings or hierarchy for data with a heavy-tailed distribution. This classification scheme partitions all of the data values around the mean into two parts and continues the process iteratively for the values (above the mean) in the head until the head part values are no longer heavy-tailed distributed. Thus, the number of classes and the class intervals are both naturally determined. By default the algorithm uses \code{thr = 0.4}, meaning that when the head represents more than 40\% of the observations the distribution is not considered heavy-tailed. The threshold argument \code{thr} may be modified through \code{\dots} (see Examples).
+
+  The "maximum" style uses the Maximum Breaks method of classification finding the k - 1 largest differences in \code{var}. The mean of the values that generated the largest splits is used as the interval boundary.
 }
 
 \value{
@@ -82,13 +84,13 @@ classIntervals2shingle(x)
   \item{dataPrecision}{the data precision used for printing interval values in the legend returned by \code{findColours}, and in the \code{print} method for classIntervals objects. If intervalClosure is \dQuote{left}, the value returned is \code{ceiling} of the data value multiplied by 10 to the dataPrecision power, divided by 10 to the dataPrecision power.}
 }
 \references{
-Armstrong, M. P., Xiao, N., Bennett, D. A., 2003. "Using genetic algorithms to create multicriteria class intervals for choropleth maps". Annals, Association of American Geographers, 93 (3), 595--623; 
+Armstrong, M. P., Xiao, N., Bennett, D. A., 2003. "Using genetic algorithms to create multicriteria class intervals for choropleth maps". Annals, Association of American Geographers, 93 (3), 595--623;
 
-Jenks, G. F., Caspall, F. C., 1971. "Error on choroplethic maps: definition, measurement, reduction". Annals, Association of American Geographers, 61 (2), 217--244; 
+Jenks, G. F., Caspall, F. C., 1971. "Error on choroplethic maps: definition, measurement, reduction". Annals, Association of American Geographers, 61 (2), 217--244;
 
-Dent, B. D., 1999, Cartography: thematic map design. McGraw-Hill, Boston, 417 pp.; 
+Dent, B. D., 1999, Cartography: thematic map design. McGraw-Hill, Boston, 417 pp.;
 
-Slocum TA, McMaster RB, Kessler FC, Howard HH 2005 Thematic Cartography and Geographic Visualization, Prentice Hall, Upper Saddle River NJ.; 
+Slocum TA, McMaster RB, Kessler FC, Howard HH 2005 Thematic Cartography and Geographic Visualization, Prentice Hall, Upper Saddle River NJ.;
 
 Fisher, W. D. 1958 "On grouping for maximum homogeneity", Journal of the American Statistical Association, 53, pp. 789--798 (\url{http://lib.stat.cmu.edu/cmlib/src/cluster/fish.f})
 
@@ -205,9 +207,9 @@ x <- c(0, 0, 0, 1, 2, 50)
 print(classIntervals(x, n=3, style="fisher"))
 print(classIntervals(x, n=3, style="jenks"))
 
-# Argument 'unique' will collapse the label of classes containing a 
+# Argument 'unique' will collapse the label of classes containing a
 # single value. This is particularly useful for 'censored' variables
-# that contain for example many zeros. 
+# that contain for example many zeros.
 
 data_censored<-c(rep(0,10), rnorm(100, mean=20,sd=1),rep(26,10))
 plot(density(data_censored))
