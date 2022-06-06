@@ -24,7 +24,7 @@ oai <- function(var, cols, area) {
 }
 
 jenks.tests <- function(clI, area) {
-   if (class(clI) != "classIntervals") stop("Class interval object required")
+   if (!inherits(clI, "classIntervals")) stop("Class interval object required")
    cols <- findCols(clI)
    res <- c("# classes"=length(clI$brks)-1,
      "Goodness of fit"=gvf(clI$var, cols),
@@ -38,7 +38,7 @@ jenks.tests <- function(clI, area) {
 }
 
 plot.classIntervals <- function(x, pal, ...) {
-   if (class(x) != "classIntervals") stop("Class interval object required")
+   if (!inherits(x, "classIntervals")) stop("Class interval object required")
    if (length(pal) < 2) stop("pal must contain at least two colours")
    pal_out <- colorRampPalette(pal)(length(x$brks)-1)
    plot(ecdf(x$var), ...)
@@ -181,11 +181,11 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
     } else if (style =="kmeans") {
 # stats
       pars <- try(kmeans(x=var, centers=n, ...))
-      if (class(pars) == "try-error") {
+      if (inherits(pars, "try-error")) {
         warning("jittering in kmeans")
         jvar <- jitter(rep(x=var, times=rtimes))
         pars <- try(kmeans(x=jvar, centers=n, ...))
-	if (class(pars) == "try-error") stop("kmeans failed after jittering")
+	if (inherits(pars, "try-error")) stop("kmeans failed after jittering")
         else {
           cols <- match(pars$cluster, order(c(pars$centers)))
           rbrks <- unlist(tapply(jvar, factor(cols), range))
@@ -208,11 +208,11 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
     } else if (style =="bclust") {
 # e1071, class
       pars <- try(bclust(x=var, centers=n, ...))
-      if (class(pars) == "try-error") {
+      if (inherits(pars, "try-error")) {
         warning("jittering in bclust")
         jvar <- jitter(rep(x=var, times=rtimes))
         pars <- try(bclust(x=jvar, centers=n, ...))
-	if (class(pars) == "try-error") stop("bclust failed after jittering")
+	if (inherits(pars, "try-error")) stop("bclust failed after jittering")
         else {
           cols <- match(pars$cluster, order(c(pars$centers)))
           rbrks <- unlist(tapply(jvar, factor(cols), range))
@@ -393,7 +393,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
 
 findColours <- function(clI, pal, under="under", over="over", between="-",
   digits = getOption("digits"), cutlabels=TRUE) {
-  if (class(clI) != "classIntervals") stop("Class interval object required")
+  if (!inherits(clI, "classIntervals")) stop("Class interval object required")
   if (is.null(clI$brks)) stop("Null breaks")
   if (length(pal) < 2) stop("pal must contain at least two colours")
   cols <- findCols(clI)
@@ -412,7 +412,7 @@ findColours <- function(clI, pal, under="under", over="over", between="-",
 # Looks for intervalClosure attribute to allow specification of
 # whether partition intervals are closed on the left or the right
 findCols <- function(clI, factor = FALSE)  {
-  if (class(clI) != "classIntervals") stop("Class interval object required")
+  if (!inherits(clI, "classIntervals")) stop("Class interval object required")
   if (is.null(clI$brks)) stop("Null breaks")
   if (is.null(attr(clI, "intervalClosure")) || (attr(clI, "intervalClosure") == "left")) {
   	cols <- findInterval(clI$var, clI$brks, all.inside=TRUE)
@@ -508,7 +508,7 @@ roundEndpoint <- function(x, intervalClosure=c("left", "right"), dataPrecision) 
 } #FIXME output trailing zeros in decimals
 
 print.classIntervals <- function(x, digits = getOption("digits"), ..., under="under", over="over", between="-", cutlabels=TRUE, unique=FALSE) {
-   if (class(x) != "classIntervals") stop("Class interval object required")
+   if (!inherits(x, "classIntervals")) stop("Class interval object required")
    cat("style: ", attr(x, "style"), "\n", sep="")
    UNITS <- attr(x, "var_units")
    if (is.null(UNITS)) UNITS <- ""
@@ -541,9 +541,9 @@ nPartitions <- function(x) {
 }
 
 getBclustClassIntervals <- function(clI, k) {
-  if (class(clI) != "classIntervals") stop("Class interval object required")
+  if (!inherits(clI, "classIntervals")) stop("Class interval object required")
   if (missing(k)) k <- length(clI$brks)-1
-  if (class(attr(clI, "parameters")) != "bclust")
+  if (!inherits(attr(clI, "parameters"), "bclust"))
     stop("Class interval object not made with style=\"bclust\"")
 
   ovar <- clI$var
@@ -569,9 +569,9 @@ getBclustClassIntervals <- function(clI, k) {
 }
 
 getHclustClassIntervals <- function(clI, k) {
-  if (class(clI) != "classIntervals") stop("Class interval object required")
+  if (!inherits(clI, "classIntervals")) stop("Class interval object required")
   if (missing(k)) k <- length(clI$brks)-1
-  if (class(attr(clI, "parameters")) != "hclust")
+  if (!inherits(attr(clI, "parameters"), "hclust"))
     stop("Class interval object not made with style=\"hclust\"")
 
   ovar <- clI$var
