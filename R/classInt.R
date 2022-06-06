@@ -26,8 +26,8 @@ oai <- function(var, cols, area) {
 jenks.tests <- function(clI, area) {
    if (class(clI) != "classIntervals") stop("Class interval object required")
    cols <- findCols(clI)
-   res <- c("# classes"=length(clI$brks)-1, 
-     "Goodness of fit"=gvf(clI$var, cols), 
+   res <- c("# classes"=length(clI$brks)-1,
+     "Goodness of fit"=gvf(clI$var, cols),
      "Tabular accuracy"=tai(clI$var, cols))
    if (!missing(area)) {
       if (length(area) != length(cols))
@@ -106,7 +106,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
   if (nobs == 1) stop("single unique value")
   # Fix 22: Diego Hernangómez
   needn <- !(style %in% c("dpih", "headtails"))
-  
+
   if (missing(n)) n <- nclass.Sturges(var)
   if (n < 2 & needn) stop("n less than 2")
   n <- as.integer(n)
@@ -131,7 +131,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
   } else {
 # introduced related to https://github.com/r-spatial/classInt/issues/7
     sampling <- FALSE
-    if (warnLargeN && 
+    if (warnLargeN &&
       (style %in% c("kmeans", "hclust", "bclust", "fisher", "jenks"))) {
       if (nobs > largeN) {
         warning("N is large, and some styles will run very slowly; sampling imposed")
@@ -145,7 +145,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
 # Matthieu Stigler 111110
       dots <- list(...)
       fixedBreaks <- sort(dots$fixedBreaks)
-      if (is.null(fixedBreaks)) 
+      if (is.null(fixedBreaks))
         stop("fixed method requires fixedBreaks argument")
 #      if (length(fixedBreaks) != (n+1))
 #        stop("mismatch between fixedBreaks and n")
@@ -160,7 +160,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
         }
       }
       if (any(diff(fixedBreaks) < 0)) stop("decreasing fixedBreaks found")
-      if (min(var) < fixedBreaks[1] || 
+      if (min(var) < fixedBreaks[1] ||
         max(var) > fixedBreaks[length(fixedBreaks)])
           warning("variable range greater than fixedBreaks")
       brks <- fixedBreaks
@@ -288,7 +288,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
              k <- id #lower
              last <- k -1 #upper
            }
-# change uncontributed by Richard Dunlap 090512           
+# change uncontributed by Richard Dunlap 090512
 # with the specification of intervalClosure for the presentation layer,
 # don't need to change this
            brks<-d[c(1, kclass)]
@@ -312,7 +312,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
              thr <- ifelse(is.null(dots$thr),
                            .4,
                            dots$thr)
-             
+
              thr <-  min(1,max(0, thr))
              head <- var
              breaks <- min(var, na.rm = TRUE) #Init with minimum
@@ -360,7 +360,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
   brks <- c(rbrks[1], rbrks[nb])
   if (nb > 2) {
     if (nb == 3) brks <- append(brks, rbrks[2], 1)
-    else { 
+    else {
       ins <- NULL
       for (i in as.integer(seq(2,(nb-2),2))) {
         ins <- c(ins, ((rbrks[i]+rbrks[i+1])/2))
@@ -391,15 +391,22 @@ findColours <- function(clI, pal, under="under", over="over", between="-",
 # change contributed by Richard Dunlap 090512
 # Looks for intervalClosure attribute to allow specification of
 # whether partition intervals are closed on the left or the right
-findCols <- function(clI)  {
+findCols <- function(clI, factor = FALSE)  {
   if (class(clI) != "classIntervals") stop("Class interval object required")
   if (is.null(clI$brks)) stop("Null breaks")
   if (is.null(attr(clI, "intervalClosure")) || (attr(clI, "intervalClosure") == "left")) {
   	cols <- findInterval(clI$var, clI$brks, all.inside=TRUE)
   }
   else {
-	cols <- apply(array(apply(outer(clI$var, clI$brks, ">"), 1, sum)), 1, max, 1)  	
-  }  
+	cols <- apply(array(apply(outer(clI$var, clI$brks, ">"), 1, sum)), 1, max, 1)
+  }
+
+  if (factor) {
+    col_vals <- names(tableClassIntervals(cols, clI$brks))
+    col_vals <- names(tableClassIntervals(cols, x$brks))
+    cols <- factor(cols, labels = col_vals)
+  }
+
   cols
 }
 
@@ -419,7 +426,7 @@ tableClassIntervals <- function(cols, brks, under="under", over="over",
       sep <- ""
       between=","
    }
-   
+
    if (is.null(intervalClosure) || (intervalClosure=="left")) {
    	left = "["
    	right = ")"
@@ -427,8 +434,8 @@ tableClassIntervals <- function(cols, brks, under="under", over="over",
    else {
    	left = "("
    	right = "]"
-   }   
-   
+   }
+
 #The two global endpoints are going through roundEndpoint to get
 # formatting right, nothing more
    if (cutlabels) nres[1] <- paste("[", roundEndpoint(brks[1], intervalClosure, dataPrecision), between, roundEndpoint(brks[2], intervalClosure, dataPrecision), right, sep=sep)
@@ -447,7 +454,7 @@ tableClassIntervals <- function(cols, brks, under="under", over="over",
 # Matthieu Stigler 120705 unique
    ## Assign unique label for intervals containing same left-right points
   if(unique&!missing(var)){
-  
+
     tab_unique<-tapply(var, cols, function(x) length(unique(x)))
 #    tab_unique_vals<-tapply(var, cols, function(x) length(unique(x)))
     if(any(tab_unique==1)){
@@ -459,7 +466,7 @@ tableClassIntervals <- function(cols, brks, under="under", over="over",
       names(tab)[w.unique] <- tapply(var[cols.unique ], cols[cols.unique ], function(x) if(is.null(dataPrecision)) unique(x) else round(unique(x), dataPrecision))
     }
   }
-  
+
    tab
 }
 
@@ -472,21 +479,21 @@ roundEndpoint <- function(x, intervalClosure=c("left", "right"), dataPrecision) 
       retval <- x
    }
    else if (is.null(intervalClosure) || (intervalClosure=="left")) {
-      retval <- ceiling(x * 10^dataPrecision) / 10^dataPrecision   
+      retval <- ceiling(x * 10^dataPrecision) / 10^dataPrecision
    }
    else
    {
-      retval <- floor(x * 10^dataPrecision) / 10^dataPrecision      
+      retval <- floor(x * 10^dataPrecision) / 10^dataPrecision
    }
-   digits = getOption("digits")   
-   format(retval, digits=digits, trim=TRUE)   
+   digits = getOption("digits")
+   format(retval, digits=digits, trim=TRUE)
 } #FIXME output trailing zeros in decimals
 
 print.classIntervals <- function(x, digits = getOption("digits"), ..., under="under", over="over", between="-", cutlabels=TRUE, unique=FALSE) {
    if (class(x) != "classIntervals") stop("Class interval object required")
    cat("style: ", attr(x, "style"), "\n", sep="")
    UNITS <- attr(x, "var_units")
-   if (is.null(UNITS)) UNITS <- "" 
+   if (is.null(UNITS)) UNITS <- ""
    else UNITS <- paste0(UNITS, " ")
    nP <- nPartitions(x)
    if (is.finite(nP)) cat("  one of ", prettyNum(nP, big.mark = ","),
@@ -518,7 +525,7 @@ nPartitions <- function(x) {
 getBclustClassIntervals <- function(clI, k) {
   if (class(clI) != "classIntervals") stop("Class interval object required")
   if (missing(k)) k <- length(clI$brks)-1
-  if (class(attr(clI, "parameters")) != "bclust") 
+  if (class(attr(clI, "parameters")) != "bclust")
     stop("Class interval object not made with style=\"bclust\"")
 
   ovar <- clI$var
@@ -546,7 +553,7 @@ getBclustClassIntervals <- function(clI, k) {
 getHclustClassIntervals <- function(clI, k) {
   if (class(clI) != "classIntervals") stop("Class interval object required")
   if (missing(k)) k <- length(clI$brks)-1
-  if (class(attr(clI, "parameters")) != "hclust") 
+  if (class(attr(clI, "parameters")) != "hclust")
     stop("Class interval object not made with style=\"hclust\"")
 
   ovar <- clI$var
