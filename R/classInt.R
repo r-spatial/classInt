@@ -329,6 +329,26 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
              #Add max to complete intervals
              brks <- sort(unique(c(breaks,
                                    max(var, na.rm = TRUE))))
+      } else if (style == "maximum") {
+
+        # 2022-06-05 Josiah Parry
+        x_sort <- sort(var)
+        diffs <- diff(x_sort)
+
+        n_breaks <- sort(diffs, decreasing = TRUE)[1:(n-1)]
+
+        # identify values to average for breaks
+        int_end_index <- which(diffs %in% n_breaks)
+        int_nb_index <- which(diffs %in% n_breaks) + 1
+
+        m <- matrix(
+          c(x_sort[int_nb_index], x_sort[int_end_index]),
+          ncol = 2
+        )
+
+        brks <- c(min(x_sort), rowSums(m) / 2, max(x_sort))
+
+
       } else stop(paste(style, "unknown"))
   }
   if (is.null(brks)) stop("Null breaks")
@@ -400,13 +420,11 @@ findCols <- function(clI, factor = FALSE)  {
   else {
 	cols <- apply(array(apply(outer(clI$var, clI$brks, ">"), 1, sum)), 1, max, 1)
   }
-
   if (factor) {
     col_vals <- names(tableClassIntervals(cols, clI$brks))
     col_vals <- names(tableClassIntervals(cols, clI$brks))
     cols <- factor(cols, labels = col_vals)
   }
-
   cols
 }
 
