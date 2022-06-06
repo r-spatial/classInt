@@ -411,7 +411,7 @@ findColours <- function(clI, pal, under="under", over="over", between="-",
 # change contributed by Richard Dunlap 090512
 # Looks for intervalClosure attribute to allow specification of
 # whether partition intervals are closed on the left or the right
-findCols <- function(clI)  {
+findCols <- function(clI, factor = FALSE)  {
   if (class(clI) != "classIntervals") stop("Class interval object required")
   if (is.null(clI$brks)) stop("Null breaks")
   if (is.null(attr(clI, "intervalClosure")) || (attr(clI, "intervalClosure") == "left")) {
@@ -419,6 +419,11 @@ findCols <- function(clI)  {
   }
   else {
 	cols <- apply(array(apply(outer(clI$var, clI$brks, ">"), 1, sum)), 1, max, 1)
+  }
+  if (factor) {
+    col_vals <- names(tableClassIntervals(cols, clI$brks))
+    col_vals <- names(tableClassIntervals(cols, clI$brks))
+    cols <- factor(cols, labels = col_vals)
   }
   cols
 }

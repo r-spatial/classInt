@@ -6,11 +6,12 @@
   This helper function is a wrapper for \code{findInterval} to extract classes from a "classInterval" object
 }
 \usage{
-findCols(clI)
+findCols(clI, factor = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{clI}{a "classIntervals" object}
+  \item{factor}{default "FALSE", if "TRUE" returns cols as a factor with intervals as labels}
 }
 
 \value{
@@ -34,6 +35,7 @@ print(fix5)
 }
 if (run) {
 print(findCols(fix5))
+print(findCols(fix5, factor = TRUE))
 }
 }
 \keyword{spatial}
