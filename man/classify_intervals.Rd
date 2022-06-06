@@ -5,7 +5,7 @@
 classify_intervals(var, n, style = "quantile", rtimes = 3, ...,
  intervalClosure = c("left", "right"), dataPrecision = NULL,
  warnSmallN = TRUE, warnLargeN = TRUE, largeN = 3000L, samp_prop = 0.1,
- gr = c("[", "]"))
+ gr = c("[", "]"), factor = TRUE)
 
 }
 
@@ -44,7 +44,7 @@ if (!require("spData", quietly=TRUE)) {
   run <- TRUE
 }
 
-if {run} {
+if (run) {
   data("jenks71", package = "spData")
   x <- jenks71$jenks71
   classify_intervals(x, n = 5, style = "fisher")
