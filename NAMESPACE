@@ -11,6 +11,8 @@ export(classIntervals, jenks.tests, findColours, findCols,
    getBclustClassIntervals, getHclustClassIntervals, nPartitions,
    classIntervals2shingle)
 
+export(classify_intervals)
+
 S3method(plot, classIntervals)
 S3method(print, classIntervals)
 S3method(logLik, classIntervals)
