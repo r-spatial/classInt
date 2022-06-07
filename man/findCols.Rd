@@ -21,6 +21,12 @@ findCols(clI, factor = FALSE)
 
 \seealso{\code{\link{classIntervals}}, \code{\link{findInterval}}}
 \examples{
+xvar <- c(22361, 9573, 4836, 5309, 10384, 4359, 11016, 4414, 3327, 3408, 
+  17816, 6909, 6936, 7990, 3758, 3569, 21965, 3605, 2181, 1892, 
+  2459, 2934, 6399, 8578, 8537, 4840, 12132, 3734, 4372, 9073, 
+  7508, 5203)
+findCols(classIntervals(xvar, 5, "sd"), factor = FALSE)
+findCols(classIntervals(xvar, 5, "sd"), factor = TRUE)
 if (!require("spData", quietly=TRUE)) {
   message("spData package needed for examples")
   run <- FALSE
