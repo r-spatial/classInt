@@ -422,7 +422,6 @@ findCols <- function(clI, factor = FALSE)  {
   }
   if (factor) {
     col_vals <- names(tableClassIntervals(cols, clI$brks))
-    col_vals <- names(tableClassIntervals(cols, clI$brks))
     cols <- factor(cols, labels = col_vals)
   }
   cols
