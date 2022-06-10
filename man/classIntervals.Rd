@@ -272,14 +272,14 @@ classIntervals(x_POSIXt, style="headtails")
 set.seed(1234)
 # Heavy tails-----
 # Pareto distributions a=7 b=14
-paretodist <- 7 / (1 - runif(1000)) ^ (1 / 14)
+paretodist <- 7 / (1 - runif(100)) ^ (1 / 14)
 # Lognorm
-lognormdist <- rlnorm(1000)
+lognormdist <- rlnorm(100)
 # Weibull
-weibulldist <- rweibull(1000, 1, scale = 5)
+weibulldist <- rweibull(100, 1, scale = 5)
 
 pal1 <- c("wheat1", "red3")
-opar <- par(mfrow = c(2, 3))
+opar <- par(mfrow = c(1, 3))
 plot(classIntervals(paretodist, style = "headtails"),
      pal = pal1,
      main = "HeadTails: Pareto Dist.")
@@ -289,6 +289,8 @@ plot(classIntervals(lognormdist, style = "headtails"),
 plot(classIntervals(weibulldist, style = "headtails"),
      pal = pal1,
      main = "HeadTails: Weibull Dist.")
+# see vignette for further details
+\dontrun{
 plot(classIntervals(paretodist, n = 5, style = "fisher"),
      pal = pal1,
      main = "Fisher: Pareto Dist.")
@@ -298,17 +300,19 @@ plot(classIntervals(lognormdist, n = 7, style = "fisher"),
 plot(classIntervals(weibulldist, n= 4, style = "fisher"),
      pal = pal1,
      main = "Fisher: Weibull Dist.")
+}
 par(opar)
 
 
 #Non heavy tails, thr should be increased-----
 
 #Normal dist
-normdist <- rnorm(1000)
+\dontrun{
+normdist <- rnorm(100)
 #Left-tailed truncated Normal distr
 leftnorm <- rep(normdist[normdist < mean(normdist)], 2)
 # Uniform distribution
-unifdist <- runif(1000)
+unifdist <- runif(100)
 opar <- par(mfrow = c(2, 3))
 plot(classIntervals(normdist, style = "headtails"),
      pal = pal1,
@@ -336,6 +340,7 @@ plot(
   main = "Uniform Distribution thr = .6"
 )
 par(opar)
+}
 }
 \keyword{spatial}
 
