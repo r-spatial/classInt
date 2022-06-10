@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,38 +33,35 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">classInt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4-4</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/headtailsR.html">Head/Tails breaks on the `classInt` package.</a>
+      <a href="articles/headtailsR.html">Head/Tails breaks</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/r-spatial/classInt/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/r-spatial/classInt/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -78,64 +77,74 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="classint" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#classint" class="anchor"></a>classInt</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="classint">classInt<a class="anchor" aria-label="anchor" href="#classint"></a>
+</h1></div>
 
 <p>Choose Univariate Class Intervals</p>
-<p>Selected commonly used methods for choosing univariate class intervals for mapping or other graphics purposes. From 0.4-3, an implementation of the “headtails” style contributed by Diego Hernangómez - Jiang, B. 2013 “Head/tail breaks: A new classification scheme for data with a heavy-tailed distribution”, The Professional Geographer, 65 (3), 482 – 494. <a href="https://arxiv.org/abs/1209.2801v1" class="uri">https://arxiv.org/abs/1209.2801v1</a>.</p>
-<div id="compiling-from-source" class="section level2">
-<h2 class="hasAnchor">
-<a href="#compiling-from-source" class="anchor"></a>Compiling from source</h2>
-<p>If you want to compile this package from source, make sure you have the latest version of GNU Fortran installed, which you can find on the <a href="https://cran.r-project.org/bin/macosx/tools/">R Development Tools</a> web page if you use OSX; on Windows make sure your Rtools includes Fortran. Fortran is needed to compile Fisher’s original code which was written in Fortran.</p>
-<p>Migrated from <a href="https://r-forge.r-project.org/scm/viewvc.php/pkg/classInt/?root=rspatial">R-Forge</a></p>
+<p>Selected commonly used methods for choosing univariate class intervals for mapping or other graphics purposes. From 0.4-3, an implementation of the “headtails” style contributed by Diego Hernangómez - Jiang, B. 2013 “Head/tail breaks: A new classification scheme for data with a heavy-tailed distribution”, The Professional Geographer, 65 (3), 482 – 494. <a href="https://arxiv.org/abs/1209.2801v1" class="external-link uri">https://arxiv.org/abs/1209.2801v1</a>. From 0.4-4, an implementation of the “maximum” style contributed by Josiah Parry.</p>
+<div class="section level2">
+<h2 id="compiling-from-source">Compiling from source<a class="anchor" aria-label="anchor" href="#compiling-from-source"></a>
+</h2>
+<p>If you want to compile this package from source, make sure you have the latest version of GNU Fortran installed, which you can find on the <a href="https://cran.r-project.org/bin/macosx/tools/" class="external-link">R Development Tools</a> web page if you use OSX; on Windows make sure your Rtools includes Fortran. Fortran is needed to compile Fisher’s original code which was written in Fortran.</p>
+<p>Migrated from <a href="https://r-forge.r-project.org/scm/viewvc.php/pkg/classInt/?root=rspatial" class="external-link">R-Forge</a></p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=classInt">https://​cloud.r-project.org/​package=classInt</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/r-spatial/classInt/">https://​github.com/​r-spatial/​classInt/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/r-spatial/classInt/issues/">https://​github.com/​r-spatial/​classInt/​issues/​</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=classInt" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/r-spatial/classInt/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/r-spatial/classInt/issues/" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>GPL (&gt;= 2)</li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Roger Bivand <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-2392-6140" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing classInt</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/r-spatial/classInt"><img src="https://travis-ci.org/r-spatial/classInt.png?branch=master" alt="Build Status"></a></li>
-<li><a href="https://cran.r-project.org/package=classInt"><img src="http://www.r-pkg.org/badges/version/classInt" alt="CRAN"></a></li>
+<li>Roger Bivand <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-2392-6140" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/r-spatial/classInt/actions" class="external-link"><img src="https://github.com/r-spatial/classInt/workflows/R-CMD-check/badge.svg" alt="Actions Status"></a></li>
+<li><a href="https://cran.r-project.org/package=classInt" class="external-link"><img src="http://www.r-pkg.org/badges/version/classInt" alt="CRAN"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Roger Bivand.</p>
+  <p></p>
+<p>Developed by Roger Bivand.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -143,6 +152,8 @@
 
   
 
+
+  
 
   </body>
 </html>

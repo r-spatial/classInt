@@ -1,3 +1,82 @@
+2022-06-10  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #36 from JosiahParry/main update findCols() to use levels = 1:length(col_vals) and add NEWS.md
+
+2022-06-07  Roger Bivand <Roger.Bivand@gmail.com>
+
+	* DESCRIPTION, R/classInt.R, man/classify_intervals.Rd,
+	man/findCols.Rd: fixes #35, set levels explicitly
+
+2022-06-07  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #34 from kadyb/patch-1 remove duplicated line
+
+2022-06-06  Roger Bivand <Roger.Bivand@gmail.com>
+
+	* man/classify_intervals.Rd: tidy
+
+2022-06-06  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #33 from JosiahParry/main Add classify_intervals() wrapper around classIntervals and findCols
+
+2022-06-06  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* .github/workflows/check-standard.yaml: Update check-standard.yaml
+
+2022-06-06  Roger Bivand <Roger.Bivand@gmail.com>
+
+	* DESCRIPTION, R/classInt.R: check after #31 and #32
+
+2022-06-06  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #32 from JosiahParry/col-labels add argument factor to findCols
+
+2022-06-06  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #31 from JosiahParry/maximum implement maximum breaks classification
+
+2022-06-06  josiahparry <josiah.parry@gmail.com>
+
+	* R/classInt.R, man/findCols.Rd: add argument factor to findCols
+
+2022-06-05  josiahparry <josiah.parry@gmail.com>
+
+	* R/classInt.R, man/classIntervals.Rd: implement maximum breaks
+	classification
+
+2021-11-08  Roger Bivand <Roger.Bivand@gmail.com>
+
+	* R/classInt.R, man/classIntervals.Rd: clarify dataPrecision=
+
+2020-11-23  Roger Bivand <roger.bivand@nhh.no>
+
+	* README.md: try to add badge
+
+2020-11-23  Roger Bivand <rsbivand@users.noreply.github.com>
+
+	* : Merge pull request #28 from MatthieuStigler/master Add contributor's ORCID
+
+2020-11-23  Roger Bivand <roger.bivand@nhh.no>
+
+	* .travis.yml, README.md: move to GA
+
+2020-11-23  Roger Bivand <roger.bivand@nhh.no>
+
+	* .Rbuildignore, .github/workflows/check-standard.yaml: try GA
+
+2020-04-05  Roger Bivand <roger.bivand@nhh.no>
+
+	* ChangeLog, DESCRIPTION, docs/404.html,
+	docs/articles/headtailsR.html, docs/articles/index.html,
+	docs/authors.html, docs/bootstrap-toc.css, docs/bootstrap-toc.js,
+	docs/index.html, docs/pkgdown.css, docs/pkgdown.js,
+	docs/pkgdown.yml, docs/reference/classIntervals.html,
+	docs/reference/findColours.html, docs/reference/findCols.html,
+	docs/reference/getBclustClassIntervals.html,
+	docs/reference/index.html, docs/reference/jenks.tests.html,
+	docs/reference/logLik.classIntervals.html, inst/ChangeLog,
+	oChangeLog: ready for submission
+
 2020-03-27  Roger Bivand <rsbivand@users.noreply.github.com>
 
 	* : Merge pull request #26 from dieghernan/htvignette Add "headtails" vignette

@@ -1,5 +1,5 @@
 ---
-title: "Head/Tails breaks on the `classInt` package."
+title: "Head/Tails breaks"
 author: "Diego Hernangomez"
 date: '`r Sys.Date()`'
 output: 
@@ -9,7 +9,7 @@ output:
     toc_depth: 1
 bibliography: refs_ht.bib
 vignette: >
-  %\VignetteIndexEntry{"Head/Tails breaks on the `classInt` package."}
+  %\VignetteIndexEntry{"Head/Tails breaks"}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -22,7 +22,7 @@ vignette: >
 
 # Abstract
 
-This vignette discusses the implementation of the "Head/tail breaks" style (@Jiang_2013) on the `classIntervals` function. A step-by-step example is presented in order to clarify the method. A case study using `spData::afcon` is also included, as well as a test suite checking the performance and validation of the implementation.
+This vignette discusses the implementation of the "Head/tail breaks" style (@Jiang_2013) in the `classIntervals` function. A step-by-step example is presented in order to clarify the method. A case study using `spData::afcon` is also included, as well as a test suite checking the performance and validation of the implementation.
 
 
 ```{r setup, include=FALSE}
@@ -105,7 +105,7 @@ The final breaks are the vector of consecutive `mu`.
 
 
 # Step by step example
-We reproduce here the pseudo-code^[The method implemented on `classInt` corresponds to head/tails 1.0 as named on this article.] as per @Jiang_2019:
+We reproduce here the pseudo-code^[The method implemented in `classInt` corresponds to head/tails 1.0 as named in this article.] as per @Jiang_2019:
 ```
 Recursive function Head/tail Breaks:
  Rank the input data from the largest to the smallest
@@ -190,7 +190,7 @@ The resulting breaks are then defined as `breaks = c(min(var), mu(iter=1), ..., 
 
 
 
-# Implementation on `classInt` package
+# Implementation in `classInt` package
 
 The implementation in the `classIntervals` function should replicate the results:
 ```{r checkmethod}
@@ -307,7 +307,7 @@ It is observed that the top three classes of "headtails" enclose 5 observations,
 
 The next plot compares a continuous distribution of `totcon` re-escalated to a range of `[1,nclass]` versus the distribution across breaks for each style. The continuous distribution has been offset by -0.5 in order to align the continuous and the discrete distributions.
 ```{r benchmarkbreaks, fig.show='hold', fig.width=7}
-#Helper function to reescale values
+#Helper function to rescale values
 help_reescale <- function(x, min = 1, max = 10) {
   r <- (x - min(x)) / (max(x) - min(x))
   r <- r * (max - min) + min
@@ -647,7 +647,7 @@ par(opar)
 knitr::kable(testresults[-1, ], row.names = FALSE)
 ```
 
-The implementation works as expected, with a good performance given the size of the sample, and also compares well with another current implementations on `classIntervals`.
+The implementation works as expected, with a good performance given the size of the sample, and also compares well with another current implementations in `classIntervals`.
 
 
 # References
