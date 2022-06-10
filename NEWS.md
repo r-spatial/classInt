@@ -1,4 +1,4 @@
-## Version 0.4-6
+## Version 0.4-7
 
 - A new helper function `classify_intervals()` is introduced to return a vector of class intervals of same length as input (@JosiahParry)
 - `classIntervals()` has a new style `"maximum"` which returns maximum breaks classification based on the pysal library [mapclassify](https://pysal.org/mapclassify/index.html) (@JosiahParry)

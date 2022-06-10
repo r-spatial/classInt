@@ -236,19 +236,25 @@ if (require(units, quietly=TRUE)) have_units <- TRUE
 if (have_units) {
 set.seed(1)
 x_units <- set_units(sample(seq(1, 100, 0.25), 100), km/h)
+\dontrun{
 classIntervals(x_units, n=5, style="sd")
+}
 }
 if (have_units) {
 classIntervals(x_units, n=5, style="pretty")
 }
 if (have_units) {
+\dontrun{
 classIntervals(x_units, n=5, style="equal")
+}
 }
 if (have_units) {
 classIntervals(x_units, n=5, style="quantile")
 }
 if (have_units) {
+\dontrun{
 classIntervals(x_units, n=5, style="kmeans")
+}
 }
 if (have_units) {
 classIntervals(x_units, n=5, style="fisher")
@@ -256,6 +262,7 @@ classIntervals(x_units, n=5, style="fisher")
 if (have_units) {
 classIntervals(x_units, style="headtails")
 }
+\dontrun{
 st <- Sys.time()
 x_POSIXt <- sample(st+((0:500)*3600), 100)
 fx <- st+((0:5)*3600)*100
@@ -267,7 +274,9 @@ classIntervals(x_POSIXt, n=5, style="quantile")
 classIntervals(x_POSIXt, n=5, style="kmeans")
 classIntervals(x_POSIXt, n=5, style="fisher")
 classIntervals(x_POSIXt, style="headtails")
-
+}
+# see vignette for further details
+\dontrun{
 # Head Tails method is suitable for right-sided heavy-tailed distributions
 set.seed(1234)
 # Heavy tails-----
@@ -289,8 +298,6 @@ plot(classIntervals(lognormdist, style = "headtails"),
 plot(classIntervals(weibulldist, style = "headtails"),
      pal = pal1,
      main = "HeadTails: Weibull Dist.")
-# see vignette for further details
-\dontrun{
 plot(classIntervals(paretodist, n = 5, style = "fisher"),
      pal = pal1,
      main = "Fisher: Pareto Dist.")
@@ -300,14 +307,12 @@ plot(classIntervals(lognormdist, n = 7, style = "fisher"),
 plot(classIntervals(weibulldist, n= 4, style = "fisher"),
      pal = pal1,
      main = "Fisher: Weibull Dist.")
-}
 par(opar)
 
 
 #Non heavy tails, thr should be increased-----
 
 #Normal dist
-\dontrun{
 normdist <- rnorm(100)
 #Left-tailed truncated Normal distr
 leftnorm <- rep(normdist[normdist < mean(normdist)], 2)
