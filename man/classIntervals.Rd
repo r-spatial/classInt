@@ -69,6 +69,13 @@ classIntervals2shingle(x)
   The "headtails" style uses the algorithm proposed by Bin Jiang (2013), in order to find groupings or hierarchy for data with a heavy-tailed distribution. This classification scheme partitions all of the data values around the mean into two parts and continues the process iteratively for the values (above the mean) in the head until the head part values are no longer heavy-tailed distributed. Thus, the number of classes and the class intervals are both naturally determined. By default the algorithm uses \code{thr = 0.4}, meaning that when the head represents more than 40\% of the observations the distribution is not considered heavy-tailed. The threshold argument \code{thr} may be modified through \code{\dots} (see Examples).
 
   The "maximum" style uses the Maximum Breaks method of classification finding the k - 1 largest differences in \code{var}. The mean of the values that generated the largest splits is used as the interval boundary.
+  
+  The "box" style generate 7 breaks (therefore 6 categories) based on a box-and-whisker plot. First and last categories 
+  includes the data values considered as outliers, and the four remaining categories are defined by the percentiles 25, 
+  50 and 75 of the data distribution. By default, the identification of outliers is based on the interquantile range 
+  (IQR), so values lower than percentile 25 - 1.5 * IQR or higher than percentile 75 + 1.5 * IQR are considered as outliers. 
+  The multiplier applied to the IQR \code{iqr_mult = 1.5} may be modified through \code{\dots}.
+
 }
 
 \value{
@@ -140,7 +147,13 @@ plot(classIntervals(jenks71$jenks71, n=5, style="jenks"), pal=pal1,
  main="dpih method")
  plot(classIntervals(jenks71$jenks71, style="headtails", thr = 1), pal=pal1,
  main="Head Tails method")
-par(opar)
+ }
+if (run) {
+ plot(classIntervals(jenks71$jenks71, style="maximum"), pal=pal1,
+ main="Maximum method")
+ plot(classIntervals(jenks71$jenks71, style="box"), pal=pal1,
+ main="Box method")
+ par(opar)
 }
 if (run) {
 print(classIntervals(jenks71$jenks71, n=5, style="fixed",
@@ -203,6 +216,15 @@ if (run) {
 if (run) {
   print(classIntervals(jenks71$jenks71, style="headtails", thr = .45))
 }
+if (run) {
+  print(classIntervals(jenks71$jenks71, style="maximum"))
+}
+if (run) {
+  print(classIntervals(jenks71$jenks71, style="box"))
+}
+if (run) {
+  print(classIntervals(jenks71$jenks71, style="box", iqr_mult = 0.25))
+}
 x <- c(0, 0, 0, 1, 2, 50)
 print(classIntervals(x, n=3, style="fisher"))
 print(classIntervals(x, n=3, style="jenks"))
@@ -262,6 +284,9 @@ classIntervals(x_units, n=5, style="fisher")
 if (have_units) {
 classIntervals(x_units, style="headtails")
 }
+if (have_units) {
+classIntervals(x_units, style="box")
+}
 \dontrun{
 st <- Sys.time()
 x_POSIXt <- sample(st+((0:500)*3600), 100)
@@ -274,6 +299,8 @@ classIntervals(x_POSIXt, n=5, style="quantile")
 classIntervals(x_POSIXt, n=5, style="kmeans")
 classIntervals(x_POSIXt, n=5, style="fisher")
 classIntervals(x_POSIXt, style="headtails")
+classIntervals(x_POSIXt, style="maximum")
+classIntervals(x_POSIXt, style="box")
 }
 # see vignette for further details
 \dontrun{
