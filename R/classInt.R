@@ -105,7 +105,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
   nobs <- length(unique(var))
   if (nobs == 1) stop("single unique value")
   # Fix 22: Diego Hernangómez
-  needn <- !(style %in% c("dpih", "headtails"))
+  needn <- !(style %in% c("dpih", "headtails", "box"))
 
   if (missing(n)) n <- nclass.Sturges(var)
   if (n < 2 & needn) stop("n less than 2")
@@ -349,6 +349,42 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
         brks <- c(min(x_sort), rowSums(m) / 2, max(x_sort))
 
 
+      } else if (style == "box"){
+        # 2022-09-22 Diego Hernangomez, see:
+        # https://github.com/r-spatial/classInt/issues/18
+        # Adapted from:
+        # https://spatialanalysis.github.io/lab_tutorials/4_R_Mapping.html#box-map
+        
+        dots <- list(...)
+        iqr_mult <- ifelse(is.null(dots$iqr_mult), 1.5, dots$iqr_mult)
+        
+        qv <- unname(quantile(var))
+        iqr <- iqr_mult * (qv[4] - qv[2])
+        upfence <- qv[4] + iqr
+        lofence <- qv[2] - iqr
+        
+        # initialize break points vector
+        bb <- vector(mode="numeric",length=7)
+        
+        # logic for lower and upper fences
+        if (lofence < qv[1]) {  # no lower outliers
+          bb[1] <- lofence
+          bb[2] <- floor(qv[1])
+        } else {
+          bb[2] <- lofence
+          bb[1] <- qv[1]
+        }
+        if (upfence > qv[5]) { # no upper outliers
+          bb[7] <- upfence
+          bb[6] <- ceiling(qv[5])
+        } else {
+          bb[6] <- upfence
+          bb[7] <- qv[5]
+        }
+        bb[3:5] <- qv[2:4]
+        
+        brks <- bb
+        
       } else stop(paste(style, "unknown"))
   }
   if (is.null(brks)) stop("Null breaks")
