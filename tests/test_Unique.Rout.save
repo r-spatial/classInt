@@ -1,7 +1,7 @@
 
-R version 3.5.3 (2020-03-20) -- "Great Truth"
-Copyright (C) 2019 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+R version 4.2.1 (2022-06-23 ucrt) -- "Funny-Looking Kid"
+Copyright (C) 2022 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -223,6 +223,20 @@ style: headtails
   one of 101 possible partitions of this variable into 2 classes
  [0,18.92407) [18.92407,26] 
            20           100 
+> print(classIntervals(data_censored, style="box", iqr_mult = 0))
+style: box
+  one of 79,208,745 possible partitions of this variable into 6 classes
+       [0,19.38567) [19.38567,19.38567) [19.38567,20.11391) [20.11391,20.77193) 
+                 30                   0                  30                  30 
+[20.77193,20.77193)       [20.77193,26] 
+                  0                  30 
+> print(classIntervals(data_censored, style="box"))
+style: box
+  one of 79,208,745 possible partitions of this variable into 6 classes
+       [0,17.30627) [17.30627,19.38567) [19.38567,20.11391) [20.11391,20.77193) 
+                 10                  20                  30                  30 
+[20.77193,22.85133)       [22.85133,26] 
+                 20                  10 
 > x <- c(0, 0, 0, 1, 2, 50)
 > print(classIntervals(x, n=3, style="fisher"), unique=TRUE)
 style: fisher
@@ -276,4 +290,4 @@ Class found with one single (possibly repeated) value: changed label
 > 
 > proc.time()
    user  system elapsed 
-  0.164   0.028   0.183 
+   0.37    0.06    0.68 
