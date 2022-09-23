@@ -357,8 +357,9 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
         
         dots <- list(...)
         iqr_mult <- ifelse(is.null(dots$iqr_mult), 1.5, dots$iqr_mult)
+        qtype <- ifelse(is.null(dots$type), 7, dots$type)
         
-        qv <- unname(quantile(var))
+        qv <- unname(quantile(var, type=qtype))
         iqr <- iqr_mult * (qv[4] - qv[2])
         upfence <- qv[4] + iqr
         lofence <- qv[2] - iqr

@@ -70,11 +70,7 @@ classIntervals2shingle(x)
 
   The "maximum" style uses the Maximum Breaks method of classification finding the k - 1 largest differences in \code{var}. The mean of the values that generated the largest splits is used as the interval boundary.
   
-  The "box" style generate 7 breaks (therefore 6 categories) based on a box-and-whisker plot. First and last categories 
-  includes the data values considered as outliers, and the four remaining categories are defined by the percentiles 25, 
-  50 and 75 of the data distribution. By default, the identification of outliers is based on the interquantile range 
-  (IQR), so values lower than percentile 25 - 1.5 * IQR or higher than percentile 75 + 1.5 * IQR are considered as outliers. 
-  The multiplier applied to the IQR \code{iqr_mult = 1.5} may be modified through \code{\dots}.
+  The "box" style generates 7 breaks (therefore 6 categories) based on a box-and-whisker plot. First and last categories include the data values considered as outliers, and the four remaining categories are defined by the percentiles 25, 50 and 75 of the data distribution. By default, the identification of outliers is based on the interquantile range (IQR), so values lower than percentile 25 - 1.5 * IQR or higher than percentile 75 + 1.5 * IQR are considered as outliers. The multiplier applied to the IQR \code{iqr_mult = 1.5} may be modified through \code{\dots}. As in the \code{"quantile"} style, the \code{type=} argument may be used to choose the quantile algoritm (default 7).
 
 }
 
