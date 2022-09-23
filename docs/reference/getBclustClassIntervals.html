@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">classInt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4-7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4-8</span>
       </span>
     </div>
 
@@ -63,20 +63,24 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getBclustClassIntervals</span><span class="op">(</span><span class="va">clI</span>, <span class="va">k</span><span class="op">)</span>
-<span class="fu">getHclustClassIntervals</span><span class="op">(</span><span class="va">clI</span>, <span class="va">k</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getBclustClassIntervals</span><span class="op">(</span><span class="va">clI</span>, <span class="va">k</span><span class="op">)</span></span>
+<span><span class="fu">getHclustClassIntervals</span><span class="op">(</span><span class="va">clI</span>, <span class="va">k</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>clI</dt>
 <dd><p>a "classIntervals" object</p></dd>
-<dt>k</dt>
+
+  <dt>k</dt>
 <dd><p>number of classes required</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a "classIntervals" object with a "modified" attribute set</p>
+    
+
+<p>a "classIntervals" object with a "modified" attribute set</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -89,40 +93,40 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://jakubnowosad.com/spData/" class="external-link">"spData"</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"spData package needed for examples"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">run</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
-<span class="r-in"><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">run</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">jenks71</span>, package<span class="op">=</span><span class="st">"spData"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pal1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wheat1"</span>, <span class="st">"red3"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">hCI5</span> <span class="op">&lt;-</span> <span class="fu"><a href="classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">jenks71</span><span class="op">$</span><span class="va">jenks71</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"hclust"</span>, method<span class="op">=</span><span class="st">"complete"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">hCI5</span>, <span class="st">"par"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">hCI5</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"hclust k=5"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">getHclustClassIntervals</span><span class="op">(</span><span class="va">hCI5</span>, k<span class="op">=</span><span class="fl">7</span><span class="op">)</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"hclust k=7"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">getHclustClassIntervals</span><span class="op">(</span><span class="va">hCI5</span>, k<span class="op">=</span><span class="fl">9</span><span class="op">)</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"hclust k=9"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://jakubnowosad.com/spData/" class="external-link">"spData"</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"spData package needed for examples"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">run</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">run</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">jenks71</span>, package<span class="op">=</span><span class="st">"spData"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pal1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wheat1"</span>, <span class="st">"red3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">hCI5</span> <span class="op">&lt;-</span> <span class="fu"><a href="classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">jenks71</span><span class="op">$</span><span class="va">jenks71</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"hclust"</span>, method<span class="op">=</span><span class="st">"complete"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">hCI5</span>, <span class="st">"par"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">hCI5</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"hclust k=5"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">getHclustClassIntervals</span><span class="op">(</span><span class="va">hCI5</span>, k<span class="op">=</span><span class="fl">7</span><span class="op">)</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"hclust k=7"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">getHclustClassIntervals</span><span class="op">(</span><span class="va">hCI5</span>, k<span class="op">=</span><span class="fl">9</span><span class="op">)</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"hclust k=9"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="getBclustClassIntervals-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">bCI5</span> <span class="op">&lt;-</span> <span class="fu"><a href="classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">jenks71</span><span class="op">$</span><span class="va">jenks71</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"bclust"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">bCI5</span>, <span class="st">"par"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bCI5</span> <span class="op">&lt;-</span> <span class="fu"><a href="classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">jenks71</span><span class="op">$</span><span class="va">jenks71</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"bclust"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">bCI5</span>, <span class="st">"par"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Committee Member: 1(1) 2(1) 3(1) 4(1) 5(1) 6(1) 7(1) 8(1) 9(1) 10(1)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing Hierarchical Clustering</span>
 <span class="r-plt img"><img src="getBclustClassIntervals-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">getBclustClassIntervals</span><span class="op">(</span><span class="va">bCI5</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"bclust k=3"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bCI5</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"bclust k=5"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">getBclustClassIntervals</span><span class="op">(</span><span class="va">bCI5</span>, k<span class="op">=</span><span class="fl">7</span><span class="op">)</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"bclust k=7"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">getBclustClassIntervals</span><span class="op">(</span><span class="va">bCI5</span>, k<span class="op">=</span><span class="fl">9</span><span class="op">)</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"bclust k=9"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">getBclustClassIntervals</span><span class="op">(</span><span class="va">bCI5</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"bclust k=3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bCI5</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"bclust k=5"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">getBclustClassIntervals</span><span class="op">(</span><span class="va">bCI5</span>, k<span class="op">=</span><span class="fl">7</span><span class="op">)</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"bclust k=7"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">getBclustClassIntervals</span><span class="op">(</span><span class="va">bCI5</span>, k<span class="op">=</span><span class="fl">9</span><span class="op">)</span>, pal<span class="op">=</span><span class="va">pal1</span>, main<span class="op">=</span><span class="st">"bclust k=9"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="getBclustClassIntervals-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -138,7 +142,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

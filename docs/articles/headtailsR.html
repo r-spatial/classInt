@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">classInt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4-7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4-8</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
       <h1 data-toc-skip>Head/Tails breaks</h1>
                         <h4 data-toc-skip class="author">Diego Hernangomez</h4>
             
-            <h4 data-toc-skip class="date">2022-06-10</h4>
+            <h4 data-toc-skip class="date">2022-09-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/r-spatial/classInt/blob/HEAD/vignettes/headtailsR.Rmd" class="external-link"><code>vignettes/headtailsR.Rmd</code></a></small>
       <div class="hidden name"><code>headtailsR.Rmd</code></div>
@@ -108,45 +108,45 @@
 <p>Heavy-tailed distributions are heavily right skewed, with a minority of large values in the head and a majority of small values in the tail. This imbalance between the head and tail, or between many small values and a few large values, can be expressed as <em>“far more small things than large things”</em>.</p>
 <p>Heavy tailed distributions are commonly characterized by a power law, a lognormal or an exponential function. Nature, society, finance (<span class="citation">Vasicek (2002)</span>) and our daily lives are full of rare and extreme events, which are termed “black swan events” (<span class="citation">Taleb (2008)</span>). This line of thinking provides a good reason to reverse our thinking by focusing on low-frequency events.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/classInt/" class="external-link">classInt</a></span><span class="op">)</span>
-
-<span class="co">#1. Characterization of heavy-tail distributions----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span>
-<span class="co">#Pareto distribution a=1 b=1.161 n=1000</span>
-<span class="va">sample_par</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">1.161</span><span class="op">)</span>
-<span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">sample_par</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  type <span class="op">=</span> <span class="st">"l"</span>,
-  ylab <span class="op">=</span> <span class="st">"F(x)"</span>,
-  xlab <span class="op">=</span> <span class="st">""</span>,
-  main <span class="op">=</span> <span class="st">"80/20 principle"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">sample_par</span>, <span class="fl">.8</span><span class="op">)</span> ,
-       lty <span class="op">=</span> <span class="fl">2</span>,
-       col <span class="op">=</span> <span class="st">"red3"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">0.2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">sample_par</span><span class="op">)</span> ,
-       lty <span class="op">=</span> <span class="fl">2</span>,
-       col <span class="op">=</span> <span class="st">"darkblue"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>
-  <span class="st">"topleft"</span>,
-  legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"F(x): p80"</span>, <span class="st">"x: Top 20%"</span><span class="op">)</span>,
-  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red3"</span>, <span class="st">"darkblue"</span><span class="op">)</span>,
-  lty <span class="op">=</span> <span class="fl">2</span>,
-  cex <span class="op">=</span> <span class="fl">0.8</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span>
-  <span class="va">sample_par</span>,
-  n <span class="op">=</span> <span class="fl">100</span>,
-  xlab <span class="op">=</span> <span class="st">""</span>,
-  main <span class="op">=</span> <span class="st">"Histogram"</span>,
-  col <span class="op">=</span> <span class="st">"grey50"</span>,
-  border <span class="op">=</span> <span class="cn">NA</span>, 
-  probability <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/classInt/" class="external-link">classInt</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#1. Characterization of heavy-tail distributions----</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span>
+<span><span class="co">#Pareto distribution a=1 b=1.161 n=1000</span></span>
+<span><span class="va">sample_par</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">1.161</span><span class="op">)</span></span>
+<span><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">sample_par</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"l"</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">"F(x)"</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"80/20 principle"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">sample_par</span>, <span class="fl">.8</span><span class="op">)</span> ,</span>
+<span>       lty <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>       col <span class="op">=</span> <span class="st">"red3"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">0.2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">sample_par</span><span class="op">)</span> ,</span>
+<span>       lty <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>       col <span class="op">=</span> <span class="st">"darkblue"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span></span>
+<span>  <span class="st">"topleft"</span>,</span>
+<span>  legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"F(x): p80"</span>, <span class="st">"x: Top 20%"</span><span class="op">)</span>,</span>
+<span>  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red3"</span>, <span class="st">"darkblue"</span><span class="op">)</span>,</span>
+<span>  lty <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  cex <span class="op">=</span> <span class="fl">0.8</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span></span>
+<span>  <span class="va">sample_par</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"Histogram"</span>,</span>
+<span>  col <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  border <span class="op">=</span> <span class="cn">NA</span>, </span>
+<span>  probability <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></code></pre></div>
 <p><img src="headtailsR_files/figure-html/charheavytail-1.png" width="700"><img src="headtailsR_files/figure-html/charheavytail-2.png" width="700"></p>
 </div>
 <div class="section level2">
@@ -177,62 +177,62 @@
 End Function</code></pre>
 <p>A step-by-step example in <strong>R</strong> (for illustrative purposes) has been developed:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
-<span class="va">var</span> <span class="op">&lt;-</span> <span class="va">sample_par</span>
-<span class="va">thr</span> <span class="op">&lt;-</span> <span class="fl">.4</span>
-<span class="va">brks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span><span class="op">)</span>  <span class="co">#Initialise with min and max</span>
-
-<span class="va">sum_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-  iter <span class="op">=</span> <span class="fl">0</span>,
-  mu <span class="op">=</span> <span class="cn">NA</span>,
-  prop <span class="op">=</span> <span class="cn">NA</span>,
-  n_var <span class="op">=</span> <span class="cn">NA</span>,
-  n_head <span class="op">=</span> <span class="cn">NA</span>
-<span class="op">)</span>
-<span class="co">#Pars for chart</span>
-<span class="va">limchart</span> <span class="op">&lt;-</span> <span class="va">brks</span>
-<span class="co">#Iteration</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span>
-  <span class="va">brks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">brks</span>, <span class="va">mu</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">head</span> <span class="op">&lt;-</span> <span class="va">var</span><span class="op">[</span><span class="va">var</span> <span class="op">&gt;</span> <span class="va">mu</span><span class="op">]</span>
-  <span class="va">prop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">head</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span>
-  <span class="va">stopit</span> <span class="op">&lt;-</span> <span class="va">prop</span> <span class="op">&lt;</span> <span class="va">thr</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">head</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">1</span>
-  <span class="va">sum_table</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">sum_table</span>,
-                    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">i</span>, <span class="va">mu</span>, <span class="va">prop</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">head</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span>
-    <span class="va">var</span>,
-    main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Iter "</span>, <span class="va">i</span><span class="op">)</span>,
-    breaks <span class="op">=</span> <span class="fl">50</span>,
-    col <span class="op">=</span> <span class="st">"grey50"</span>,
-    border <span class="op">=</span> <span class="cn">NA</span>,
-    xlab <span class="op">=</span> <span class="st">""</span>,
-    xlim <span class="op">=</span> <span class="va">limchart</span>
-  <span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">mu</span>, col <span class="op">=</span> <span class="st">"red3"</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-  <span class="va">ylabel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">var</span>, breaks <span class="op">=</span> <span class="fl">50</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span>
-  <span class="va">labelplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"PropHead: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">prop</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"%"</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span>
-    x <span class="op">=</span> <span class="va">mu</span>,
-    y <span class="op">=</span> <span class="va">ylabel</span>,
-    labels <span class="op">=</span> <span class="va">labelplot</span>,
-    cex <span class="op">=</span> <span class="fl">0.8</span>,
-    pos <span class="op">=</span> <span class="fl">4</span>
-  <span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>
-    <span class="st">"right"</span>,
-    legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"mu"</span>, <span class="va">i</span><span class="op">)</span>,
-    col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red3"</span><span class="op">)</span>,
-    lty <span class="op">=</span> <span class="fl">2</span>,
-    cex <span class="op">=</span> <span class="fl">0.8</span>
-  <span class="op">)</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isFALSE</a></span><span class="op">(</span><span class="va">stopit</span><span class="op">)</span><span class="op">)</span>
-    <span class="kw">break</span>
-  <span class="va">var</span> <span class="op">&lt;-</span> <span class="va">head</span>
-<span class="op">}</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span><span class="va">var</span> <span class="op">&lt;-</span> <span class="va">sample_par</span></span>
+<span><span class="va">thr</span> <span class="op">&lt;-</span> <span class="fl">.4</span></span>
+<span><span class="va">brks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span><span class="op">)</span>  <span class="co">#Initialise with min and max</span></span>
+<span></span>
+<span><span class="va">sum_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  iter <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  mu <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  prop <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  n_var <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  n_head <span class="op">=</span> <span class="cn">NA</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#Pars for chart</span></span>
+<span><span class="va">limchart</span> <span class="op">&lt;-</span> <span class="va">brks</span></span>
+<span><span class="co">#Iteration</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span></span>
+<span>  <span class="va">brks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">brks</span>, <span class="va">mu</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">head</span> <span class="op">&lt;-</span> <span class="va">var</span><span class="op">[</span><span class="va">var</span> <span class="op">&gt;</span> <span class="va">mu</span><span class="op">]</span></span>
+<span>  <span class="va">prop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">head</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span></span>
+<span>  <span class="va">stopit</span> <span class="op">&lt;-</span> <span class="va">prop</span> <span class="op">&lt;</span> <span class="va">thr</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">head</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">1</span></span>
+<span>  <span class="va">sum_table</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">sum_table</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">i</span>, <span class="va">mu</span>, <span class="va">prop</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">var</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">head</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span></span>
+<span>    <span class="va">var</span>,</span>
+<span>    main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Iter "</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>    breaks <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>    col <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    xlab <span class="op">=</span> <span class="st">""</span>,</span>
+<span>    xlim <span class="op">=</span> <span class="va">limchart</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">mu</span>, col <span class="op">=</span> <span class="st">"red3"</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="va">ylabel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">var</span>, breaks <span class="op">=</span> <span class="fl">50</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span></span>
+<span>  <span class="va">labelplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"PropHead: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">prop</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"%"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">mu</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">ylabel</span>,</span>
+<span>    labels <span class="op">=</span> <span class="va">labelplot</span>,</span>
+<span>    cex <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>    pos <span class="op">=</span> <span class="fl">4</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span></span>
+<span>    <span class="st">"right"</span>,</span>
+<span>    legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"mu"</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>    col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red3"</span><span class="op">)</span>,</span>
+<span>    lty <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    cex <span class="op">=</span> <span class="fl">0.8</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isFALSE</a></span><span class="op">(</span><span class="va">stopit</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="kw">break</span></span>
+<span>  <span class="va">var</span> <span class="op">&lt;-</span> <span class="va">head</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></code></pre></div>
 <p><img src="headtailsR_files/figure-html/stepbystep-1.png" width="700"><img src="headtailsR_files/figure-html/stepbystep-2.png" width="700"><img src="headtailsR_files/figure-html/stepbystep-3.png" width="700"><img src="headtailsR_files/figure-html/stepbystep-4.png" width="700"></p>
 <p>As it can be seen, in each iteration the resulting head gradually loses the high-tail property, until the stopping condition is met.</p>
 <table class="table">
@@ -281,68 +281,68 @@ End Function</code></pre>
 </h2>
 <p>The implementation in the <code>classIntervals</code> function should replicate the results:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ht_sample_par</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span><span class="op">)</span>
-<span class="va">brks</span> <span class="op">==</span> <span class="va">ht_sample_par</span><span class="op">$</span><span class="va">brks</span>
-<span class="co">#&gt; [1] TRUE TRUE TRUE TRUE TRUE TRUE</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ht_sample_par</span><span class="op">)</span>
-<span class="co">#&gt; style: headtails</span>
-<span class="co">#&gt; [1.000295,5.675463) [5.675463,27.23693) [27.23693,85.17664) [85.17664,264.7126) </span>
-<span class="co">#&gt;                 855                 114                  25                   3 </span>
-<span class="co">#&gt; [264.7126,523.6254] </span>
-<span class="co">#&gt;                   3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ht_sample_par</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span><span class="op">)</span></span>
+<span><span class="va">brks</span> <span class="op">==</span> <span class="va">ht_sample_par</span><span class="op">$</span><span class="va">brks</span></span>
+<span><span class="co">#&gt; [1] TRUE TRUE TRUE TRUE TRUE TRUE</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ht_sample_par</span><span class="op">)</span></span>
+<span><span class="co">#&gt; style: headtails</span></span>
+<span><span class="co">#&gt; [1.000295,5.675463) [5.675463,27.23693) [27.23693,85.17664) [85.17664,264.7126) </span></span>
+<span><span class="co">#&gt;                 855                 114                  25                   3 </span></span>
+<span><span class="co">#&gt; [264.7126,523.6254] </span></span>
+<span><span class="co">#&gt;                   3</span></span></code></pre></div>
 <p>As stated in <span class="citation">Jiang (2013)</span>, the number of breaks is naturally determined, however the <code>thr</code> parameter could help to adjust the final number. A lower value on <code>thr</code> would provide less breaks while a larger <code>thr</code> would increase the number, if the underlying distribution follows the <em>“far more small things than large things”</em> principle.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
-
-<span class="va">pal1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wheat1"</span>, <span class="st">"wheat2"</span>, <span class="st">"red3"</span><span class="op">)</span>
-
-<span class="co"># Minimum: single break</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; style: headtails</span>
-<span class="co">#&gt; [1.000295,5.675463) [5.675463,523.6254] </span>
-<span class="co">#&gt;                 855                 145</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
-  pal <span class="op">=</span> <span class="va">pal1</span>,
-  main <span class="op">=</span> <span class="st">"thr = 0"</span>
-<span class="op">)</span>
-
-<span class="co"># Two breaks</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span>, thr <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; style: headtails</span>
-<span class="co">#&gt; [1.000295,5.675463) [5.675463,27.23693) [27.23693,523.6254] </span>
-<span class="co">#&gt;                 855                 114                  31</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span>, thr <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>,
-  pal <span class="op">=</span> <span class="va">pal1</span>,
-  main <span class="op">=</span> <span class="st">"thr = 0.2"</span>
-<span class="op">)</span>
-
-<span class="co"># Default breaks: 0.4</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; style: headtails</span>
-<span class="co">#&gt; [1.000295,5.675463) [5.675463,27.23693) [27.23693,85.17664) [85.17664,264.7126) </span>
-<span class="co">#&gt;                 855                 114                  25                   3 </span>
-<span class="co">#&gt; [264.7126,523.6254] </span>
-<span class="co">#&gt;                   3</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span><span class="op">)</span>,
-     pal <span class="op">=</span> <span class="va">pal1</span>,
-     main <span class="op">=</span> <span class="st">"thr = Default"</span><span class="op">)</span>
-
-<span class="co"># Maximum breaks</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span>, thr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; style: headtails</span>
-<span class="co">#&gt; [1.000295,5.675463) [5.675463,27.23693) [27.23693,85.17664) [85.17664,264.7126) </span>
-<span class="co">#&gt;                 855                 114                  25                   3 </span>
-<span class="co">#&gt;  [264.7126,391.279)  [391.279,523.6254] </span>
-<span class="co">#&gt;                   2                   1</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span>, thr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  pal <span class="op">=</span> <span class="va">pal1</span>,
-  main <span class="op">=</span> <span class="st">"thr = 1"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pal1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wheat1"</span>, <span class="st">"wheat2"</span>, <span class="st">"red3"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Minimum: single break</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; style: headtails</span></span>
+<span><span class="co">#&gt; [1.000295,5.675463) [5.675463,523.6254] </span></span>
+<span><span class="co">#&gt;                 855                 145</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  pal <span class="op">=</span> <span class="va">pal1</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"thr = 0"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Two breaks</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span>, thr <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; style: headtails</span></span>
+<span><span class="co">#&gt; [1.000295,5.675463) [5.675463,27.23693) [27.23693,523.6254] </span></span>
+<span><span class="co">#&gt;                 855                 114                  31</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span>, thr <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>,</span>
+<span>  pal <span class="op">=</span> <span class="va">pal1</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"thr = 0.2"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Default breaks: 0.4</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; style: headtails</span></span>
+<span><span class="co">#&gt; [1.000295,5.675463) [5.675463,27.23693) [27.23693,85.17664) [85.17664,264.7126) </span></span>
+<span><span class="co">#&gt;                 855                 114                  25                   3 </span></span>
+<span><span class="co">#&gt; [264.7126,523.6254] </span></span>
+<span><span class="co">#&gt;                   3</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span><span class="op">)</span>,</span>
+<span>     pal <span class="op">=</span> <span class="va">pal1</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"thr = Default"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Maximum breaks</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span>, thr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; style: headtails</span></span>
+<span><span class="co">#&gt; [1.000295,5.675463) [5.675463,27.23693) [27.23693,85.17664) [85.17664,264.7126) </span></span>
+<span><span class="co">#&gt;                 855                 114                  25                   3 </span></span>
+<span><span class="co">#&gt;  [264.7126,391.279)  [391.279,523.6254] </span></span>
+<span><span class="co">#&gt;                   2                   1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">sample_par</span>, style <span class="op">=</span> <span class="st">"headtails"</span>, thr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  pal <span class="op">=</span> <span class="va">pal1</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"thr = 1"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></code></pre></div>
 <p><img src="headtailsR_files/figure-html/examplesimp-1.png" width="700"><img src="headtailsR_files/figure-html/examplesimp-2.png" width="700"><img src="headtailsR_files/figure-html/examplesimp-3.png" width="700"><img src="headtailsR_files/figure-html/examplesimp-4.png" width="700"></p>
 <p>The method always returns at least one break, corresponding to <code>mean(var)</code>.</p>
 </div>
@@ -351,13 +351,13 @@ End Function</code></pre>
 </h2>
 <p><span class="citation">Jiang (2013)</span> states that “the new classification scheme is more natural than the natural breaks in finding the groupings or hierarchy for data with a heavy-tailed distribution.” (p. 482), referring to Jenks’ natural breaks method. In this case study we would compare “headtails” vs. “fisher,” that is the alias for the Fisher-Jenks algorithm and it is always preferred to the “jenks” style (see <code><a href="../reference/classIntervals.html">?classIntervals</a></code>). For this example we will use the <code>afcon</code> dataset from <code>spData</code> package.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jakubnowosad.com/spData/" class="external-link">spData</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">afcon</span>, package <span class="op">=</span> <span class="st">"spData"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jakubnowosad.com/spData/" class="external-link">spData</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">afcon</span>, package <span class="op">=</span> <span class="st">"spData"</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s have a look to the Top 10 values and the distribution of the variable <code>totcon</code> (index of total conflict 1966-78):</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># Top10</span>
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>,<span class="st">"totcon"</span><span class="op">)</span><span class="op">]</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Top10</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>,<span class="st">"totcon"</span><span class="op">)</span><span class="op">]</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left"></th>
@@ -418,110 +418,110 @@ End Function</code></pre>
 </tbody>
 </table>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>,
-     n <span class="op">=</span> <span class="fl">20</span>,
-     main <span class="op">=</span> <span class="st">"Histogram"</span>,
-     xlab <span class="op">=</span> <span class="st">"totcon"</span>,
-     col <span class="op">=</span> <span class="st">"grey50"</span>,
-     border <span class="op">=</span> <span class="cn">NA</span>, <span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span><span class="op">)</span>,
-  main <span class="op">=</span> <span class="st">"Distribution"</span>,
-  xlab <span class="op">=</span> <span class="st">"totcon"</span>,
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>,</span>
+<span>     n <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"Histogram"</span>,</span>
+<span>     xlab <span class="op">=</span> <span class="st">"totcon"</span>,</span>
+<span>     col <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>     border <span class="op">=</span> <span class="cn">NA</span>, <span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span><span class="op">)</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"Distribution"</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">"totcon"</span>,</span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></code></pre></div>
 <p><img src="headtailsR_files/figure-html/summspdata-1.png" width="700"><img src="headtailsR_files/figure-html/summspdata-2.png" width="700"></p>
 <p>The data shows that EG and SU data present a clear hierarchy over the rest of values. As per the histogram, we can confirm a heavy-tailed distribution and therefore the <em>“far more small things than large things”</em> principle.</p>
 <p>As a testing proof, on top of “headtails” and “fisher” we would use also “quantile” to have a broader view on the different breaking styles. As “quantile” is a position-based metric, it doesn’t account for the magnitude of F(x) (hierarchy), so the breaks are solely defined by the position of x on the distribution.</p>
 <p>Applying the three aforementioned methods to break the data:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">brks_ht</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>, style <span class="op">=</span> <span class="st">"headtails"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">brks_ht</span><span class="op">)</span>
-<span class="co">#&gt; style: headtails</span>
-<span class="co">#&gt;   one of 91,390 possible partitions of this variable into 5 classes</span>
-<span class="co">#&gt;    [147,1350.619) [1350.619,2488.6)   [2488.6,3819.8)   [3819.8,4998.5) </span>
-<span class="co">#&gt;                27                10                 3                 1 </span>
-<span class="co">#&gt;     [4998.5,5246] </span>
-<span class="co">#&gt;                 1</span>
-<span class="co">#Same number of classes for "fisher"</span>
-<span class="va">nclass</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">brks_ht</span><span class="op">$</span><span class="va">brks</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>
-<span class="va">brks_fisher</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>, style <span class="op">=</span> <span class="st">"fisher"</span>,
-                               n <span class="op">=</span> <span class="va">nclass</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">brks_fisher</span><span class="op">)</span>
-<span class="co">#&gt; style: fisher</span>
-<span class="co">#&gt;   one of 91,390 possible partitions of this variable into 5 classes</span>
-<span class="co">#&gt;    [147,693.5) [693.5,1474.5)  [1474.5,2618)  [2618,3942.5)  [3942.5,5246] </span>
-<span class="co">#&gt;             12             17              8              3              2</span>
-
-<span class="va">brks_quantile</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>, style <span class="op">=</span> <span class="st">"quantile"</span>,
-                                n <span class="op">=</span> <span class="va">nclass</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">brks_quantile</span><span class="op">)</span>
-<span class="co">#&gt; style: quantile</span>
-<span class="co">#&gt;   one of 91,390 possible partitions of this variable into 5 classes</span>
-<span class="co">#&gt;       [147,604)     [604,833.6)  [833.6,1137.2) [1137.2,1877.4)   [1877.4,5246] </span>
-<span class="co">#&gt;               8               9               8               8               9</span>
-
-<span class="va">pal1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wheat1"</span>, <span class="st">"wheat2"</span>, <span class="st">"red3"</span><span class="op">)</span>
-<span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">brks_ht</span>, pal <span class="op">=</span> <span class="va">pal1</span>, main <span class="op">=</span> <span class="st">"headtails"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">brks_fisher</span>, pal <span class="op">=</span> <span class="va">pal1</span>, main <span class="op">=</span> <span class="st">"fisher"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">brks_quantile</span>, pal <span class="op">=</span> <span class="va">pal1</span>, main <span class="op">=</span> <span class="st">"quantile"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">brks_ht</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>, style <span class="op">=</span> <span class="st">"headtails"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">brks_ht</span><span class="op">)</span></span>
+<span><span class="co">#&gt; style: headtails</span></span>
+<span><span class="co">#&gt;   one of 91,390 possible partitions of this variable into 5 classes</span></span>
+<span><span class="co">#&gt;    [147,1350.619) [1350.619,2488.6)   [2488.6,3819.8)   [3819.8,4998.5) </span></span>
+<span><span class="co">#&gt;                27                10                 3                 1 </span></span>
+<span><span class="co">#&gt;     [4998.5,5246] </span></span>
+<span><span class="co">#&gt;                 1</span></span>
+<span><span class="co">#Same number of classes for "fisher"</span></span>
+<span><span class="va">nclass</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">brks_ht</span><span class="op">$</span><span class="va">brks</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span></span>
+<span><span class="va">brks_fisher</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>, style <span class="op">=</span> <span class="st">"fisher"</span>,</span>
+<span>                               n <span class="op">=</span> <span class="va">nclass</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">brks_fisher</span><span class="op">)</span></span>
+<span><span class="co">#&gt; style: fisher</span></span>
+<span><span class="co">#&gt;   one of 91,390 possible partitions of this variable into 5 classes</span></span>
+<span><span class="co">#&gt;    [147,693.5) [693.5,1474.5)  [1474.5,2618)  [2618,3942.5)  [3942.5,5246] </span></span>
+<span><span class="co">#&gt;             12             17              8              3              2</span></span>
+<span></span>
+<span><span class="va">brks_quantile</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>, style <span class="op">=</span> <span class="st">"quantile"</span>,</span>
+<span>                                n <span class="op">=</span> <span class="va">nclass</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">brks_quantile</span><span class="op">)</span></span>
+<span><span class="co">#&gt; style: quantile</span></span>
+<span><span class="co">#&gt;   one of 91,390 possible partitions of this variable into 5 classes</span></span>
+<span><span class="co">#&gt;       [147,604)     [604,833.6)  [833.6,1137.2) [1137.2,1877.4)   [1877.4,5246] </span></span>
+<span><span class="co">#&gt;               8               9               8               8               9</span></span>
+<span></span>
+<span><span class="va">pal1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wheat1"</span>, <span class="st">"wheat2"</span>, <span class="st">"red3"</span><span class="op">)</span></span>
+<span><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">brks_ht</span>, pal <span class="op">=</span> <span class="va">pal1</span>, main <span class="op">=</span> <span class="st">"headtails"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">brks_fisher</span>, pal <span class="op">=</span> <span class="va">pal1</span>, main <span class="op">=</span> <span class="st">"fisher"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">brks_quantile</span>, pal <span class="op">=</span> <span class="va">pal1</span>, main <span class="op">=</span> <span class="st">"quantile"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></code></pre></div>
 <p><img src="headtailsR_files/figure-html/breaksample-1.png" width="700"><img src="headtailsR_files/figure-html/breaksample-2.png" width="700"><img src="headtailsR_files/figure-html/breaksample-3.png" width="700"></p>
 <p>It is observed that the top three classes of “headtails” enclose 5 observations, whereas “fisher” includes 13 observations. In terms of classification, “headtails” breaks focuses more on extreme values.</p>
 <p>The next plot compares a continuous distribution of <code>totcon</code> re-escalated to a range of <code>[1,nclass]</code> versus the distribution across breaks for each style. The continuous distribution has been offset by -0.5 in order to align the continuous and the discrete distributions.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#Helper function to rescale values</span>
-<span class="va">help_reescale</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">min</span> <span class="op">=</span> <span class="fl">1</span>, <span class="va">max</span> <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">r</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">r</span> <span class="op">&lt;-</span> <span class="va">r</span> <span class="op">*</span> <span class="op">(</span><span class="va">max</span> <span class="op">-</span> <span class="va">min</span><span class="op">)</span> <span class="op">+</span> <span class="va">min</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="va">afcon</span><span class="op">$</span><span class="va">ecdf_class</span> <span class="op">&lt;-</span> <span class="fu">help_reescale</span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>,
-                                  min <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="fl">0.5</span>,
-                                  max <span class="op">=</span> <span class="va">nclass</span> <span class="op">-</span> <span class="fl">0.5</span><span class="op">)</span>
-<span class="va">afcon</span><span class="op">$</span><span class="va">ht_breaks</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>,
-                        <span class="va">brks_ht</span><span class="op">$</span><span class="va">brks</span>,
-                        labels <span class="op">=</span> <span class="cn">FALSE</span>,
-                        include.lowest <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="va">afcon</span><span class="op">$</span><span class="va">fisher_breaks</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>,
-                            <span class="va">brks_fisher</span><span class="op">$</span><span class="va">brks</span>,
-                            labels <span class="op">=</span> <span class="cn">FALSE</span>,
-                            include.lowest <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="va">afcon</span><span class="op">$</span><span class="va">quantile_break</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>,
-                             <span class="va">brks_quantile</span><span class="op">$</span><span class="va">brks</span>,
-                             labels <span class="op">=</span> <span class="cn">FALSE</span>,
-                             include.lowest <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">ecdf_class</span><span class="op">)</span>,
-  ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.8</span><span class="op">)</span>,
-  lwd <span class="op">=</span> <span class="fl">2</span>,
-  main <span class="op">=</span> <span class="st">""</span>,
-  xlab <span class="op">=</span> <span class="st">"class"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">ht_breaks</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"darkblue"</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">fisher_breaks</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"limegreen"</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">quantile_break</span><span class="op">)</span>,
-      col <span class="op">=</span> <span class="st">"red3"</span>,
-      lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topright"</span>,
-       legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Continuous"</span>, <span class="st">"headtails"</span>,
-                  <span class="st">"fisher"</span>, <span class="st">"quantile"</span><span class="op">)</span>,
-  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"darkblue"</span>, <span class="st">"limegreen"</span>, <span class="st">"red3"</span><span class="op">)</span>,
-  lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,
-  lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,
-  cex <span class="op">=</span> <span class="fl">0.8</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#Helper function to rescale values</span></span>
+<span><span class="va">help_reescale</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">min</span> <span class="op">=</span> <span class="fl">1</span>, <span class="va">max</span> <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">r</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">r</span> <span class="op">&lt;-</span> <span class="va">r</span> <span class="op">*</span> <span class="op">(</span><span class="va">max</span> <span class="op">-</span> <span class="va">min</span><span class="op">)</span> <span class="op">+</span> <span class="va">min</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">afcon</span><span class="op">$</span><span class="va">ecdf_class</span> <span class="op">&lt;-</span> <span class="fu">help_reescale</span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>,</span>
+<span>                                  min <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="fl">0.5</span>,</span>
+<span>                                  max <span class="op">=</span> <span class="va">nclass</span> <span class="op">-</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span><span class="va">afcon</span><span class="op">$</span><span class="va">ht_breaks</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>,</span>
+<span>                        <span class="va">brks_ht</span><span class="op">$</span><span class="va">brks</span>,</span>
+<span>                        labels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                        include.lowest <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">afcon</span><span class="op">$</span><span class="va">fisher_breaks</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>,</span>
+<span>                            <span class="va">brks_fisher</span><span class="op">$</span><span class="va">brks</span>,</span>
+<span>                            labels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                            include.lowest <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">afcon</span><span class="op">$</span><span class="va">quantile_break</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>,</span>
+<span>                             <span class="va">brks_quantile</span><span class="op">$</span><span class="va">brks</span>,</span>
+<span>                             labels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                             include.lowest <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">ecdf_class</span><span class="op">)</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.8</span><span class="op">)</span>,</span>
+<span>  lwd <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">"class"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">ht_breaks</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"darkblue"</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">fisher_breaks</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"limegreen"</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">quantile_break</span><span class="op">)</span>,</span>
+<span>      col <span class="op">=</span> <span class="st">"red3"</span>,</span>
+<span>      lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topright"</span>,</span>
+<span>       legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Continuous"</span>, <span class="st">"headtails"</span>,</span>
+<span>                  <span class="st">"fisher"</span>, <span class="st">"quantile"</span><span class="op">)</span>,</span>
+<span>  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"darkblue"</span>, <span class="st">"limegreen"</span>, <span class="st">"red3"</span><span class="op">)</span>,</span>
+<span>  lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  cex <span class="op">=</span> <span class="fl">0.8</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></code></pre></div>
 <p><img src="headtailsR_files/figure-html/benchmarkbreaks-1.png" width="672"></p>
 <p>It can be observed that the distribution of “headtails” breaks is also heavy-tailed, and closer to the original distribution. On the other extreme, “quantile” provides a quasi-uniform distribution, ignoring the <code>totcon</code> hierarchy</p>
 <p>In terms of data visualization, we compare here the final map using the techniques mentioned above. On this plotting exercise:</p>
@@ -532,114 +532,114 @@ End Function</code></pre>
 <li>For all the rest of styles, <code>col</code> and <code>cex</code> on each point is defined as per the class of that point.</li>
 </ul>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">custompal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#FE9F6D99"</span>,
-               <span class="st">"#DE496899"</span>,
-               <span class="st">"#8C298199"</span>,
-               <span class="st">"#3B0F7099"</span>,
-               <span class="st">"#00000499"</span><span class="op">)</span>
-
-<span class="va">afcon</span><span class="op">$</span><span class="va">cex_points</span> <span class="op">&lt;-</span> <span class="fu">help_reescale</span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>,
-                                  min <span class="op">=</span> <span class="fl">1</span>,
-                                  max <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">2</span>, <span class="fl">1.5</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
-<span class="co"># Plot continuous</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">x</span>,
-  y <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">y</span>,
-  axes <span class="op">=</span> <span class="cn">FALSE</span>,
-  cex <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">cex_points</span>,
-  pch <span class="op">=</span> <span class="fl">20</span>,
-  col <span class="op">=</span> <span class="st">"grey50"</span>,
-  main <span class="op">=</span> <span class="st">"Continuous"</span>,
-<span class="op">)</span>
-
-<span class="va">mcont</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4</span>
-<span class="va">legcont</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">*</span> <span class="va">mcont</span> <span class="op">-</span> <span class="op">(</span><span class="va">mcont</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"bottomleft"</span>,
-       xjust <span class="op">=</span> <span class="fl">1</span>,
-       bty <span class="op">=</span> <span class="st">"n"</span>,
-       legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"   "</span>,
-                  <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">legcont</span>, <span class="fl">0</span><span class="op">)</span>
-                  <span class="op">)</span>,
-       col <span class="op">=</span> <span class="st">"grey50"</span>,
-  pt.cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>,
-  pch <span class="op">=</span> <span class="fl">20</span>,
-  title <span class="op">=</span> <span class="st">"totcon"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">x</span>,
-  y <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">y</span>,
-  axes <span class="op">=</span> <span class="cn">FALSE</span>,
-  cex <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">ht_breaks</span>,
-  pch <span class="op">=</span> <span class="fl">20</span>,
-  col <span class="op">=</span> <span class="va">custompal</span><span class="op">[</span><span class="va">afcon</span><span class="op">$</span><span class="va">ht_breaks</span><span class="op">]</span>,
-  main <span class="op">=</span> <span class="st">"headtails"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>
-  <span class="st">"bottomleft"</span>,
-  xjust <span class="op">=</span> <span class="fl">1</span>,
-  bty <span class="op">=</span> <span class="st">"n"</span>,
-  legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"   "</span>,
-                  <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">brks_ht</span><span class="op">$</span><span class="va">brks</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>,<span class="fl">0</span><span class="op">)</span>
-                  <span class="op">)</span>,
-  col <span class="op">=</span> <span class="va">custompal</span>,
-  pt.cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>,
-  pch <span class="op">=</span> <span class="fl">20</span>,
-  title <span class="op">=</span> <span class="st">"totcon"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">x</span>,
-  y <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">y</span>,
-  axes <span class="op">=</span> <span class="cn">FALSE</span>,
-  cex <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">fisher_breaks</span>,
-  pch <span class="op">=</span> <span class="fl">20</span>,
-  col <span class="op">=</span> <span class="va">custompal</span><span class="op">[</span><span class="va">afcon</span><span class="op">$</span><span class="va">fisher_breaks</span><span class="op">]</span>,
-  main <span class="op">=</span> <span class="st">"fisher"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>
-  <span class="st">"bottomleft"</span>,
-  xjust <span class="op">=</span> <span class="fl">1</span>,
-  bty <span class="op">=</span> <span class="st">"n"</span>,
-  legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"   "</span>,
-                  <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">brks_fisher</span><span class="op">$</span><span class="va">brks</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>,<span class="fl">0</span><span class="op">)</span>
-                  <span class="op">)</span>,
-  col <span class="op">=</span> <span class="va">custompal</span>,
-  pt.cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>,
-  pch <span class="op">=</span> <span class="fl">20</span>,
-  title <span class="op">=</span> <span class="st">"totcon"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">x</span>,
-  y <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">y</span>,
-  axes <span class="op">=</span> <span class="cn">FALSE</span>,
-  cex <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">quantile_break</span>,
-  pch <span class="op">=</span> <span class="fl">20</span>,
-  col <span class="op">=</span> <span class="va">custompal</span><span class="op">[</span><span class="va">afcon</span><span class="op">$</span><span class="va">quantile_break</span><span class="op">]</span>,
-  main <span class="op">=</span> <span class="st">"quantile"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>
-  <span class="st">"bottomleft"</span>,
-  xjust <span class="op">=</span> <span class="fl">1</span>,
-  bty <span class="op">=</span> <span class="st">"n"</span>,
-  legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"   "</span>,
-                  <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">brks_quantile</span><span class="op">$</span><span class="va">brks</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>,<span class="fl">0</span><span class="op">)</span>
-                  <span class="op">)</span>,
-  col <span class="op">=</span> <span class="va">custompal</span>,
-  pt.cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>,
-  pch <span class="op">=</span> <span class="fl">20</span>,
-  title <span class="op">=</span> <span class="st">"totcon"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">custompal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#FE9F6D99"</span>,</span>
+<span>               <span class="st">"#DE496899"</span>,</span>
+<span>               <span class="st">"#8C298199"</span>,</span>
+<span>               <span class="st">"#3B0F7099"</span>,</span>
+<span>               <span class="st">"#00000499"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">afcon</span><span class="op">$</span><span class="va">cex_points</span> <span class="op">&lt;-</span> <span class="fu">help_reescale</span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span>,</span>
+<span>                                  min <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                                  max <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">2</span>, <span class="fl">1.5</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span><span class="co"># Plot continuous</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">x</span>,</span>
+<span>  y <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">y</span>,</span>
+<span>  axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  cex <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">cex_points</span>,</span>
+<span>  pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  col <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"Continuous"</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mcont</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4</span></span>
+<span><span class="va">legcont</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">*</span> <span class="va">mcont</span> <span class="op">-</span> <span class="op">(</span><span class="va">mcont</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">afcon</span><span class="op">$</span><span class="va">totcon</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"bottomleft"</span>,</span>
+<span>       xjust <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>       bty <span class="op">=</span> <span class="st">"n"</span>,</span>
+<span>       legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"   "</span>,</span>
+<span>                  <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">legcont</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span>                  <span class="op">)</span>,</span>
+<span>       col <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  pt.cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"totcon"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">x</span>,</span>
+<span>  y <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">y</span>,</span>
+<span>  axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  cex <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">ht_breaks</span>,</span>
+<span>  pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  col <span class="op">=</span> <span class="va">custompal</span><span class="op">[</span><span class="va">afcon</span><span class="op">$</span><span class="va">ht_breaks</span><span class="op">]</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"headtails"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span></span>
+<span>  <span class="st">"bottomleft"</span>,</span>
+<span>  xjust <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  bty <span class="op">=</span> <span class="st">"n"</span>,</span>
+<span>  legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"   "</span>,</span>
+<span>                  <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">brks_ht</span><span class="op">$</span><span class="va">brks</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>,<span class="fl">0</span><span class="op">)</span></span>
+<span>                  <span class="op">)</span>,</span>
+<span>  col <span class="op">=</span> <span class="va">custompal</span>,</span>
+<span>  pt.cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"totcon"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">x</span>,</span>
+<span>  y <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">y</span>,</span>
+<span>  axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  cex <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">fisher_breaks</span>,</span>
+<span>  pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  col <span class="op">=</span> <span class="va">custompal</span><span class="op">[</span><span class="va">afcon</span><span class="op">$</span><span class="va">fisher_breaks</span><span class="op">]</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"fisher"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span></span>
+<span>  <span class="st">"bottomleft"</span>,</span>
+<span>  xjust <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  bty <span class="op">=</span> <span class="st">"n"</span>,</span>
+<span>  legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"   "</span>,</span>
+<span>                  <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">brks_fisher</span><span class="op">$</span><span class="va">brks</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>,<span class="fl">0</span><span class="op">)</span></span>
+<span>                  <span class="op">)</span>,</span>
+<span>  col <span class="op">=</span> <span class="va">custompal</span>,</span>
+<span>  pt.cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"totcon"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">x</span>,</span>
+<span>  y <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">y</span>,</span>
+<span>  axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  cex <span class="op">=</span> <span class="va">afcon</span><span class="op">$</span><span class="va">quantile_break</span>,</span>
+<span>  pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  col <span class="op">=</span> <span class="va">custompal</span><span class="op">[</span><span class="va">afcon</span><span class="op">$</span><span class="va">quantile_break</span><span class="op">]</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"quantile"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span></span>
+<span>  <span class="st">"bottomleft"</span>,</span>
+<span>  xjust <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  bty <span class="op">=</span> <span class="st">"n"</span>,</span>
+<span>  legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"   "</span>,</span>
+<span>                  <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">brks_quantile</span><span class="op">$</span><span class="va">brks</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>,<span class="fl">0</span><span class="op">)</span></span>
+<span>                  <span class="op">)</span>,</span>
+<span>  col <span class="op">=</span> <span class="va">custompal</span>,</span>
+<span>  pt.cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"totcon"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></code></pre></div>
 <p><img src="headtailsR_files/figure-html/finalplot%20-1.png" width="700"><img src="headtailsR_files/figure-html/finalplot%20-2.png" width="700"><img src="headtailsR_files/figure-html/finalplot%20-3.png" width="700"><img src="headtailsR_files/figure-html/finalplot%20-4.png" width="700"></p>
 <p>As per the results, “headtails” seems to provide a better understanding of the most extreme values when the result is compared against the continuous plot. The “quantile” style, as expected, just provides a clustering without taking into account the real hierarchy. The “fisher” plot is in-between of these two interpretations.</p>
 <p>It is also important to note that “headtails” and “fisher” reveal different information that can be useful depending of the context. While “headtails” highlights the outliers, it fails on providing a good clustering on the tail, while “fisher” seems to reflect better these patterns. This can be observed on the values of Western Africa and the Niger River Basin, where “headtails” doesn’t highlight any special cluster of conflicts, “fisher” suggests a potential cluster. This can be confirmed on the histogram generated previously, where a concentration of <code>totcon</code> around 1,000 is visible.</p>
@@ -664,143 +664,143 @@ End Function</code></pre>
 <li>Uniform distribution</li>
 </ul>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#Init samples</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2389</span><span class="op">)</span>
-
-<span class="co">#Pareto distributions a=7 b=14</span>
-<span class="va">paretodist</span> <span class="op">&lt;-</span> <span class="fl">7</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5000000</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">14</span><span class="op">)</span>
-<span class="co">#Exponential dist</span>
-<span class="va">expdist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="fl">5000000</span><span class="op">)</span>
-<span class="co">#Lognorm</span>
-<span class="va">lognormdist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html" class="external-link">rlnorm</a></span><span class="op">(</span><span class="fl">5000000</span><span class="op">)</span>
-<span class="co">#Weibull</span>
-<span class="va">weibulldist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Weibull.html" class="external-link">rweibull</a></span><span class="op">(</span><span class="fl">5000000</span>, <span class="fl">1</span>, scale <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="co">#LogCauchy "super-heavy tail"</span>
-<span class="va">logcauchdist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Cauchy.html" class="external-link">rcauchy</a></span><span class="op">(</span><span class="fl">5000000</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#Remove Inf </span>
-<span class="va">logcauchdist</span> <span class="op">&lt;-</span> <span class="va">logcauchdist</span><span class="op">[</span><span class="va">logcauchdist</span> <span class="op">&lt;</span> <span class="cn">Inf</span><span class="op">]</span>
-
-<span class="co">#Normal dist</span>
-<span class="va">normdist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">5000000</span><span class="op">)</span>
-<span class="co">#Left-tailed distr</span>
-<span class="va">leftnorm</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">normdist</span><span class="op">[</span><span class="va">normdist</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">normdist</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">5000000</span><span class="op">)</span>
-
-<span class="co">#Uniform distribution</span>
-<span class="va">unifdist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5000000</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#Init samples</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2389</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Pareto distributions a=7 b=14</span></span>
+<span><span class="va">paretodist</span> <span class="op">&lt;-</span> <span class="fl">7</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5000000</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">14</span><span class="op">)</span></span>
+<span><span class="co">#Exponential dist</span></span>
+<span><span class="va">expdist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="fl">5000000</span><span class="op">)</span></span>
+<span><span class="co">#Lognorm</span></span>
+<span><span class="va">lognormdist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html" class="external-link">rlnorm</a></span><span class="op">(</span><span class="fl">5000000</span><span class="op">)</span></span>
+<span><span class="co">#Weibull</span></span>
+<span><span class="va">weibulldist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Weibull.html" class="external-link">rweibull</a></span><span class="op">(</span><span class="fl">5000000</span>, <span class="fl">1</span>, scale <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#LogCauchy "super-heavy tail"</span></span>
+<span><span class="va">logcauchdist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Cauchy.html" class="external-link">rcauchy</a></span><span class="op">(</span><span class="fl">5000000</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#Remove Inf </span></span>
+<span><span class="va">logcauchdist</span> <span class="op">&lt;-</span> <span class="va">logcauchdist</span><span class="op">[</span><span class="va">logcauchdist</span> <span class="op">&lt;</span> <span class="cn">Inf</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co">#Normal dist</span></span>
+<span><span class="va">normdist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">5000000</span><span class="op">)</span></span>
+<span><span class="co">#Left-tailed distr</span></span>
+<span><span class="va">leftnorm</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">normdist</span><span class="op">[</span><span class="va">normdist</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">normdist</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">5000000</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Uniform distribution</span></span>
+<span><span class="va">unifdist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5000000</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s define a helper function and proceed to run the whole test suite:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-  Title <span class="op">=</span> <span class="cn">NA</span>,
-  style <span class="op">=</span> <span class="cn">NA</span>,
-  nsample  <span class="op">=</span> <span class="cn">NA</span>,
-  thresold <span class="op">=</span> <span class="cn">NA</span>,
-  nbreaks <span class="op">=</span> <span class="cn">NA</span>,
-  time_secs <span class="op">=</span> <span class="cn">NA</span>
-<span class="op">)</span>
-
-<span class="va">benchmarkdist</span> <span class="op">&lt;-</span>
-  <span class="kw">function</span><span class="op">(</span><span class="va">dist</span>,
-           <span class="va">style</span> <span class="op">=</span> <span class="st">"headtails"</span>,
-           <span class="va">thr</span> <span class="op">=</span> <span class="fl">0.4</span>,
-           <span class="va">title</span> <span class="op">=</span> <span class="st">""</span>,
-           <span class="va">plot</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">init</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>
-    <span class="va">br</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">dist</span>, style <span class="op">=</span> <span class="va">style</span>, thr <span class="op">=</span> <span class="va">thr</span><span class="op">)</span>
-    <span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">init</span>
-    <span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-      Title <span class="op">=</span> <span class="va">title</span>,
-      style  <span class="op">=</span> <span class="va">style</span>,
-      nsample  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">br</span><span class="op">$</span><span class="va">var</span><span class="op">)</span>, 
-                        scientific <span class="op">=</span> <span class="cn">FALSE</span>, big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span>,
-      thresold <span class="op">=</span> <span class="va">thr</span>,
-      nbreaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">br</span><span class="op">$</span><span class="va">brks</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,
-      time_secs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">a</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-    <span class="op">)</span>
-    <span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">testresults</span>, <span class="va">test</span><span class="op">)</span><span class="op">)</span>
-    
-    <span class="kw">if</span> <span class="op">(</span><span class="va">plot</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-        <span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">br</span><span class="op">$</span><span class="va">var</span>,
-                from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">dist</span>,<span class="fl">.0005</span><span class="op">)</span>,
-                to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">dist</span>,<span class="fl">.9995</span><span class="op">)</span>
-                <span class="op">)</span>,
-        col <span class="op">=</span> <span class="st">"black"</span>,
-        cex.main <span class="op">=</span> <span class="fl">.9</span>,
-        main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span>
-          <span class="va">title</span>,
-          <span class="st">" "</span>,
-          <span class="va">style</span>,
-          <span class="st">", thr ="</span>,
-          <span class="va">thr</span>,
-          <span class="st">", nbreaks = "</span>,
-          <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">br</span><span class="op">$</span><span class="va">brks</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>
-        <span class="op">)</span>,
-        ylab <span class="op">=</span> <span class="st">""</span>,
-        xlab <span class="op">=</span> <span class="st">""</span>
-      <span class="op">)</span>
-      <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">br</span><span class="op">$</span><span class="va">brks</span>,
-             col <span class="op">=</span> <span class="st">"red3"</span>,
-             lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-    <span class="op">}</span>
-    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">testresults</span><span class="op">)</span>
-  <span class="op">}</span>
-<span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
-
-<span class="co"># Pareto----</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">paretodist</span>, title <span class="op">=</span> <span class="st">"Pareto"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">paretodist</span>, title <span class="op">=</span> <span class="st">"Pareto"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">paretodist</span>, title <span class="op">=</span> <span class="st">"Pareto"</span>, thr <span class="op">=</span> <span class="fl">.75</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co">#Sample 2,000 obs</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span>
-<span class="va">Paretosamp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">paretodist</span>, <span class="fl">2000</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">Paretosamp</span>,
-                             title <span class="op">=</span> <span class="st">"Pareto sample"</span>,
-                             style <span class="op">=</span> <span class="st">"fisher"</span>,
-                             plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">Paretosamp</span>,
-                             title <span class="op">=</span> <span class="st">"Pareto sample"</span>,
-                             style <span class="op">=</span> <span class="st">"headtails"</span>,
-                             plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-
-<span class="co">#Exponential----</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">expdist</span>, title <span class="op">=</span> <span class="st">"Exponential"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">expdist</span>, title <span class="op">=</span> <span class="st">"Exponential"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">expdist</span>, title <span class="op">=</span> <span class="st">"Exponential"</span>, thr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">expdist</span>, title <span class="op">=</span> <span class="st">"Exponential"</span>,
-                             style <span class="op">=</span> <span class="st">"quantile"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co">#Weibull-----</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">weibulldist</span>, title <span class="op">=</span> <span class="st">"Weibull"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">weibulldist</span>, title <span class="op">=</span> <span class="st">"Weibull"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">weibulldist</span>, title <span class="op">=</span> <span class="st">"Weibull"</span>, thr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="co">#Logcauchy</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">logcauchdist</span>, title <span class="op">=</span> <span class="st">"LogCauchy"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">logcauchdist</span>, title <span class="op">=</span> <span class="st">"LogCauchy"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">logcauchdist</span>, title <span class="op">=</span> <span class="st">"LogCauchy"</span>, thr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="co">#Normal----</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">normdist</span>, title <span class="op">=</span> <span class="st">"Normal"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">normdist</span>, title <span class="op">=</span> <span class="st">"Normal"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">normdist</span>, title <span class="op">=</span> <span class="st">"Normal"</span>, thr <span class="op">=</span> <span class="fl">1</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co">#Truncated Left-tail Normal----</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">leftnorm</span>, title <span class="op">=</span> <span class="st">"Left Normal"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">leftnorm</span>, title <span class="op">=</span> <span class="st">"Left Normal"</span>, thr <span class="op">=</span> <span class="op">-</span><span class="fl">100</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">leftnorm</span>, title <span class="op">=</span> <span class="st">"Left Normal"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, thr <span class="op">=</span> <span class="fl">500</span><span class="op">)</span>
-
-<span class="co">#Uniform----</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">unifdist</span>, title <span class="op">=</span> <span class="st">"Uniform"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, thr <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">unifdist</span>, title <span class="op">=</span> <span class="st">"Uniform"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">unifdist</span>, title <span class="op">=</span> <span class="st">"Uniform"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, thr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span>
-
-<span class="co"># Results</span>
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">testresults</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span>, <span class="op">]</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  Title <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  style <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  nsample  <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  thresold <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  nbreaks <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  time_secs <span class="op">=</span> <span class="cn">NA</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">benchmarkdist</span> <span class="op">&lt;-</span></span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">dist</span>,</span>
+<span>           <span class="va">style</span> <span class="op">=</span> <span class="st">"headtails"</span>,</span>
+<span>           <span class="va">thr</span> <span class="op">=</span> <span class="fl">0.4</span>,</span>
+<span>           <span class="va">title</span> <span class="op">=</span> <span class="st">""</span>,</span>
+<span>           <span class="va">plot</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">init</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="va">br</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">dist</span>, style <span class="op">=</span> <span class="va">style</span>, thr <span class="op">=</span> <span class="va">thr</span><span class="op">)</span></span>
+<span>    <span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">init</span></span>
+<span>    <span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>      Title <span class="op">=</span> <span class="va">title</span>,</span>
+<span>      style  <span class="op">=</span> <span class="va">style</span>,</span>
+<span>      nsample  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">br</span><span class="op">$</span><span class="va">var</span><span class="op">)</span>, </span>
+<span>                        scientific <span class="op">=</span> <span class="cn">FALSE</span>, big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span>,</span>
+<span>      thresold <span class="op">=</span> <span class="va">thr</span>,</span>
+<span>      nbreaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">br</span><span class="op">$</span><span class="va">brks</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
+<span>      time_secs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">a</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>    <span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">testresults</span>, <span class="va">test</span><span class="op">)</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">plot</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">br</span><span class="op">$</span><span class="va">var</span>,</span>
+<span>                from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">dist</span>,<span class="fl">.0005</span><span class="op">)</span>,</span>
+<span>                to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">dist</span>,<span class="fl">.9995</span><span class="op">)</span></span>
+<span>                <span class="op">)</span>,</span>
+<span>        col <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>        cex.main <span class="op">=</span> <span class="fl">.9</span>,</span>
+<span>        main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>          <span class="va">title</span>,</span>
+<span>          <span class="st">" "</span>,</span>
+<span>          <span class="va">style</span>,</span>
+<span>          <span class="st">", thr ="</span>,</span>
+<span>          <span class="va">thr</span>,</span>
+<span>          <span class="st">", nbreaks = "</span>,</span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">br</span><span class="op">$</span><span class="va">brks</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        ylab <span class="op">=</span> <span class="st">""</span>,</span>
+<span>        xlab <span class="op">=</span> <span class="st">""</span></span>
+<span>      <span class="op">)</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">br</span><span class="op">$</span><span class="va">brks</span>,</span>
+<span>             col <span class="op">=</span> <span class="st">"red3"</span>,</span>
+<span>             lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">testresults</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Pareto----</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">paretodist</span>, title <span class="op">=</span> <span class="st">"Pareto"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">paretodist</span>, title <span class="op">=</span> <span class="st">"Pareto"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">paretodist</span>, title <span class="op">=</span> <span class="st">"Pareto"</span>, thr <span class="op">=</span> <span class="fl">.75</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Sample 2,000 obs</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span>
+<span><span class="va">Paretosamp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">paretodist</span>, <span class="fl">2000</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">Paretosamp</span>,</span>
+<span>                             title <span class="op">=</span> <span class="st">"Pareto sample"</span>,</span>
+<span>                             style <span class="op">=</span> <span class="st">"fisher"</span>,</span>
+<span>                             plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">Paretosamp</span>,</span>
+<span>                             title <span class="op">=</span> <span class="st">"Pareto sample"</span>,</span>
+<span>                             style <span class="op">=</span> <span class="st">"headtails"</span>,</span>
+<span>                             plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co">#Exponential----</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">expdist</span>, title <span class="op">=</span> <span class="st">"Exponential"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">expdist</span>, title <span class="op">=</span> <span class="st">"Exponential"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">expdist</span>, title <span class="op">=</span> <span class="st">"Exponential"</span>, thr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">expdist</span>, title <span class="op">=</span> <span class="st">"Exponential"</span>,</span>
+<span>                             style <span class="op">=</span> <span class="st">"quantile"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Weibull-----</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">weibulldist</span>, title <span class="op">=</span> <span class="st">"Weibull"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">weibulldist</span>, title <span class="op">=</span> <span class="st">"Weibull"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">weibulldist</span>, title <span class="op">=</span> <span class="st">"Weibull"</span>, thr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Logcauchy</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">logcauchdist</span>, title <span class="op">=</span> <span class="st">"LogCauchy"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">logcauchdist</span>, title <span class="op">=</span> <span class="st">"LogCauchy"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">logcauchdist</span>, title <span class="op">=</span> <span class="st">"LogCauchy"</span>, thr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Normal----</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">normdist</span>, title <span class="op">=</span> <span class="st">"Normal"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">normdist</span>, title <span class="op">=</span> <span class="st">"Normal"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">normdist</span>, title <span class="op">=</span> <span class="st">"Normal"</span>, thr <span class="op">=</span> <span class="fl">1</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Truncated Left-tail Normal----</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">leftnorm</span>, title <span class="op">=</span> <span class="st">"Left Normal"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">leftnorm</span>, title <span class="op">=</span> <span class="st">"Left Normal"</span>, thr <span class="op">=</span> <span class="op">-</span><span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">leftnorm</span>, title <span class="op">=</span> <span class="st">"Left Normal"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, thr <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Uniform----</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">unifdist</span>, title <span class="op">=</span> <span class="st">"Uniform"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, thr <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">unifdist</span>, title <span class="op">=</span> <span class="st">"Uniform"</span>, thr <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">testresults</span> <span class="op">&lt;-</span> <span class="fu">benchmarkdist</span><span class="op">(</span><span class="va">unifdist</span>, title <span class="op">=</span> <span class="st">"Uniform"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, thr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Results</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">testresults</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span>, <span class="op">]</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Title</th>
@@ -817,7 +817,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">0.40</td>
 <td align="right">15</td>
-<td align="left">0.5397</td>
+<td align="left">0.6779</td>
 </tr>
 <tr class="even">
 <td align="left">Pareto</td>
@@ -825,7 +825,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">0.00</td>
 <td align="right">2</td>
-<td align="left">0.4788</td>
+<td align="left">0.6453</td>
 </tr>
 <tr class="odd">
 <td align="left">Pareto</td>
@@ -833,7 +833,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">0.75</td>
 <td align="right">15</td>
-<td align="left">0.4681</td>
+<td align="left">0.6444</td>
 </tr>
 <tr class="even">
 <td align="left">Pareto sample</td>
@@ -841,7 +841,7 @@ End Function</code></pre>
 <td align="left">2,000</td>
 <td align="right">0.40</td>
 <td align="right">12</td>
-<td align="left">0.0214</td>
+<td align="left">0.0223</td>
 </tr>
 <tr class="odd">
 <td align="left">Pareto sample</td>
@@ -857,7 +857,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">0.40</td>
 <td align="right">16</td>
-<td align="left">0.5571</td>
+<td align="left">0.5618</td>
 </tr>
 <tr class="odd">
 <td align="left">Exponential</td>
@@ -865,7 +865,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">0.00</td>
 <td align="right">2</td>
-<td align="left">0.3901</td>
+<td align="left">0.4966</td>
 </tr>
 <tr class="even">
 <td align="left">Exponential</td>
@@ -873,7 +873,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">1.00</td>
 <td align="right">17</td>
-<td align="left">0.482</td>
+<td align="left">0.5277</td>
 </tr>
 <tr class="odd">
 <td align="left">Exponential</td>
@@ -881,7 +881,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">0.40</td>
 <td align="right">24</td>
-<td align="left">0.7132</td>
+<td align="left">0.8723</td>
 </tr>
 <tr class="even">
 <td align="left">Weibull</td>
@@ -889,7 +889,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">0.40</td>
 <td align="right">16</td>
-<td align="left">0.4527</td>
+<td align="left">0.5638</td>
 </tr>
 <tr class="odd">
 <td align="left">Weibull</td>
@@ -897,7 +897,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">0.00</td>
 <td align="right">2</td>
-<td align="left">0.4256</td>
+<td align="left">0.5527</td>
 </tr>
 <tr class="even">
 <td align="left">Weibull</td>
@@ -905,7 +905,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">1.00</td>
 <td align="right">17</td>
-<td align="left">0.5128</td>
+<td align="left">0.5803</td>
 </tr>
 <tr class="odd">
 <td align="left">LogCauchy</td>
@@ -913,7 +913,7 @@ End Function</code></pre>
 <td align="left">4,991,187</td>
 <td align="right">0.40</td>
 <td align="right">6</td>
-<td align="left">0.3662</td>
+<td align="left">0.625</td>
 </tr>
 <tr class="even">
 <td align="left">LogCauchy</td>
@@ -921,7 +921,7 @@ End Function</code></pre>
 <td align="left">4,991,187</td>
 <td align="right">0.00</td>
 <td align="right">2</td>
-<td align="left">0.3646</td>
+<td align="left">0.5271</td>
 </tr>
 <tr class="odd">
 <td align="left">LogCauchy</td>
@@ -929,7 +929,7 @@ End Function</code></pre>
 <td align="left">4,991,187</td>
 <td align="right">1.00</td>
 <td align="right">6</td>
-<td align="left">0.3661</td>
+<td align="left">0.4966</td>
 </tr>
 <tr class="even">
 <td align="left">Normal</td>
@@ -937,7 +937,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">0.40</td>
 <td align="right">2</td>
-<td align="left">0.4127</td>
+<td align="left">0.5116</td>
 </tr>
 <tr class="odd">
 <td align="left">Normal</td>
@@ -945,7 +945,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">0.00</td>
 <td align="right">2</td>
-<td align="left">0.3732</td>
+<td align="left">0.5385</td>
 </tr>
 <tr class="even">
 <td align="left">Normal</td>
@@ -953,7 +953,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">1.00</td>
 <td align="right">17</td>
-<td align="left">0.4344</td>
+<td align="left">0.6465</td>
 </tr>
 <tr class="odd">
 <td align="left">Left Normal</td>
@@ -961,7 +961,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">0.40</td>
 <td align="right">2</td>
-<td align="left">0.4764</td>
+<td align="left">0.7009</td>
 </tr>
 <tr class="even">
 <td align="left">Left Normal</td>
@@ -969,7 +969,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">-100.00</td>
 <td align="right">2</td>
-<td align="left">0.4707</td>
+<td align="left">0.7307</td>
 </tr>
 <tr class="odd">
 <td align="left">Left Normal</td>
@@ -977,7 +977,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">500.00</td>
 <td align="right">21</td>
-<td align="left">0.5725</td>
+<td align="left">0.8224</td>
 </tr>
 <tr class="even">
 <td align="left">Uniform</td>
@@ -985,7 +985,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">0.70</td>
 <td align="right">22</td>
-<td align="left">0.4639</td>
+<td align="left">0.5737</td>
 </tr>
 <tr class="odd">
 <td align="left">Uniform</td>
@@ -993,7 +993,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">0.00</td>
 <td align="right">2</td>
-<td align="left">0.4016</td>
+<td align="left">0.5205</td>
 </tr>
 <tr class="even">
 <td align="left">Uniform</td>
@@ -1001,7 +1001,7 @@ End Function</code></pre>
 <td align="left">5,000,000</td>
 <td align="right">1.00</td>
 <td align="right">22</td>
-<td align="left">0.4715</td>
+<td align="left">0.5684</td>
 </tr>
 </tbody>
 </table>
@@ -1063,7 +1063,7 @@ Vasicek, Oldrich. 2002. <span>“Loan Portfolio Value.”</span> <em>Risk</em>, 
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

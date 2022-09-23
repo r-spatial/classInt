@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">classInt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4-7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4-8</span>
       </span>
     </div>
 
@@ -63,44 +63,59 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">classify_intervals</span><span class="op">(</span><span class="va">var</span>, <span class="va">n</span>, style <span class="op">=</span> <span class="st">"quantile"</span>, rtimes <span class="op">=</span> <span class="fl">3</span>, <span class="va">...</span>,
- intervalClosure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>, dataPrecision <span class="op">=</span> <span class="cn">NULL</span>,
- warnSmallN <span class="op">=</span> <span class="cn">TRUE</span>, warnLargeN <span class="op">=</span> <span class="cn">TRUE</span>, largeN <span class="op">=</span> <span class="fl">3000L</span>, samp_prop <span class="op">=</span> <span class="fl">0.1</span>,
- gr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"["</span>, <span class="st">"]"</span><span class="op">)</span>, factor <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">classify_intervals</span><span class="op">(</span><span class="va">var</span>, <span class="va">n</span>, style <span class="op">=</span> <span class="st">"quantile"</span>, rtimes <span class="op">=</span> <span class="fl">3</span>, <span class="va">...</span>,</span>
+<span> intervalClosure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>, dataPrecision <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span> warnSmallN <span class="op">=</span> <span class="cn">TRUE</span>, warnLargeN <span class="op">=</span> <span class="cn">TRUE</span>, largeN <span class="op">=</span> <span class="fl">3000L</span>, samp_prop <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span> gr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"["</span>, <span class="st">"]"</span><span class="op">)</span>, factor <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>var</dt>
 <dd><p>a continuous numerical variable</p></dd>
-<dt>n</dt>
+
+  <dt>n</dt>
 <dd><p>number of classes required, if missing, <code>nclass.Sturges</code> is used; see also the "dpih" and "headtails" styles for automatic choice of the number of classes</p></dd>
-<dt>style</dt>
+
+  <dt>style</dt>
 <dd><p>chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih", "headtails", or "maximum"</p></dd>
-<dt>rtimes</dt>
+
+  <dt>rtimes</dt>
 <dd><p>number of replications of var to catenate and jitter; may be used with styles "kmeans" or "bclust" in case they have difficulties reaching a classification</p></dd>
-<dt>intervalClosure</dt>
+
+  <dt>intervalClosure</dt>
 <dd><p>default “left”,  allows specification of whether partition intervals are closed on the left or the right (added by Richard Dunlap). Note that the sense of interval closure is hard-coded as “right”-closed when<code>style="jenks"</code> (see Details below).</p></dd>
-<dt>dataPrecision</dt>
+
+  <dt>dataPrecision</dt>
 <dd><p>default NULL, permits rounding of the interval endpoints (added by Richard Dunlap). The data precision used for printing interval values in the legend returned by <code>findColours</code>, and in the <code>print</code> method for classIntervals objects. If intervalClosure is “left”, the value returned is <code>ceiling</code> of the data value multiplied by 10 to the dataPrecision power, divided by 10 to the dataPrecision power. The argument does not round <code>var</code>, the input variable.</p></dd>
-<dt>warnSmallN</dt>
+
+  <dt>warnSmallN</dt>
 <dd><p>default TRUE, if FALSE, quietens warning for n &gt;= nobs</p></dd>
-<dt>warnLargeN</dt>
+
+  <dt>warnLargeN</dt>
 <dd><p>default TRUE, if FALSE large data handling not used</p></dd>
-<dt>largeN</dt>
+
+  <dt>largeN</dt>
 <dd><p>default 3000L, the QGIS sampling threshold; over 3000, the observations presented to "fisher" and "jenks" are either a <code>samp_prop=</code> sample or a sample of 3000, whichever is larger</p></dd>
-<dt>samp_prop</dt>
+
+  <dt>samp_prop</dt>
 <dd><p>default 0.1, QGIS 10% sampling proportion</p></dd>
-<dt>gr</dt>
+
+  <dt>gr</dt>
 <dd><p>default <code>c("[", "]")</code>, if the <span class="pkg">units</span> package is available, <code>units::units_options("group")</code> may be used directly to give the enclosing bracket style</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>arguments to be passed to the functions called in each style</p></dd>
-<dt>factor</dt>
+
+  <dt>factor</dt>
 <dd><p>default "TRUE", if "TRUE" returns cols as a factor with intervals as labels rather than integers</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A vector of same length as <code>var</code>. When <code>factor = FALSE</code> returns a factor where the levels are the interval of the observation.</p>
+    
+
+<p>A vector of same length as <code>var</code>. When <code>factor = FALSE</code> returns a factor where the levels are the interval of the observation.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -110,20 +125,20 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">xvar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">22361</span>, <span class="fl">9573</span>, <span class="fl">4836</span>, <span class="fl">5309</span>, <span class="fl">10384</span>, <span class="fl">4359</span>, <span class="fl">11016</span>, <span class="fl">4414</span>, <span class="fl">3327</span>, <span class="fl">3408</span>, </span>
-<span class="r-in">  <span class="fl">17816</span>, <span class="fl">6909</span>, <span class="fl">6936</span>, <span class="fl">7990</span>, <span class="fl">3758</span>, <span class="fl">3569</span>, <span class="fl">21965</span>, <span class="fl">3605</span>, <span class="fl">2181</span>, <span class="fl">1892</span>, </span>
-<span class="r-in">  <span class="fl">2459</span>, <span class="fl">2934</span>, <span class="fl">6399</span>, <span class="fl">8578</span>, <span class="fl">8537</span>, <span class="fl">4840</span>, <span class="fl">12132</span>, <span class="fl">3734</span>, <span class="fl">4372</span>, <span class="fl">9073</span>, </span>
-<span class="r-in">  <span class="fl">7508</span>, <span class="fl">5203</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">xvar</span>, <span class="fl">5</span>, <span class="st">"sd"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">xvar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">22361</span>, <span class="fl">9573</span>, <span class="fl">4836</span>, <span class="fl">5309</span>, <span class="fl">10384</span>, <span class="fl">4359</span>, <span class="fl">11016</span>, <span class="fl">4414</span>, <span class="fl">3327</span>, <span class="fl">3408</span>, </span></span>
+<span class="r-in"><span>  <span class="fl">17816</span>, <span class="fl">6909</span>, <span class="fl">6936</span>, <span class="fl">7990</span>, <span class="fl">3758</span>, <span class="fl">3569</span>, <span class="fl">21965</span>, <span class="fl">3605</span>, <span class="fl">2181</span>, <span class="fl">1892</span>, </span></span>
+<span class="r-in"><span>  <span class="fl">2459</span>, <span class="fl">2934</span>, <span class="fl">6399</span>, <span class="fl">8578</span>, <span class="fl">8537</span>, <span class="fl">4840</span>, <span class="fl">12132</span>, <span class="fl">3734</span>, <span class="fl">4372</span>, <span class="fl">9073</span>, </span></span>
+<span class="r-in"><span>  <span class="fl">7508</span>, <span class="fl">5203</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">xvar</span>, <span class="fl">5</span>, <span class="st">"sd"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> style: sd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   one of 31,465 possible partitions of this variable into 5 classes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [-3179.375,2025.578)  [2025.578,7230.531)  [7230.531,12435.48) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    1                   19                    9 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [12435.48,17640.44)  [17640.44,22845.39] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    0                    3 </span>
-<span class="r-in"><span class="fu">classify_intervals</span><span class="op">(</span><span class="va">xvar</span>, <span class="fl">5</span>, <span class="st">"sd"</span>, factor <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">classify_intervals</span><span class="op">(</span><span class="va">xvar</span>, <span class="fl">5</span>, <span class="st">"sd"</span>, factor <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 5 3 2 2 3 2 3 2 2 2 5 2 2 3 2 2 5 2 2 1 2 2 2 3 3 2 3 2 2 3 3 2</span>
-<span class="r-in"><span class="fu">classify_intervals</span><span class="op">(</span><span class="va">xvar</span>, <span class="fl">5</span>, <span class="st">"sd"</span>, factor <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">classify_intervals</span><span class="op">(</span><span class="va">xvar</span>, <span class="fl">5</span>, <span class="st">"sd"</span>, factor <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] [17640.44,22845.39]  [7230.531,12435.48)  [2025.578,7230.531) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [4] [2025.578,7230.531)  [7230.531,12435.48)  [2025.578,7230.531) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] [7230.531,12435.48)  [2025.578,7230.531)  [2025.578,7230.531) </span>
@@ -136,19 +151,19 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [28] [2025.578,7230.531)  [2025.578,7230.531)  [7230.531,12435.48) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [31] [7230.531,12435.48)  [2025.578,7230.531) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 Levels: [-3179.375,2025.578) [2025.578,7230.531) ... [17640.44,22845.39]</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://jakubnowosad.com/spData/" class="external-link">"spData"</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"spData package needed for examples"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">run</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
-<span class="r-in"><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">run</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"jenks71"</span>, package <span class="op">=</span> <span class="st">"spData"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">jenks71</span><span class="op">$</span><span class="va">jenks71</span></span>
-<span class="r-in">  <span class="fu">classify_intervals</span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">5</span>, style <span class="op">=</span> <span class="st">"fisher"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://jakubnowosad.com/spData/" class="external-link">"spData"</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"spData package needed for examples"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">run</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">run</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"jenks71"</span>, package <span class="op">=</span> <span class="st">"spData"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">jenks71</span><span class="op">$</span><span class="va">jenks71</span></span></span>
+<span class="r-in"><span>  <span class="fu">classify_intervals</span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">5</span>, style <span class="op">=</span> <span class="st">"fisher"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1] [43.3,61.36)    [78.475,105.95) [61.36,78.475)  [61.36,78.475) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [5] [78.475,105.95) [78.475,105.95) [78.475,105.95) [78.475,105.95)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [9] [105.95,155.3]  [105.95,155.3]  [105.95,155.3]  [105.95,155.3] </span>
@@ -176,7 +191,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [97] [15.57,43.3)    [15.57,43.3)    [15.57,43.3)    [15.57,43.3)   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [101] [15.57,43.3)    [15.57,43.3)   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 Levels: [15.57,43.3) [43.3,61.36) [61.36,78.475) ... [105.95,155.3]</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -191,7 +206,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

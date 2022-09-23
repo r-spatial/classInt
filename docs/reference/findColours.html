@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">classInt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4-7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4-8</span>
       </span>
     </div>
 
@@ -63,30 +63,39 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">findColours</span><span class="op">(</span><span class="va">clI</span>, <span class="va">pal</span>, under<span class="op">=</span><span class="st">"under"</span>, over<span class="op">=</span><span class="st">"over"</span>, between<span class="op">=</span><span class="st">"-"</span>, 
- digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span>, cutlabels<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">findColours</span><span class="op">(</span><span class="va">clI</span>, <span class="va">pal</span>, under<span class="op">=</span><span class="st">"under"</span>, over<span class="op">=</span><span class="st">"over"</span>, between<span class="op">=</span><span class="st">"-"</span>, </span>
+<span> digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span>, cutlabels<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>clI</dt>
 <dd><p>a "classIntervals" object</p></dd>
-<dt>pal</dt>
+
+  <dt>pal</dt>
 <dd><p>a character vector of at least two colour names; <code>colorRampPalette</code> is used internally to create the required number of colours</p></dd>
-<dt>under</dt>
+
+  <dt>under</dt>
 <dd><p>character string value for "under" in legend if cutlabels=FALSE</p></dd>
-<dt>over</dt>
+
+  <dt>over</dt>
 <dd><p>character string value for "over" in legend if cutlabels=FALSE</p></dd>
-<dt>between</dt>
+
+  <dt>between</dt>
 <dd><p>character string value for "between" in legend if cutlabels=FALSE</p></dd>
-<dt>digits</dt>
+
+  <dt>digits</dt>
 <dd><p>minimal number of significant digits in legend</p></dd>
-<dt>cutlabels</dt>
+
+  <dt>cutlabels</dt>
 <dd><p>use cut-style labels in legend</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a character vector of colours with attributes: "table", a named frequency table; "palette", a character vector of colours corresponding to the specified breaks.</p>
+    
+
+<p>a character vector of colours with attributes: "table", a named frequency table; "palette", a character vector of colours corresponding to the specified breaks.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -99,18 +108,18 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://jakubnowosad.com/spData/" class="external-link">"spData"</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"spData package needed for examples"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">run</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
-<span class="r-in"><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">run</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">jenks71</span>, package<span class="op">=</span><span class="st">"spData"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mypal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wheat1"</span>, <span class="st">"red3"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">h5</span> <span class="op">&lt;-</span> <span class="fu"><a href="classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">jenks71</span><span class="op">$</span><span class="va">jenks71</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"hclust"</span>, method<span class="op">=</span><span class="st">"complete"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">findColours</span><span class="op">(</span><span class="va">h5</span>, <span class="va">mypal</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://jakubnowosad.com/spData/" class="external-link">"spData"</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"spData package needed for examples"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">run</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">run</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">jenks71</span>, package<span class="op">=</span><span class="st">"spData"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mypal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wheat1"</span>, <span class="st">"red3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">h5</span> <span class="op">&lt;-</span> <span class="fu"><a href="classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">jenks71</span><span class="op">$</span><span class="va">jenks71</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"hclust"</span>, method<span class="op">=</span><span class="st">"complete"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">findColours</span><span class="op">(</span><span class="va">h5</span>, <span class="va">mypal</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "#FFE7BA" "#E6735D" "#E6735D" "#F2AD8B" "#E6735D" "#E6735D" "#E6735D"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [8] "#E6735D" "#D9392E" "#CD0000" "#D9392E" "#D9392E" "#E6735D" "#E6735D"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [15] "#F2AD8B" "#E6735D" "#E6735D" "#E6735D" "#E6735D" "#D9392E" "#F2AD8B"</span>
@@ -131,9 +140,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"table")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [15.57,54.81)  [54.81,74.405) [74.405,105.95)  [105.95,143.4)   [143.4,155.3] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              55              27              15               4               1 </span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">findColours</span><span class="op">(</span><span class="fu"><a href="getBclustClassIntervals.html">getHclustClassIntervals</a></span><span class="op">(</span><span class="va">h5</span>, k<span class="op">=</span><span class="fl">7</span><span class="op">)</span>, <span class="va">mypal</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">findColours</span><span class="op">(</span><span class="fu"><a href="getBclustClassIntervals.html">getHclustClassIntervals</a></span><span class="op">(</span><span class="va">h5</span>, k<span class="op">=</span><span class="fl">7</span><span class="op">)</span>, <span class="va">mypal</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "#F6C09B" "#E6735D" "#E6735D" "#EE9A7C" "#E6735D" "#E6735D" "#E6735D"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [8] "#DD4D3E" "#D5261F" "#CD0000" "#D5261F" "#D5261F" "#DD4D3E" "#E6735D"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [15] "#EE9A7C" "#DD4D3E" "#E6735D" "#E6735D" "#E6735D" "#D5261F" "#EE9A7C"</span>
@@ -156,20 +165,20 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>             10             45             27             11              4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [105.95,143.4)  [143.4,155.3] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              4              1 </span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">h5Colours</span> <span class="op">&lt;-</span> <span class="fu">findColours</span><span class="op">(</span><span class="va">h5</span>, <span class="va">mypal</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">h5</span>, <span class="va">mypal</span>, main<span class="op">=</span><span class="st">"Complete hierarchical clustering"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">95</span>, <span class="fl">155</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.12</span>, <span class="fl">0.4</span><span class="op">)</span>, fill<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">h5Colours</span>, <span class="st">"palette"</span><span class="op">)</span>,</span>
-<span class="r-in"> legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">h5Colours</span>, <span class="st">"table"</span><span class="op">)</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">"white"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">h5Colours</span> <span class="op">&lt;-</span> <span class="fu">findColours</span><span class="op">(</span><span class="va">h5</span>, <span class="va">mypal</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">h5</span>, <span class="va">mypal</span>, main<span class="op">=</span><span class="st">"Complete hierarchical clustering"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">95</span>, <span class="fl">155</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.12</span>, <span class="fl">0.4</span><span class="op">)</span>, fill<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">h5Colours</span>, <span class="st">"palette"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">h5Colours</span>, <span class="st">"table"</span><span class="op">)</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">"white"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="findColours-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">h5tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">h5Colours</span>, <span class="st">"table"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">legtext</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">h5tab</span><span class="op">)</span>, <span class="st">" ("</span>, <span class="va">h5tab</span>, <span class="st">")"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">h5</span>, <span class="va">mypal</span>, main<span class="op">=</span><span class="st">"Complete hierarchical clustering (with counts)"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">95</span>, <span class="fl">165</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.12</span>, <span class="fl">0.4</span><span class="op">)</span>, fill<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">h5Colours</span>, <span class="st">"palette"</span><span class="op">)</span>,</span>
-<span class="r-in"> legend<span class="op">=</span><span class="va">legtext</span>, bg<span class="op">=</span><span class="st">"white"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">h5tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">h5Colours</span>, <span class="st">"table"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">legtext</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">h5tab</span><span class="op">)</span>, <span class="st">" ("</span>, <span class="va">h5tab</span>, <span class="st">")"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">h5</span>, <span class="va">mypal</span>, main<span class="op">=</span><span class="st">"Complete hierarchical clustering (with counts)"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">95</span>, <span class="fl">165</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.12</span>, <span class="fl">0.4</span><span class="op">)</span>, fill<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">h5Colours</span>, <span class="st">"palette"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> legend<span class="op">=</span><span class="va">legtext</span>, bg<span class="op">=</span><span class="st">"white"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="findColours-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -185,7 +194,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
