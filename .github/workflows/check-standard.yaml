@@ -57,6 +57,11 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
+      - name: Install libcurl
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install libcurl4-openssl-dev
+
       - name: Install system dependencies
         if: runner.os == 'Linux'
         run: |
