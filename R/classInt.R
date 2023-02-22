@@ -357,6 +357,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
         
         dots <- list(...)
         iqr_mult <- ifelse(is.null(dots$iqr_mult), 1.5, dots$iqr_mult)
+        stopifnot(iqr_mult >= 0)
         qtype <- ifelse(is.null(dots$type), 7, dots$type)
         legacy <- ifelse(is.null(dots$legacy), FALSE, dots$legacy)
         
