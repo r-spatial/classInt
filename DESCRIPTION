@@ -16,7 +16,8 @@ Suggests:
     spData (>= 0.2.6.2),
     units,
     knitr,
-    rmarkdown
+    rmarkdown,
+    tinytest
 NeedsCompilation: yes
 Description: Selected commonly used methods for choosing univariate class intervals for mapping or other graphics purposes.
 License: GPL (>= 2)

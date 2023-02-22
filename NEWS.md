@@ -1,6 +1,6 @@
 ## Version 0.4-9
 
-- #41 issues
+- #41 issues. The maximum and minimum breaks are set to \code{+Inf} and \code{-Inf} to avoid errors induced in the earlier version where breaks could cease to be strictly ascending. The \code{legacy=} argument with value \code{TRUE} may be used to revert to the previous behaviour.
 
 ## Version 0.4-8
 
