@@ -481,7 +481,7 @@ findCols <- function(clI, factor = FALSE)  {
 # partition intervals are closed on the left or the right
 # Added dataPrecision for rounding of the interval endpoints
 tableClassIntervals <- function(cols, brks, under="under", over="over",
-   between="-", digits = getOption("digits"), cutlabels=TRUE, intervalClosure=c("left", "right"), dataPrecision=NULL, unique=FALSE, var) {
+   between="-", digits = getOption("digits"), cutlabels=TRUE, intervalClosure=c("left", "right"), dataPrecision=NULL, unique=FALSE, big.mark=NULL, var) {
 # Matthieu Stigler 120705 unique
 # Matthieu Stigler 120705
    intervalClosure <- match.arg(intervalClosure)
@@ -504,16 +504,16 @@ tableClassIntervals <- function(cols, brks, under="under", over="over",
 
 #The two global endpoints are going through roundEndpoint to get
 # formatting right, nothing more
-   if (cutlabels) nres[1] <- paste("[", roundEndpoint(brks[1], intervalClosure, dataPrecision), between, roundEndpoint(brks[2], intervalClosure, dataPrecision), right, sep=sep)
+   if (cutlabels) nres[1] <- paste("[", roundEndpoint(brks[1], intervalClosure, dataPrecision, big.mark), between, roundEndpoint(brks[2], intervalClosure, dataPrecision, big.mark), right, sep=sep)
    else nres[1] <- paste(under, roundEndpoint(brks[2], intervalClosure, dataPrecision), sep=sep)
    for (i in 2:(lx - 2)) {
-      if (cutlabels) nres[i] <- paste(left, roundEndpoint(brks[i], intervalClosure, dataPrecision), between, roundEndpoint(brks[i + 1], intervalClosure, dataPrecision), right,
+      if (cutlabels) nres[i] <- paste(left, roundEndpoint(brks[i], intervalClosure, dataPrecision, big.mark), between, roundEndpoint(brks[i + 1], intervalClosure, dataPrecision, big.mark), right,
          sep=sep)
-      else nres[i] <- paste(roundEndpoint(brks[i], intervalClosure, dataPrecision), between, roundEndpoint(brks[i + 1], intervalClosure, dataPrecision), sep=sep)
+      else nres[i] <- paste(roundEndpoint(brks[i], intervalClosure, dataPrecision, big.mark), between, roundEndpoint(brks[i + 1], intervalClosure, dataPrecision, big.mark), sep=sep)
    }
-   if (cutlabels) nres[lx - 1] <- paste(left, roundEndpoint(brks[lx - 1], intervalClosure, dataPrecision), between, roundEndpoint(brks[lx], intervalClosure, dataPrecision), "]",
+   if (cutlabels) nres[lx - 1] <- paste(left, roundEndpoint(brks[lx - 1], intervalClosure, dataPrecision, big.mark), between, roundEndpoint(brks[lx], intervalClosure, dataPrecision, big.mark), "]",
      sep=sep)
-   else nres[lx - 1] <- paste(over, roundEndpoint(brks[lx - 1], intervalClosure, dataPrecision), sep=sep)
+   else nres[lx - 1] <- paste(over, roundEndpoint(brks[lx - 1], intervalClosure, dataPrecision, big.mark), sep=sep)
    tab <- table(factor(cols, levels=1:(lx - 1)))
    names(tab) <- nres
 
@@ -538,7 +538,7 @@ tableClassIntervals <- function(cols, brks, under="under", over="over",
 
 # change contributed by Richard Dunlap 090512
 # New helper method for tableClassIntervals
-roundEndpoint <- function(x, intervalClosure=c("left", "right"), dataPrecision) {
+roundEndpoint <- function(x, intervalClosure=c("left", "right"), dataPrecision, big.mark) {
 # Matthieu Stigler 120705
   intervalClosure <- match.arg(intervalClosure)
    if (is.null(dataPrecision)) {
@@ -551,11 +551,16 @@ roundEndpoint <- function(x, intervalClosure=c("left", "right"), dataPrecision) 
    {
       retval <- floor(x * 10^dataPrecision) / 10^dataPrecision
    }
+  
+   if(!missing(big.mark)) if(is.character(big.mark)) {
+     retval <- prettyNum(retval, big.mark = big.mark)
+   }
+  
    digits = getOption("digits")
    format(retval, digits=digits, trim=TRUE)
 } #FIXME output trailing zeros in decimals
 
-print.classIntervals <- function(x, digits = getOption("digits"), ..., under="under", over="over", between="-", cutlabels=TRUE, unique=FALSE) {
+print.classIntervals <- function(x, digits = getOption("digits"), ..., under="under", over="over", between="-", cutlabels=TRUE, unique=FALSE, big.mark = NULL) {
    if (!inherits(x, "classIntervals")) stop("Class interval object required")
    cat("style: ", attr(x, "style"), "\n", sep="")
    UNITS <- attr(x, "var_units")
@@ -573,7 +578,7 @@ print.classIntervals <- function(x, digits = getOption("digits"), ..., under="un
 # change contributed by Richard Dunlap 090512
 # passes the intervalClosure argument to tableClassIntervals
    tab <- tableClassIntervals(cols=cols, brks=nbrks, under=under, over=over,
-    between=between, digits=digits, cutlabels=cutlabels, intervalClosure=attr(x, "intervalClosure"), dataPrecision=attr(x, "dataPrecision"), unique=unique, nvar)
+    between=between, digits=digits, cutlabels=cutlabels, intervalClosure=attr(x, "intervalClosure"), dataPrecision=attr(x, "dataPrecision"), unique=unique, big.mark = big.mark, var = nvar)
    print(tab, digits=digits, ...)
    invisible(tab)
 }
