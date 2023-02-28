@@ -1,6 +1,6 @@
 Package: classInt
-Version: 0.4-8
-Date: 2022-09-22
+Version: 0.4-9
+Date: 2023-02-21
 Title: Choose Univariate Class Intervals
 Authors@R: c(
   person("Roger", "Bivand", role=c("aut", "cre"), email="Roger.Bivand@nhh.no", comment=c(ORCID="0000-0003-2392-6140")),
@@ -16,7 +16,8 @@ Suggests:
     spData (>= 0.2.6.2),
     units,
     knitr,
-    rmarkdown
+    rmarkdown,
+    tinytest
 NeedsCompilation: yes
 Description: Selected commonly used methods for choosing univariate class intervals for mapping or other graphics purposes.
 License: GPL (>= 2)

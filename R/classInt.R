@@ -357,7 +357,9 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
         
         dots <- list(...)
         iqr_mult <- ifelse(is.null(dots$iqr_mult), 1.5, dots$iqr_mult)
+        stopifnot(iqr_mult >= 0)
         qtype <- ifelse(is.null(dots$type), 7, dots$type)
+        legacy <- ifelse(is.null(dots$legacy), FALSE, dots$legacy)
         
         qv <- unname(quantile(var, type=qtype))
         iqr <- iqr_mult * (qv[4] - qv[2])
@@ -369,15 +371,25 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
         
         # logic for lower and upper fences
         if (lofence < qv[1]) {  # no lower outliers
-          bb[1] <- lofence
-          bb[2] <- floor(qv[1])
+          if (legacy) {
+            bb[1] <- lofence
+            bb[2] <- floor(qv[1])
+          } else {
+            bb[1] <- -Inf
+            bb[2] <- lofence
+          }
         } else {
           bb[2] <- lofence
           bb[1] <- qv[1]
         }
         if (upfence > qv[5]) { # no upper outliers
-          bb[7] <- upfence
-          bb[6] <- ceiling(qv[5])
+          if (legacy) {
+            bb[7] <- upfence
+            bb[6] <- ceiling(qv[5])
+          } else {
+            bb[7] <- +Inf
+            bb[6] <- upfence
+          }
         } else {
           bb[6] <- upfence
           bb[7] <- qv[5]
