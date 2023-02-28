@@ -16,7 +16,7 @@ classIntervals(var, n, style = "quantile", rtimes = 3, ...,
  gr = c("[", "]"))
 \method{plot}{classIntervals}(x, pal, ...)
 \method{print}{classIntervals}(x, digits = getOption("digits"), ...,
- under="under", over="over", between="-", cutlabels=TRUE, unique=FALSE)
+ under="under", over="over", between="-", cutlabels=TRUE, unique=FALSE,big.mark=NULL)
 nPartitions(x)
 classIntervals2shingle(x)
 }
@@ -41,6 +41,7 @@ classIntervals2shingle(x)
   \item{digits}{minimal number of significant digits in printed table labels}
   \item{cutlabels}{default TRUE, use cut-style labels in printed table labels}
   \item{unique}{default FALSE; if TRUE, collapse labels of single-value classes}
+  \item{big.mark}{default NULL; an object of class \code{character} to specify to 'thousands' separator}
   \item{pal}{a character vector of at least two colour names for colour coding the class intervals in an ECDF plot; \code{colorRampPalette} is used internally to create the correct number of colours}
 }
 \details{
