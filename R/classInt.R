@@ -136,7 +136,9 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
       if (nobs > largeN) {
         warning("N is large, and some styles will run very slowly; sampling imposed")
         sampling <- TRUE
-        nsamp <- ifelse(samp_prop*nobs < largeN, as.integer(ceiling(samp_prop*nobs)), as.integer(largeN))
+# issue 44
+        nsamp <- as.integer(ceiling(samp_prop*nobs))
+        if (nsamp > largeN) nsamp <- as.integer(largeN)
       }
     }
     if (style =="fixed") {
