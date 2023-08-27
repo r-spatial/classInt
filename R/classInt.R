@@ -132,7 +132,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
 # introduced related to https://github.com/r-spatial/classInt/issues/7
     sampling <- FALSE
     if (warnLargeN &&
-      (style %in% c("kmeans", "hclust", "bclust", "fisher", "jenks"))) {
+      (style %in% c("fisher", "jenks"))) {
       if (nobs > largeN) {
         warning("N is large, and some styles will run very slowly; sampling imposed")
         sampling <- TRUE
