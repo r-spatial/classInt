@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">classInt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4-8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4-10</span>
       </span>
     </div>
 
@@ -71,7 +71,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">pal</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for classIntervals</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span>, <span class="va">...</span>,</span>
-<span> under<span class="op">=</span><span class="st">"under"</span>, over<span class="op">=</span><span class="st">"over"</span>, between<span class="op">=</span><span class="st">"-"</span>, cutlabels<span class="op">=</span><span class="cn">TRUE</span>, unique<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span> under<span class="op">=</span><span class="st">"under"</span>, over<span class="op">=</span><span class="st">"over"</span>, between<span class="op">=</span><span class="st">"-"</span>, cutlabels<span class="op">=</span><span class="cn">TRUE</span>, unique<span class="op">=</span><span class="cn">FALSE</span>,big.mark<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span></span>
 <span><span class="fu">nPartitions</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="fu">classIntervals2shingle</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -85,7 +85,7 @@
 <dd><p>number of classes required, if missing, <code>nclass.Sturges</code> is used; see also the "dpih" and "headtails" styles for automatic choice of the number of classes</p></dd>
 
   <dt>style</dt>
-<dd><p>chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih", "headtails", or "maximum"</p></dd>
+<dd><p>chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih", "headtails", "maximum", or "box"</p></dd>
 
   <dt>rtimes</dt>
 <dd><p>number of replications of var to catenate and jitter; may be used with styles "kmeans" or "bclust" in case they have difficulties reaching a classification</p></dd>
@@ -103,7 +103,7 @@
 <dd><p>default TRUE, if FALSE large data handling not used</p></dd>
 
   <dt>largeN</dt>
-<dd><p>default 3000L, the QGIS sampling threshold; over 3000, the observations presented to "fisher" and "jenks" are either a <code>samp_prop=</code> sample or a sample of 3000, whichever is larger</p></dd>
+<dd><p>default 3000L, the QGIS sampling threshold; if <code>warnLargeN</code>is TRUE and the number of observations is greater than <code>largeN</code>, the observations presented to "fisher" and "jenks" are either a <code>samp_prop=</code> sample of the observations, or a sample of <code>largeN</code>, whichever is smaller</p></dd>
 
   <dt>samp_prop</dt>
 <dd><p>default 0.1, QGIS 10% sampling proportion</p></dd>
@@ -135,6 +135,9 @@
   <dt>unique</dt>
 <dd><p>default FALSE; if TRUE, collapse labels of single-value classes</p></dd>
 
+  <dt>big.mark</dt>
+<dd><p>default NULL; an object of class <code>character</code> to specify to 'thousands' separator</p></dd>
+
   <dt>pal</dt>
 <dd><p>a character vector of at least two colour names for colour coding the class intervals in an ECDF plot; <code>colorRampPalette</code> is used internally to create the correct number of colours</p></dd>
 
@@ -154,7 +157,7 @@
 <p>The "dpih" style uses the <code>dpih()</code> function from <span class="pkg">KernSmooth</span> (Wand, 1995) implementing direct plug-in methodology to select the bin width of a histogram.</p>
 <p>The "headtails" style uses the algorithm proposed by Bin Jiang (2013), in order to find groupings or hierarchy for data with a heavy-tailed distribution. This classification scheme partitions all of the data values around the mean into two parts and continues the process iteratively for the values (above the mean) in the head until the head part values are no longer heavy-tailed distributed. Thus, the number of classes and the class intervals are both naturally determined. By default the algorithm uses <code>thr = 0.4</code>, meaning that when the head represents more than 40% of the observations the distribution is not considered heavy-tailed. The threshold argument <code>thr</code> may be modified through <code>...</code> (see Examples).</p>
 <p>The "maximum" style uses the Maximum Breaks method of classification finding the k - 1 largest differences in <code>var</code>. The mean of the values that generated the largest splits is used as the interval boundary.</p>  
-<p>The "box" style generates 7 breaks (therefore 6 categories) based on a box-and-whisker plot. First and last categories include the data values considered as outliers, and the four remaining categories are defined by the percentiles 25, 50 and 75 of the data distribution. By default, the identification of outliers is based on the interquantile range (IQR), so values lower than percentile 25 - 1.5 * IQR or higher than percentile 75 + 1.5 * IQR are considered as outliers. The multiplier applied to the IQR <code>iqr_mult = 1.5</code> may be modified through <code>...</code>. As in the <code>"quantile"</code> style, the <code>type=</code> argument may be used to choose the quantile algoritm (default 7).</p>
+<p>The "box" style generates 7 breaks (therefore 6 categories) based on a box-and-whisker plot. First and last categories include the data values considered as outliers, and the four remaining categories are defined by the percentiles 25, 50 and 75 of the data distribution. By default, the identification of outliers is based on the interquantile range (IQR), so values lower than percentile 25 - 1.5 * IQR or higher than percentile 75 + 1.5 * IQR are considered as outliers. The multiplier applied to the IQR <code>iqr_mult = 1.5</code> may be modified through <code>...</code>; the value must not be negative. As in the <code>"quantile"</code> style, the <code>type=</code> argument may be used to choose the quantile algoritm (default 7, standard boxplots use 5 or 2). From 0.4-9 and #41, the maximum and minimum are set to <code>+Inf</code> and <code>-Inf</code> to avoid errors induced in the earlier version where breaks could cease to be strictly ascending. The <code>legacy=</code> argument with value <code>TRUE</code> may be used to revert to the previous behaviour.</p>
     </div>
     <div id="value">
     <h2>Value</h2>
@@ -218,6 +221,12 @@
 <span class="r-in"><span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">run</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> which was just  load ed, were retired in October 2023.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Please refer to R-spatial evolution reports for details, especially</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> https://r-spatial.org/r/2023/05/15/evolution4.html.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> It may be desirable to make the sf package available;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> package maintainers should consider adding sf to Suggests:.</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">jenks71</span>, package<span class="op">=</span><span class="st">"spData"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">pal1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wheat1"</span>, <span class="st">"red3"</span><span class="op">)</span></span></span>
@@ -416,10 +425,10 @@
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> style: box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   one of 75,287,520 possible partitions of this variable into 6 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     [-8.02125,15)      [15,37.7325)   [37.7325,53.33)    [53.33,68.235) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 0                26                25                25 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [68.235,113.9887)  [113.9887,155.3] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                22                 4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    [-Inf,-8.02125) [-8.02125,37.7325)    [37.7325,53.33)     [53.33,68.235) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  0                 26                 25                 25 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [68.235,113.9887)   [113.9887,155.3] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 22                  4 </span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">run</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">jenks71</span><span class="op">$</span><span class="va">jenks71</span>, style<span class="op">=</span><span class="st">"box"</span>, iqr_mult <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
@@ -461,82 +470,30 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>            0     (0,19.5] (19.5,20.63] (20.63,22.6]           26 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           10           33           39           28           10 </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e+05</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"sd"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: sd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [-0.07925682,0.06546355)   [0.06546355,0.2101839)    [0.2101839,0.3549043) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     6597                    14579                    14403 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    [0.3549043,0.4996247)     [0.4996247,0.644345)     [0.644345,0.7890654) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    14395                    14446                    14439 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    [0.7890654,0.9337858)     [0.9337858,1.078506] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    14463                     6678 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"pretty"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: pretty</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [0,0.2) [0.2,0.4) [0.4,0.6) [0.6,0.8)   [0.8,1] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     20142     19936     19888     19993     20041 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"equal"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: equal</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3.895489e-06,0.1999925)    [0.1999925,0.3999812)    [0.3999812,0.5999698) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    20141                    19935                    19888 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    [0.5999698,0.7999584)    [0.7999584,0.9999471] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    19991                    20045 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"quantile"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3.895489e-06,0.1984408)    [0.1984408,0.3993007)    [0.3993007,0.6003913) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    20000                    20000                    20000 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    [0.6003913,0.8003984)    [0.8003984,0.9999471] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    20000                    20000 </span>
 <span class="r-in"><span><span class="co"># the class intervals found vary a little because of sampling</span></span></span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"kmeans"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>N is large, and some styles will run very slowly; sampling imposed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: kmeans</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3.895489e-06,0.1992885)    [0.1992885,0.4002208)     [0.4002208,0.600954) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    20075                    20034                    19946 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [0.600954,0.800892)     [0.800892,0.9999471] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    20007                    19938 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"fisher"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>N is large, and some styles will run very slowly; sampling imposed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: fisher</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3.895489e-06,0.1969869)     [0.1969869,0.394688)      [0.394688,0.595018) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    19860                    19690                    19893 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.595018,0.7967174)    [0.7967174,0.9999471] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    20194                    20363 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"fisher"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>N is large, and some styles will run very slowly; sampling imposed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: fisher</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3.895489e-06,0.1887506)    [0.1887506,0.3856013)    [0.3856013,0.5868507) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    19036                    19653                    19966 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    [0.5868507,0.7925222)    [0.7925222,0.9999471] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    20553                    20792 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"fisher"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>N is large, and some styles will run very slowly; sampling imposed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: fisher</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3.895489e-06,0.1974303)    [0.1974303,0.3969872)    [0.3969872,0.5978375) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    19912                    19832                    19987 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    [0.5978375,0.7994717)    [0.7994717,0.9999471] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    20166                    20103 </span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="va">have_units</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-quantities/units/" class="external-link">units</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="va">have_units</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://r-quantities.github.io/units/" class="external-link">units</a></span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="va">have_units</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> udunits database from /usr/share/udunits/udunits2.xml</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">have_units</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">x_units</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">100</span>, <span class="fl">0.25</span><span class="op">)</span>, <span class="fl">100</span><span class="op">)</span>, <span class="va">km</span><span class="op">/</span><span class="va">h</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="va">x_units</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-quantities.github.io/units/reference/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">100</span>, <span class="fl">0.25</span><span class="op">)</span>, <span class="fl">100</span><span class="op">)</span>, <span class="va">km</span><span class="op">/</span><span class="va">h</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_units</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"sd"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: sd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   one of 14,887,031,544 possible partitions of this [km/h] variable into 8 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [-6.990949,7.637413)  [7.637413,22.26578)  [22.26578,36.89414) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    6                   15                   16 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [36.89414,51.5225)   [51.5225,66.15086)  [66.15086,80.77922) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   12                   12                   16 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [80.77922,95.40759)  [95.40759,110.0359] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   18                    5 </span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">have_units</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_units</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"pretty"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
@@ -545,14 +502,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [0,20)  [20,40)  [40,60)  [60,80) [80,100] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       18       21       19       19       23 </span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">have_units</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_units</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"equal"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: equal</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   one of 3,764,376 possible partitions of this [km/h] variable into 5 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    [4,23.1) [23.1,42.2) [42.2,61.3) [61.3,80.4) [80.4,99.5] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          22          19          17          19          23 </span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">have_units</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_units</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"quantile"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
@@ -561,14 +514,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [4,21.95) [21.95,41.5) [41.5,64.05) [64.05,82.8)  [82.8,99.5] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           20           20           20           20           20 </span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">have_units</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_units</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"kmeans"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: kmeans</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   one of 3,764,376 possible partitions of this [km/h] variable into 5 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [4,19.375) [19.375,39.375)   [39.375,60.5)   [60.5,79.625)   [79.625,99.5] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              18              21              19              19              23 </span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">have_units</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_units</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"fisher"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
@@ -588,155 +537,27 @@
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> style: box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   one of 71,523,144 possible partitions of this [km/h] variable into 6 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [-46.375,4)   [4,26.9375)  [26.9375,52)  [52,75.8125) [75.8125,100) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             0            25            25            25            25 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [100,149.125] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             0 </span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    [-Inf,-46.375) [-46.375,26.9375)      [26.9375,52)      [52,75.8125) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 0                25                25                25 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [75.8125,149.125)     [149.125,Inf] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                25                 0 </span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">st</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x_POSIXt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">st</span><span class="op">+</span><span class="op">(</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">500</span><span class="op">)</span><span class="op">*</span><span class="fl">3600</span><span class="op">)</span>, <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">fx</span> <span class="op">&lt;-</span> <span class="va">st</span><span class="op">+</span><span class="op">(</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">*</span><span class="fl">3600</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span></span></span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_POSIXt</span>, style<span class="op">=</span><span class="st">"fixed"</span>, fixedBreaks<span class="op">=</span><span class="va">fx</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: fixed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   one of 3,764,376 possible partitions of this variable into 5 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-23 10:44:52.686004,2022-09-27 14:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      21 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-27 14:44:52.686004,2022-10-01 18:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      18 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-01 18:44:52.686004,2022-10-05 22:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      19 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-05 22:44:52.686004,2022-10-10 02:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      21 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-10 02:44:52.686004,2022-10-14 06:44:52.686004] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      21 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_POSIXt</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"sd"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: sd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   one of 14,887,031,544 possible partitions of this variable into 8 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-21 13:44:20.740213,2022-09-24 14:50:28.726661) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                       5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-24 14:50:28.726661,2022-09-27 15:56:36.713108) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      16 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-27 15:56:36.713108,2022-09-30 17:02:44.699556) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      17 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-30 17:02:44.699556,2022-10-03 18:08:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      12 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-03 18:08:52.686004,2022-10-06 19:15:00.672451) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      14 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2022-10-06 19:15:00.672451,2022-10-09 20:21:08.6588) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      14 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2022-10-09 20:21:08.6588,2022-10-12 21:27:16.645347) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      16 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-12 21:27:16.645347,2022-10-15 22:33:24.631794] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                       6 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_POSIXt</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"pretty"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: pretty</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   one of 3,764,376 possible partitions of this variable into 5 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-18 13:20:00,2022-09-24 08:13:20) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                         4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-24 08:13:20,2022-09-30 03:06:40) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        33 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-30 03:06:40,2022-10-05 22:00:00) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        21 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-05 22:00:00,2022-10-11 16:53:20) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        30 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-11 16:53:20,2022-10-17 11:46:40] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        12 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_POSIXt</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"equal"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: equal</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   one of 3,764,376 possible partitions of this variable into 5 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-23 23:44:52.686004,2022-09-28 00:08:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      23 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-28 00:08:52.686004,2022-10-02 00:32:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      16 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-02 00:32:52.686004,2022-10-06 00:56:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      19 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-06 00:56:52.686004,2022-10-10 01:20:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      20 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-10 01:20:52.686004,2022-10-14 01:44:52.686004] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      22 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_POSIXt</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"quantile"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   one of 3,764,376 possible partitions of this variable into 5 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-23 23:44:52.686004,2022-09-27 10:32:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      20 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-27 10:32:52.686004,2022-10-02 03:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      20 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-02 03:44:52.686004,2022-10-06 03:08:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      20 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-06 03:08:52.686004,2022-10-10 05:20:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      20 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-10 05:20:52.686004,2022-10-14 01:44:52.686004] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      20 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_POSIXt</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"kmeans"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: kmeans</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   one of 3,764,376 possible partitions of this variable into 5 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-23 23:44:52.686004,2022-09-27 02:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      19 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-27 02:44:52.686004,2022-10-01 01:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      19 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-01 01:44:52.686004,2022-10-05 10:14:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      17 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-05 10:14:52.686004,2022-10-09 14:14:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      23 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-09 14:14:52.686004,2022-10-14 01:44:52.686004] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      22 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_POSIXt</span>, n<span class="op">=</span><span class="fl">5</span>, style<span class="op">=</span><span class="st">"fisher"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: fisher</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   one of 3,764,376 possible partitions of this variable into 5 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-23 23:44:52.686004,2022-09-27 02:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      19 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-27 02:44:52.686004,2022-10-01 01:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      19 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-01 01:44:52.686004,2022-10-05 10:14:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      17 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-05 10:14:52.686004,2022-10-09 14:14:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      23 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-09 14:14:52.686004,2022-10-14 01:44:52.686004] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      22 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_POSIXt</span>, style<span class="op">=</span><span class="st">"headtails"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: headtails</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   one of 99 possible partitions of this variable into 2 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-23 23:44:52.686004,2022-10-03 18:08:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      50 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-03 18:08:52.686004,2022-10-14 01:44:52.686004] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      50 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_POSIXt</span>, style<span class="op">=</span><span class="st">"maximum"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: maximum</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   one of 14,887,031,544 possible partitions of this variable into 8 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-23 23:44:52.686004,2022-09-30 08:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      37 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-30 08:44:52.686004,2022-10-01 01:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                       1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-01 01:44:52.686004,2022-10-01 18:14:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                       1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-01 18:14:52.686004,2022-10-04 02:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      12 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-04 02:44:52.686004,2022-10-07 09:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      16 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-07 09:44:52.686004,2022-10-09 14:14:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      11 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-09 14:14:52.686004,2022-10-12 22:14:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      16 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-12 22:14:52.686004,2022-10-14 01:44:52.686004] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                       6 </span>
 <span class="r-in"><span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">x_POSIXt</span>, style<span class="op">=</span><span class="st">"box"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> style: box</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   one of 71,523,144 possible partitions of this variable into 6 classes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        [2022-09-13 03:07:22.686004,2022-09-23 23:44:52) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                       0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        [2022-09-23 23:44:52,2022-09-28 10:14:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      25 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-09-28 10:14:52.686004,2022-10-03 17:44:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      25 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2022-10-03 17:44:52.686004,2022-10-08 14:59:52.686004) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      25 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        [2022-10-08 14:59:52.686004,2022-10-14 01:44:53) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      25 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        [2022-10-14 01:44:53,2022-10-23 22:07:22.686004] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                       0 </span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="co"># see vignette for further details</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Head Tails method is suitable for right-sided heavy-tailed distributions</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Heavy tails-----</span></span></span>
@@ -758,7 +579,6 @@
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">weibulldist</span>, style <span class="op">=</span> <span class="st">"headtails"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>     pal <span class="op">=</span> <span class="va">pal1</span>,</span></span>
 <span class="r-in"><span>     main <span class="op">=</span> <span class="st">"HeadTails: Weibull Dist."</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="classIntervals-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">paretodist</span>, n <span class="op">=</span> <span class="fl">5</span>, style <span class="op">=</span> <span class="st">"fisher"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>     pal <span class="op">=</span> <span class="va">pal1</span>,</span></span>
 <span class="r-in"><span>     main <span class="op">=</span> <span class="st">"Fisher: Pareto Dist."</span><span class="op">)</span></span></span>
@@ -768,7 +588,6 @@
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">classIntervals</span><span class="op">(</span><span class="va">weibulldist</span>, n<span class="op">=</span> <span class="fl">4</span>, style <span class="op">=</span> <span class="st">"fisher"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>     pal <span class="op">=</span> <span class="va">pal1</span>,</span></span>
 <span class="r-in"><span>     main <span class="op">=</span> <span class="st">"Fisher: Weibull Dist."</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="classIntervals-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -806,9 +625,8 @@
 <span class="r-in"><span>  pal <span class="op">=</span> <span class="va">pal1</span>,</span></span>
 <span class="r-in"><span>  main <span class="op">=</span> <span class="st">"Uniform Distribution thr = .6"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="classIntervals-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -823,7 +641,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
