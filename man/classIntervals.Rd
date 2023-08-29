@@ -30,7 +30,7 @@ classIntervals2shingle(x)
   \item{dataPrecision}{default NULL, permits rounding of the interval endpoints (added by Richard Dunlap). The data precision used for printing interval values in the legend returned by \code{findColours}, and in the \code{print} method for classIntervals objects. If intervalClosure is \dQuote{left}, the value returned is \code{ceiling} of the data value multiplied by 10 to the dataPrecision power, divided by 10 to the dataPrecision power. The argument does not round \code{var}, the input variable.}
   \item{warnSmallN}{default TRUE, if FALSE, quietens warning for n >= nobs}
   \item{warnLargeN}{default TRUE, if FALSE large data handling not used}
-  \item{largeN}{default 3000L, the QGIS sampling threshold; over 3000, the observations presented to "fisher" and "jenks" are either a \code{samp_prop=} sample or a sample of 3000, whichever is larger}
+  \item{largeN}{default 3000L, the QGIS sampling threshold; over \code{largeN}, the observations presented to "fisher" and "jenks" are either a \code{samp_prop=} sample or a sample of \code{largeN}, whichever is smaller}
   \item{samp_prop}{default 0.1, QGIS 10\% sampling proportion}
   \item{gr}{default \code{c("[", "]")}, if the \pkg{units} package is available, \code{units::units_options("group")} may be used directly to give the enclosing bracket style}
   \item{\dots}{arguments to be passed to the functions called in each style}
