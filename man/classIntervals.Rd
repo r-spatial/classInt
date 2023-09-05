@@ -47,7 +47,7 @@ classIntervals2shingle(x)
 \details{
   The "fixed" style permits a "classIntervals" object to be specified with given breaks, set in the \code{fixedBreaks} argument; the length of \code{fixedBreaks} should be n+1; this style can be used to insert rounded break values.
 
-  The "sd" style chooses breaks based on \code{pretty} of the centred and scaled variables, and may have a number of classes different from n; the returned \code{par=} includes the centre and scale values.
+  The "sd" style chooses breaks based on \code{pretty} of the centred and scaled variables, and may have a number of classes different from n; the returned \code{par=} includes the centre and scale values. If argument \code{sd_m} is given as a numeric vector of multiples to apply to the standard deviation such as \code{c(-Inf, -2, -1, 0, 1, 2, +Inf)}
 
   The "equal" style divides the range of the variable into n parts.
 

@@ -168,8 +168,17 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
       svar <- scale(var)
       pars <- c(attr(svar, "scaled:center"), attr(svar, "scaled:scale"))
       names(pars) <- c("center", "scale")
-      sbrks <- pretty(x=svar, n=n, ...)
+      dots <- list(...)
+      if (is.null(dots$sd_m)) {
+        sbrks <- pretty(x=svar, n=n, ...)
+      } else {
+        sbrks <- dots$sd_m
+        stopifnot(is.numeric(sbrks))
+      }
       brks <- c((sbrks * pars[2]) + pars[1])
+      if (!is.finite(brks[1])) brks[1] <- min(var)
+      if (!is.finite(brks[length(brks)])) brks[length(brks)] <- max(var)
+      if (any(order(brks) != 1:length(brks))) brks <- unique(sort(brks))
     } else if (style =="equal") {
       brks <- seq(min(var), max(var), length.out=(n+1))
     } else if (style =="pretty") {
