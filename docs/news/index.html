@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">classInt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4-8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4-10</span>
       </span>
     </div>
 
@@ -58,8 +58,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.4-8" id="version-04-8">Version 0.4-8<a class="anchor" aria-label="anchor" href="#version-04-8"></a></h2>
-<ul><li>#18 and <a href="https://github.com/r-spatial/classInt/issues/38" class="external-link">#38</a>: <code><a href="../reference/classIntervals.html">classIntervals()</a></code> has a new style <code>"box"</code>, where a box map is an augmented quartile map, with an additional lower and upper category. When there are lower outliers, then the starting point for the breaks is the minimum value, and the second break is the lower fence. When there are no lower outliers, then the starting point for the breaks will be the lower fence, and the second break is the minimum value (there will be no observations that fall in the interval between the lower fence and the minimum value) (<a href="https://github.com/angela-li" class="external-link">@angela-li</a>, <a href="https://github.com/dieghernan" class="external-link">@dieghernan</a>).</li></ul></div>
+<h2 class="page-header" data-toc-text="0.4-9" id="version-04-9">Version 0.4-9<small>2023-02-28</small><a class="anchor" aria-label="anchor" href="#version-04-9"></a></h2>
+<ul><li>#41 issues. The maximum and minimum breaks are set to  and  to avoid errors induced in the earlier version where breaks could cease to be strictly ascending. The  argument with value  may be used to revert to the previous behaviour.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.4-8" id="version-04-8">Version 0.4-8<small>2022-09-29</small><a class="anchor" aria-label="anchor" href="#version-04-8"></a></h2>
+<ul><li>#18 and <a href="https://github.com/r-spatial/classInt/issues/38" class="external-link">#38</a>: <code><a href="../reference/classIntervals.html">classIntervals()</a></code> has a new style <code>"box"</code>, where a box map is an augmented quartile map, with an additional lower and upper category. When there are lower outliers, then the starting point for the breaks is the minimum value, and the second break is the lower fence. When there are no lower outliers, then the starting point for the breaks will be the lower fence, and the second break is the minimum value (there will be no observations that fall in the interval between the lower fence and the minimum value) (<a href="https://github.com/angela-li" class="external-link">@angela-li</a>, <a href="https://github.com/dieghernan" class="external-link">@dieghernan</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4-7" id="version-04-7">Version 0.4-7<small>2022-06-10</small><a class="anchor" aria-label="anchor" href="#version-04-7"></a></h2>
 <ul><li>A new helper function <code><a href="../reference/classify_intervals.html">classify_intervals()</a></code> is introduced to return a vector of class intervals of same length as input (<a href="https://github.com/JosiahParry" class="external-link">@JosiahParry</a>)</li>
@@ -88,7 +93,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
