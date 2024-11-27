@@ -96,7 +96,7 @@ Dent, B. D., 1999, Cartography: thematic map design. McGraw-Hill, Boston, 417 pp
 
 Slocum TA, McMaster RB, Kessler FC, Howard HH 2005 Thematic Cartography and Geographic Visualization, Prentice Hall, Upper Saddle River NJ.;
 
-Fisher, W. D. 1958 "On grouping for maximum homogeneity", Journal of the American Statistical Association, 53, pp. 789--798 (\url{http://lib.stat.cmu.edu/cmlib/src/cluster/fish.f})
+Fisher, W. D. 1958 "On grouping for maximum homogeneity", Journal of the American Statistical Association, 53, pp. 789--798 (\url{https://lib.stat.cmu.edu/cmlib/src/cluster/fish.f})
 
 Wand, M. P. 1995. Data-based choice of histogram binwidth. The American Statistician, 51, 59-64.
 
