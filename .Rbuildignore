@@ -4,3 +4,4 @@ README.md
 .travis.yml
 .github
 docs
+_pkgdown.yml
