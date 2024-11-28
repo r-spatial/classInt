@@ -9,7 +9,7 @@ output:
     toc_depth: 1
 bibliography: refs_ht.bib
 vignette: >
-  %\VignetteIndexEntry{"Head/Tails breaks"}
+  %\VignetteIndexEntry{Head/Tails breaks}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
