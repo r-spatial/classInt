@@ -192,7 +192,7 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
     } else if (style =="quantile") {
 # stats
       dots <- list(...)
-      probs <- seq(0,1,1/n)
+      probs <- seq(0, 1, 1/n)
       if (!is.null(dots$probs)) {
         if (n_missing) {
           probs <- dots$probs
@@ -201,6 +201,16 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
             stop("both n and probs given, but length(probs)-1 != ", n)
           } else probs <- dots$probs
         }
+        r_probs <- range(probs)
+        if (r_probs[1] < 0 || r_probs[2] > 1)
+          stop("given probs range exceeds the unit interval: [",
+            paste(r_probs, collapse=", "), "]")
+        if (r_probs[1] != 0 || r_probs[2] != 1) {
+          warning("given probs range does not span the unit interval: [",
+            paste(r_probs, collapse=", "), "]")
+        }
+        if (length(unique(round(diff(probs), digits=14))) != 1L)
+           warning("given probs do not have equal steps")
       }
       na.rm <- FALSE
       if (!is.null(dots$na.rm)) na.rm <- dots$na.rm

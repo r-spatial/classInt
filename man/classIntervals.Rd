@@ -53,7 +53,7 @@ classIntervals2shingle(x)
 
   The "pretty" style chooses a number of breaks not necessarily equal to n using \code{pretty}, but likely to be legible; arguments to \code{pretty} may be passed through \code{\dots}.
 
-  The "quantile" style provides quantile breaks; arguments to \code{quantile} may be passed through \code{\dots}.
+  The "quantile" style provides quantile breaks; arguments to \code{quantile} may be passed through \code{\dots}. Rather than giving \code{probs}, use the \code{n} argument as by default \code{probs = seq(0, 1, 1/n)}. If \code{probs} is given, it should span the unit interval [0, 1]. If given \code{probs} values do not have equal steps, consider using \code{style = "fixed"} and giving \code{"fixedBreaks"} directly.
 
   The "kmeans" style uses \code{kmeans} to generate the breaks; it may be anchored using \code{set.seed}; the \code{pars} attribute returns the kmeans object generated; if \code{kmeans} fails, a jittered input vector containing \code{rtimes} replications of \code{var} is tried --- with few unique values in \code{var}, this can prove necessary; arguments to \code{kmeans} may be passed through \code{\dots}.
 
