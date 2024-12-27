@@ -1,6 +1,6 @@
 ## Version 0.4-11
 
-- #49 permit use of `"quantile"` `style` `probs=` argument; should really use `n=`, as `probs` is set internally to `seq(0, 1, 1/n)`. For other vectors, the use of `"fixed"` `style` is preferable.
+- #49 explicitly forbid use of `"quantile"` style `probs=` argument; should really use `n=`, as `probs` is set internally to `seq(0, 1, 1/n)`. Similarly, forbid `centers=` argument in `"kmeans"` and `"bclust"` styles as it is set internally to `n`.
 
 ## Version 0.4-10
 

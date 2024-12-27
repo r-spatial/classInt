@@ -191,40 +191,19 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
       brks <- c(pretty(x=var, n=n, ...))
     } else if (style =="quantile") {
 # stats
-      dots <- list(...)
       probs <- seq(0, 1, 1/n)
+      dots <- list(...)
       if (!is.null(dots$probs)) {
-        if (n_missing) {
-          probs <- dots$probs
-        } else {
-          if (length(dots$probs)-1 != n) {
-            stop("both n and probs given, but length(probs)-1 != ", n)
-          } else probs <- dots$probs
-        }
-        r_probs <- range(probs)
-        if (r_probs[1] < 0 || r_probs[2] > 1)
-          stop("given probs range exceeds the unit interval: [",
-            paste(r_probs, collapse=", "), "]")
-        if (r_probs[1] != 0 || r_probs[2] != 1) {
-          warning("given probs range does not span the unit interval: [",
-            paste(r_probs, collapse=", "), "]")
-        }
-        if (length(unique(round(diff(probs), digits=14))) != 1L)
-           warning("given probs do not have equal steps")
+            stop("probs is set internally to seq(0, 1, 1/n) for style quantile\nit must not be passed in ...")
       }
-      na.rm <- FALSE
-      if (!is.null(dots$na.rm)) na.rm <- dots$na.rm
-      names <- FALSE
-      if (!is.null(dots$names)) names <- dots$names
-      type <- 7
-      if (!is.null(dots$type)) type <- dots$type
-      digits <- 7
-      if (!is.null(dots$digits)) digits <- dots$digits
-      brks <- c(quantile(x=var, probs=probs, na.rm=na.rm, names=names,
-        type=type, digits=digits))
+      brks <- c(quantile(x=var, probs=probs, ...))
       names(brks) <- NULL
     } else if (style =="kmeans") {
 # stats
+      dots <- list(...)
+      if (!is.null(dots$centers)) {
+            stop("centers is set internally to n for style kmeans\nit must not be passed in ...")
+      }
       pars <- try(kmeans(x=var, centers=n, ...))
       if (inherits(pars, "try-error")) {
         warning("jittering in kmeans")
@@ -252,6 +231,10 @@ classIntervals <- function(var, n, style="quantile", rtimes=3, ..., intervalClos
       brks <- .rbrks(rbrks)
     } else if (style =="bclust") {
 # e1071, class
+      dots <- list(...)
+      if (!is.null(dots$centers)) {
+            stop("centers is set internally to n for style bclust\nit must not be passed in ...")
+      }
       pars <- try(bclust(x=var, centers=n, ...))
       if (inherits(pars, "try-error")) {
         warning("jittering in bclust")
