@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   headtailsR: headtailsR.html
-last_built: 2024-11-28T10:47Z
+last_built: 2024-12-27T09:40Z
 urls:
   reference: https://r-spatial.github.io/classInt/reference
   article: https://r-spatial.github.io/classInt/articles

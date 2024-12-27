@@ -38,7 +38,7 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4-11" id="version-04-11">Version 0.4-11<a class="anchor" aria-label="anchor" href="#version-04-11"></a></h2>
-<ul><li>#49 permit use of <code>"quantile"</code> <code>style</code> <code>probs=</code> argument; should really use <code>n=</code>, as <code>probs</code> is set internally to <code>seq(0, 1, 1/n)</code>. For other vectors, the use of <code>"fixed"</code> <code>style</code> is preferable.</li>
+<ul><li>#49 explicitly forbid use of <code>"quantile"</code> style <code>probs=</code> argument; should really use <code>n=</code>, as <code>probs</code> is set internally to <code>seq(0, 1, 1/n)</code>. Similarly, forbid <code>centers=</code> argument in <code>"kmeans"</code> and <code>"bclust"</code> styles as it is set internally to <code>n</code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4-10" id="version-04-10">Version 0.4-10<a class="anchor" aria-label="anchor" href="#version-04-10"></a></h2><p class="text-muted">CRAN release: 2023-09-05</p>
